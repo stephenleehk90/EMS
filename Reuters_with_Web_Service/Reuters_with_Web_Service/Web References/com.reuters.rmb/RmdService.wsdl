@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://rmb.reuters.com/rmd" name="RmdService" targetNamespace="http://rmb.reuters.com/rmd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://rmb.reuters.com/rmd" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="availableChannels" type="tns:availableChannels" />
+      <xs:element name="category" type="tns:channelCategory" />
+      <xs:element name="channelInformation" type="tns:channelInformation" />
+      <xs:element name="dropFieldGroup" type="tns:dropFieldGroup" />
+      <xs:element name="dropFieldGroupResponse" type="tns:dropFieldGroupResponse" />
+      <xs:element name="entity" nillable="true" type="xs:anyType" />
+      <xs:element name="field" type="tns:fieldWrapper" />
+      <xs:element name="fieldGroup" type="tns:fieldGroupWrapper" />
+      <xs:element name="fieldGroups" type="tns:fieldGroups" />
+      <xs:element name="fields" type="tns:fields" />
+      <xs:element name="getChannels" type="tns:getChannels" />
+      <xs:element name="getChannelsResponse" type="tns:getChannelsResponse" />
+      <xs:element name="getFieldGroups" type="tns:getFieldGroups" />
+      <xs:element name="getFieldGroupsResponse" type="tns:getFieldGroupsResponse" />
+      <xs:element name="getFields" type="tns:getFields" />
+      <xs:element name="getFieldsResponse" type="tns:getFieldsResponse" />
+      <xs:element name="getItem" type="tns:getItem" />
+      <xs:element name="getItemResponse" type="tns:getItemResponse" />
+      <xs:element name="getItems" type="tns:getItems" />
+      <xs:element name="getItemsResponse" type="tns:getItemsResponse" />
+      <xs:element name="getOnlineReports" type="tns:getOnlineReports" />
+      <xs:element name="getOnlineReportsResponse" type="tns:getOnlineReportsResponse" />
+      <xs:element name="getPackage" type="tns:getPackage" />
+      <xs:element name="getPackageResponse" type="tns:getPackageResponse" />
+      <xs:element name="getPackages" type="tns:getPackages" />
+      <xs:element name="getPackagesResponse" type="tns:getPackagesResponse" />
+      <xs:element name="mediaTypeBreakdown" type="tns:mediaTypeBreakdown" />
+      <xs:element name="percent" type="tns:percent" />
+      <xs:element name="result" type="tns:result" />
+      <xs:element name="results" type="tns:results" />
+      <xs:element name="setDefaultFieldGroup" type="tns:setDefaultFieldGroup" />
+      <xs:element name="setDefaultFieldGroupResponse" type="tns:setDefaultFieldGroupResponse" />
+      <xs:element name="setFieldGroup" type="tns:setFieldGroup" />
+      <xs:element name="setFieldGroupResponse" type="tns:setFieldGroupResponse" />
+      <xs:element name="status" type="tns:statusBean" />
+      <xs:complexType name="getFields">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="getFieldsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:fields" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="fields">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="status" type="tns:statusBean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="field" type="tns:fieldWrapper" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="statusBean">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="error" type="tns:errorBean" />
+        </xs:sequence>
+        <xs:attribute name="code" type="xs:int" use="required" />
+      </xs:complexType>
+      <xs:complexType name="errorBean">
+        <xs:simpleContent>
+          <xs:extension base="xs:string">
+            <xs:attribute name="code" type="xs:int" use="required" />
+          </xs:extension>
+        </xs:simpleContent>
+      </xs:complexType>
+      <xs:complexType name="fieldWrapper">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" name="description" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getChannels">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="channel" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="channelCategory" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getChannelsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:availableChannels" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="availableChannels">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="channelInformation" nillable="true" type="tns:channelInformation" />
+          <xs:element minOccurs="0" name="status" type="tns:statusBean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="channelInformation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="description" type="xs:string" />
+          <xs:element minOccurs="0" name="alias" type="xs:string" />
+          <xs:element minOccurs="0" name="lastUpdate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="category" type="tns:channelCategory" />
+          <xs:element minOccurs="0" name="availableContentProfiles">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="profile" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="channelCategory">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="category" type="tns:channelCategory" />
+        </xs:sequence>
+        <xs:attribute name="description" type="xs:string" />
+        <xs:attribute name="id" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="dropFieldGroup">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="dropFieldGroupResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:fieldGroups" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="fieldGroups">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="status" type="tns:statusBean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="fieldGroup" type="tns:fieldGroupWrapper" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="fieldGroupWrapper">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element name="updatable" type="xs:boolean" />
+          <xs:element name="defaultForQuery" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="fields" nillable="true" type="tns:fieldWrapper" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getFieldGroups">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="name" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getFieldGroupsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:fieldGroups" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="results">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="result" type="tns:result" />
+          <xs:element minOccurs="0" name="numFound" type="xs:long" />
+          <xs:element minOccurs="0" name="size" type="xs:int" />
+          <xs:element minOccurs="0" name="start" type="xs:long" />
+          <xs:element minOccurs="0" name="mediaTypeBreakdown" type="tns:mediaTypeBreakdown" />
+          <xs:element minOccurs="0" name="hasPackages" type="xs:boolean" />
+          <xs:element minOccurs="0" name="pollToken" type="xs:string" />
+          <xs:element minOccurs="0" name="status" type="tns:statusBean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="result">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:string" />
+          <xs:element minOccurs="0" name="guid" type="xs:string" />
+          <xs:element minOccurs="0" name="version" type="xs:int" />
+          <xs:element minOccurs="0" name="url" type="xs:string" />
+          <xs:element minOccurs="0" name="dateCreated" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="slug" type="xs:string" />
+          <xs:element minOccurs="0" name="author" type="xs:string" />
+          <xs:element minOccurs="0" name="source" type="xs:string" />
+          <xs:element minOccurs="0" name="language" type="xs:string" />
+          <xs:element minOccurs="0" name="headline" type="xs:string" />
+          <xs:element minOccurs="0" name="mediaType" type="xs:string" />
+          <xs:element minOccurs="0" name="priority" type="xs:int" />
+          <xs:element minOccurs="0" name="geography" type="xs:string" />
+          <xs:element minOccurs="0" name="previewUrl" type="xs:string" />
+          <xs:element minOccurs="0" name="duration" type="xs:int" />
+          <xs:element minOccurs="0" name="size" type="xs:long" />
+          <xs:element minOccurs="0" name="dimensions" type="xs:string" />
+          <xs:element minOccurs="0" name="fragment" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="topic" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="genre" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="channel" type="xs:string" />
+          <xs:element minOccurs="0" name="editNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="remoteContentComplete" type="xs:boolean" />
+          <xs:element minOccurs="0" name="score" type="xs:float" />
+          <xs:element minOccurs="0" name="mainLinks">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="link" type="tns:result" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="supplementalLinks" type="tns:supplementalLinks" />
+          <xs:element minOccurs="0" name="additionalPackages">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="id" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="label" type="xs:string" />
+          <xs:element minOccurs="0" name="supplementalTextLinkCount" type="xs:int" />
+          <xs:element minOccurs="0" name="supplementalImageLinkCount" type="xs:int" />
+          <xs:element minOccurs="0" name="supplementalVideoLinkCount" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="supplementalLinks">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="link" nillable="true" type="tns:result" />
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="mediaTypeBreakdown">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="percent" type="tns:percent" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="percent">
+        <xs:simpleContent>
+          <xs:extension base="xs:int">
+            <xs:attribute name="name" type="xs:string" />
+          </xs:extension>
+        </xs:simpleContent>
+      </xs:complexType>
+      <xs:complexType name="getOnlineReports">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="channel" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getOnlineReportsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:results" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getItem">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="itemId" type="xs:string" />
+          <xs:element minOccurs="0" name="channel" type="xs:string" />
+          <xs:element minOccurs="0" name="entityMarkup" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="entityMarkupField" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getItemResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPackage">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="id" type="xs:string" />
+          <xs:element minOccurs="0" name="channel" type="xs:string" />
+          <xs:element minOccurs="0" name="fieldsRef" type="xs:string" />
+          <xs:element minOccurs="0" name="fragmentLength" type="xs:int" />
+          <xs:element minOccurs="0" name="completeSentences" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPackageResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:results" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setDefaultFieldGroup">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setDefaultFieldGroupResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:fieldGroups" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getItems">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dateRange" type="xs:string" />
+          <xs:element minOccurs="0" name="maxAge" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="channel" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="mediaType" type="xs:string" />
+          <xs:element minOccurs="0" name="limit" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="channelCategory" type="xs:string" />
+          <xs:element minOccurs="0" name="fieldsRef" type="xs:string" />
+          <xs:element minOccurs="0" name="fragmentLength" type="xs:int" />
+          <xs:element minOccurs="0" name="completeSentences" type="xs:boolean" />
+          <xs:element minOccurs="0" name="pollToken" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getItemsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:results" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPackages">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="channel" type="xs:string" />
+          <xs:element minOccurs="0" name="useSNEP" type="xs:boolean" />
+          <xs:element minOccurs="0" name="dateRange" type="xs:string" />
+          <xs:element minOccurs="0" name="maxAge" type="xs:string" />
+          <xs:element minOccurs="0" name="limit" type="xs:int" />
+          <xs:element minOccurs="0" name="fieldsRef" type="xs:string" />
+          <xs:element minOccurs="0" name="fragmentLength" type="xs:int" />
+          <xs:element minOccurs="0" name="completeSentences" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPackagesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:results" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setFieldGroup">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="field" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setFieldGroupResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:fieldGroups" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="positionType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ALL" />
+          <xs:enumeration value="HEADLINE" />
+          <xs:enumeration value="BODY" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getFieldGroups">
+    <wsdl:part name="parameters" element="tns:getFieldGroups" />
+  </wsdl:message>
+  <wsdl:message name="dropFieldGroupResponse">
+    <wsdl:part name="parameters" element="tns:dropFieldGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFieldGroupsResponse">
+    <wsdl:part name="parameters" element="tns:getFieldGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFields">
+    <wsdl:part name="parameters" element="tns:getFields" />
+  </wsdl:message>
+  <wsdl:message name="getPackage">
+    <wsdl:part name="parameters" element="tns:getPackage" />
+  </wsdl:message>
+  <wsdl:message name="getPackageResponse">
+    <wsdl:part name="parameters" element="tns:getPackageResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOnlineReportsResponse">
+    <wsdl:part name="parameters" element="tns:getOnlineReportsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getItem">
+    <wsdl:part name="parameters" element="tns:getItem" />
+  </wsdl:message>
+  <wsdl:message name="dropFieldGroup">
+    <wsdl:part name="parameters" element="tns:dropFieldGroup" />
+  </wsdl:message>
+  <wsdl:message name="getItemResponse">
+    <wsdl:part name="parameters" element="tns:getItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="getChannelsResponse">
+    <wsdl:part name="parameters" element="tns:getChannelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="setDefaultFieldGroupResponse">
+    <wsdl:part name="parameters" element="tns:setDefaultFieldGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPackages">
+    <wsdl:part name="parameters" element="tns:getPackages" />
+  </wsdl:message>
+  <wsdl:message name="getPackagesResponse">
+    <wsdl:part name="parameters" element="tns:getPackagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFieldsResponse">
+    <wsdl:part name="parameters" element="tns:getFieldsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getItemsResponse">
+    <wsdl:part name="parameters" element="tns:getItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="setFieldGroup">
+    <wsdl:part name="parameters" element="tns:setFieldGroup" />
+  </wsdl:message>
+  <wsdl:message name="getItems">
+    <wsdl:part name="parameters" element="tns:getItems" />
+  </wsdl:message>
+  <wsdl:message name="getChannels">
+    <wsdl:part name="parameters" element="tns:getChannels" />
+  </wsdl:message>
+  <wsdl:message name="setFieldGroupResponse">
+    <wsdl:part name="parameters" element="tns:setFieldGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="setDefaultFieldGroup">
+    <wsdl:part name="parameters" element="tns:setDefaultFieldGroup" />
+  </wsdl:message>
+  <wsdl:message name="getOnlineReports">
+    <wsdl:part name="parameters" element="tns:getOnlineReports" />
+  </wsdl:message>
+  <wsdl:portType name="rmd">
+    <wsdl:operation name="getFields">
+      <wsdl:input name="getFields" message="tns:getFields" />
+      <wsdl:output name="getFieldsResponse" message="tns:getFieldsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getChannels">
+      <wsdl:input name="getChannels" message="tns:getChannels" />
+      <wsdl:output name="getChannelsResponse" message="tns:getChannelsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="dropFieldGroup">
+      <wsdl:input name="dropFieldGroup" message="tns:dropFieldGroup" />
+      <wsdl:output name="dropFieldGroupResponse" message="tns:dropFieldGroupResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getFieldGroups">
+      <wsdl:input name="getFieldGroups" message="tns:getFieldGroups" />
+      <wsdl:output name="getFieldGroupsResponse" message="tns:getFieldGroupsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getOnlineReports">
+      <wsdl:input name="getOnlineReports" message="tns:getOnlineReports" />
+      <wsdl:output name="getOnlineReportsResponse" message="tns:getOnlineReportsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getItem">
+      <wsdl:input name="getItem" message="tns:getItem" />
+      <wsdl:output name="getItemResponse" message="tns:getItemResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getPackage">
+      <wsdl:input name="getPackage" message="tns:getPackage" />
+      <wsdl:output name="getPackageResponse" message="tns:getPackageResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="setDefaultFieldGroup">
+      <wsdl:input name="setDefaultFieldGroup" message="tns:setDefaultFieldGroup" />
+      <wsdl:output name="setDefaultFieldGroupResponse" message="tns:setDefaultFieldGroupResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getItems">
+      <wsdl:input name="getItems" message="tns:getItems" />
+      <wsdl:output name="getItemsResponse" message="tns:getItemsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getPackages">
+      <wsdl:input name="getPackages" message="tns:getPackages" />
+      <wsdl:output name="getPackagesResponse" message="tns:getPackagesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="setFieldGroup">
+      <wsdl:input name="setFieldGroup" message="tns:setFieldGroup" />
+      <wsdl:output name="setFieldGroupResponse" message="tns:setFieldGroupResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RmdServiceSoapBinding" type="tns:rmd">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getChannels">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getChannels">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getChannelsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFields">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getFields">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getFieldsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dropFieldGroup">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="dropFieldGroup">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="dropFieldGroupResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFieldGroups">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getFieldGroups">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getFieldGroupsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getItem">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getItem">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getItemResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOnlineReports">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getOnlineReports">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getOnlineReportsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPackage">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getPackage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getPackageResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDefaultFieldGroup">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="setDefaultFieldGroup">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="setDefaultFieldGroupResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getItems">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getItems">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getItemsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPackages">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getPackages">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getPackagesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setFieldGroup">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="setFieldGroup">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="setFieldGroupResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RmdService">
+    <wsdl:port name="RmdServicePort" binding="tns:RmdServiceSoapBinding">
+      <soap:address location="http://rmb.reuters.com/rmd/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

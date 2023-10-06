@@ -1,0 +1,28 @@
+﻿“New Reuters” likes “DBTele”, “Reuters” and “DBGraphic” which could be insert wires or photo (pictures) from Reuters.
+
+For this program, It can compatible with different version of EMS system such as EMS6.01, EMS4.0, Metro’s EMS etc. 
+Each version can be change the config file item “<add key="EMS_Version" value="(EMS Version No.)" />”.
+
+For different EMS system could have different database structure. 
+With modify the config option, you can find different setting on each parameter.
+
+This program is based on EMS6.0 version during the development, so all the default layout will follow EMS6.0 setting.
+
+Since that contains some coding about connected to Reuters web service but it seems that are not stable and low speed performance.
+So all the related functions were disabled.
+
+EMS Version Different:
+EMS6.0 VS EMS4.0:
+	-	Unicode and non-unicode
+	-	Photo Path are not store into same table
+	-	Should actually save am image object into DB table
+
+EMS6.0 VS EMSFBS
+	-	No photo import handling
+	-	Unicode and non-unicode
+	-	Table Structure are different
+		.	EMSFBS is using one table to store all the wires
+
+EMS6.0 VS EMS6.5 (Future)
+	-	Saving picture should apply Relative Path.
+	-	Handle Meta data captured by XML_Reader
