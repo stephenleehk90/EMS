@@ -1,0 +1,116 @@
+/*Your styles*/
+
+body {
+    margin: 10px;
+}
+
+
+#content {
+    margin-right:auto;
+    margin-left:auto;
+    vertical-align:middle;
+    width:100%;
+}
+
+
+#btn_test{
+    width: 100%;
+}
+
+td{
+    color: #FFFFFF;
+}
+
+.tree{
+    color: #000000;
+    background-color: #FFFFFF;
+    overflow:auto;
+}
+
+#tabs {
+    width: 100%;
+    height:30px; 
+    border-bottom: solid 1px #CCC;
+    padding-left: 0px;
+ }
+ 
+ #tabs li {
+    float:left; 
+    list-style:none; 
+    border-top:1px solid #ccc; 
+    border-left:1px solid #ccc; 
+    border-right:1px solid #ccc; 
+    outline:none;
+ }
+ 
+ #tabs li a {
+    font-size: small;
+    font-weight: bold; 
+    color: #666666;;
+    padding-top: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-bottom: 8px; 
+    display:block; 
+    text-decoration:none;
+    outline:none;
+    background: #EEE;
+ }
+ 
+ #tabs li a.inactive{
+    color:#666666;
+    background: #868686;
+ }
+
+#allTabsContainer {
+    border-top:1px solid #ccc; 
+    border-left:1px solid #ccc; 
+    border-right:1px solid #ccc; 
+    border-bottom:1px solid #ccc; 
+    margin-top: -17px;
+}
+
+
+/*
+Those classes will be edited at runtime with values specified
+by the settings of the CC application
+*/
+.hostFontColor{}
+.hostFontFamily{}
+.hostFontSize{}
+
+/*font family, color and size*/
+.hostFont{}
+/*background color*/
+.hostBgd{}
+/*lighter background color*/
+.hostBgdLight{}
+/*darker background color*/
+.hostBgdDark{}
+/*background color and font*/
+.hostElt{}
+
+
+.hostButton{
+    border:1px solid;
+    border-radius:2px;
+    height:20px;
+    vertical-align:bottom;
+    font-family:inherit;
+    color:inherit;
+    font-size:inherit;
+}
+
+.img-zoom-container {
+    position: relative;
+  }
+  
+  .img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+  }
+  
+  .img-zoom-result {
+    border: 1px solid #d4d4d4;
+    background-repeat: no-repeat;
+  }
