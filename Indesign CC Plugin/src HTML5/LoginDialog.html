@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/main.js"></script>
+<script src="js/setting.js"></script>
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<title>用戶登入</title>
+</head>
+
+<body onkeyup="_key(event)">
+
+<table align="center" style="width: 100%">
+	<tr>
+		<td>服務器名稱: </td>
+		<td><input id="server" type="text"></td>
+	</tr>
+	<tr>
+		<td>登錄名稱: </td>
+		<td><input id="username" type="text"></td>
+	</tr>
+	<tr>
+		<td>密碼:</td>
+		<td><input id="password" type="password" autofocus></td>
+	</tr>
+</table>
+<br><br><br>
+<table align="center" style="width: 100%">
+	<tr>
+		<td align="center"><input id="ok_button" type="button" value="確定" onclick="onClickOK()">
+		</td>
+		<td align="center"><input id="cancel_button" type="button" value="退出" onclick="self.close()"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("ok_button").click();
+	}
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("用戶登入");
+
+	var SettingData = LoadSettingXML();
+	document.getElementById('server').value = SettingData.server_name;
+	document.getElementById('username').value = SettingData.username;
+
+	function onClickOK()
+	{
+		try{
+		document.getElementById("ok_button").disabled="disabled";
+		var server = document.getElementById('server').value;
+		var username = document.getElementById('username').value;
+		var password = document.getElementById('password').value;
+		if(bMP()){
+			password = password.toLowerCase();
+		}
+		
+		SetServer(server);
+		Login(username,password, function(){
+			document.getElementById("ok_button").disabled="";
+			if(IsLogin()){
+				var event = new CSEvent("logindata", "APPLICATION");
+				event.data = GetLoginData();
+				csInterface.dispatchEvent(event);
+
+				csInterface.requestOpenExtension("founder.Compose.role");
+				self.close();
+			}
+			else{
+				var msg = GetMsg();
+				if (msg == "0")
+					alert("登入錯誤");
+				else {
+					if (msg.indexOf("<title>") > 0)
+						msg = msg.substr(msg.indexOf("<title>")+7,msg.indexOf("</title>") - (msg.indexOf("<title>")+7))
+					alert(msg);
+				}
+
+			}
+		});
+		}
+		catch(e){alert(e.message)}
+	};
+
+</script>
+
+</body>
+
+</html>

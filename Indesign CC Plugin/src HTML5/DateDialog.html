@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<script src="js/main.js"></script>
+<title>請選擇日期</title>
+</head>
+
+<body onkeyup="_key(event)">
+<table align="center" style="width: 100%">
+	<tr id="date" style="display:none;text-align: center;">
+		<td style="width: 100px">日期:</td>
+        <td><input type="date" id="datefield1" required="required">
+		</td>
+    </tr>
+    <tr id="period" style="display:none;text-align: center;">
+		<td style="width: 100px">期號:</td>
+        <td><select id = "period_cb" style="width: 144px" onchange ="changeEvt()">
+		</select>
+		</td>
+    </tr>
+</table>
+<br><br>
+<table align="center" style="width: 100%">
+	<tr>
+		<td align="center"><input id="ok_button" type="button" value="確定" onclick="onClickOK()" style="display:none;">
+		</td>
+		<td align="center"><input id="cancel_button" type="button" value="退出" onclick="onClickCancel()" style="display:none;"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("ok_button").click();
+	}
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+
+	var today = new Date();
+	today.setDate(today.getDate() + parseInt(1));
+	today = today.toISOString().substr(0, 10);
+	document.getElementById("datefield1").value = today;
+	document.getElementById("datefield1").min = today;
+
+	var isPaper;
+
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("請選擇日期");
+
+	var event = new CSEvent("need logindata", "APPLICATION");
+	csInterface.dispatchEvent(event);
+
+	function getLogindata(event){
+		csInterface.removeEventListener("return logindata", getLogindata);
+		SetLoginData(event.data);
+		Logindata = event.data;
+
+		var event = new CSEvent("check isPaper", "APPLICATION");
+		csInterface.dispatchEvent(event);
+
+		function GetIsPaper(event){
+			csInterface.removeEventListener("return isPaper", GetIsPaper);
+			document.getElementById("ok_button").style.display="inline";
+			document.getElementById("cancel_button").style.display="inline";
+
+			data = event.data.split(",");
+			isPaper = (data[0] == "True");
+			var paper_id = data[1];
+
+			document.getElementById("date").style.display="inline";
+			
+			if (bMP())
+			{
+				if (!isPaper)
+				{
+					document.getElementById("period").style.display="inline";
+					document.getElementById("datefield1").disabled="disabled";
+					Load("newsroom_news","paper_id="+paper_id,function(xml){
+						var parser;
+						parser = new DOMParser();
+						var xmlDoc = parser.parseFromString(xml,"text/xml");
+						var x = xmlDoc.getElementsByTagName("item");
+						for (i = 0; i < x.length ;i++) {
+							var option = document.createElement("option");
+							option.text = x[i].getElementsByTagName("period_no")[0].innerHTML;
+							option.value = x[i].getElementsByTagName("publication_date")[0].innerHTML;
+							period_cb.add(option);
+						}
+						
+						if (period_cb.selectedIndex > -1)
+						{
+							var d = new Date(period_cb.value);
+							document.getElementById("datefield1").value = d.toISOString().substr(0, 10);
+						}
+					});
+				}
+			}
+		}
+		csInterface.removeEventListener("return isPaper", GetIsPaper);
+		csInterface.addEventListener("return isPaper", GetIsPaper);
+	}
+	csInterface.removeEventListener("return logindata", getLogindata);
+	csInterface.addEventListener("return logindata", getLogindata);
+
+	function onClickOK()
+	{
+		var today = new Date();
+		var date = new Date(document.getElementById("datefield1").value);
+		if(date < today){
+			alert("所選日期必須在今天以後");
+			return;
+		}
+        if (bMP())
+        {
+            if(!isPaper && period_cb.selectedIndex < 0)
+            {
+                alert("所選期號不是有效期號");
+                return;
+            }
+        }
+		var csInterface = new CSInterface();
+		var event = new CSEvent("return Date Result", "APPLICATION");
+		event.data = date;
+		csInterface.dispatchEvent(event);
+		self.close();
+	}
+
+	function onClickCancel()
+	{
+		self.close();
+	};
+
+	function changeEvt() {
+		var d;
+		if (period_cb.value != undefined){
+			d = new Date(period_cb.value);
+		}
+		else
+			return;
+		document.getElementById("datefield1").value = d.toISOString().substr(0, 10);
+	}
+
+</script>
+
+</body>
+
+</html>

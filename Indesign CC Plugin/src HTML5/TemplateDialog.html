@@ -1,0 +1,583 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet" />
+<link id="hostStyle" href="css/styles.css" rel="stylesheet" />
+<link href="./jstree/themes/default/style.min.css" rel="stylesheet">
+<script src="js/libs/CSInterface.js"></script>
+<script src="js/libs/jquery-2.0.2.min.js"></script>
+<script src="./jstree/jstree.min.js"></script>
+<script src="js/themeManager.js"></script>
+<script src="js/main.js"></script>
+<script src="js/setting.js"></script>
+<title>選擇欄目與欄目日期[預組版]</title>
+</head>
+
+<body onkeyup="_key(event)">
+
+<table style="width: 100%">
+	<tr>
+		<td colspan="2">版心: <select id="template_cb"  size="1" style="width: 200px">
+			<option selected=''></option>
+		</select> </td>
+	</tr>
+	<tr>
+		<td rowspan="3">
+		<div id="jstree" style="height: 650px; width: 350px;" class="tree">
+		</div>
+		</td>
+		<td>
+		<input id="layout_btn" onclick="onClickOK()" type="button" value="確定" disabled="disabled"></td>
+	</tr>
+	<tr>
+		<td>
+		<input id="cancel_button" onclick="self.close()" type="button" value="退出"></td>
+	</tr>
+	<tr>
+		<td style="height: 85%"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("layout_btn").click();
+	}
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	
+try
+{
+	var SettingData = LoadSettingXML();
+	var paper_id = "0";
+	var newsroomxmlDoc;
+	var templatePath;
+	
+	$('#jstree').jstree({
+		"core":{ 'multiple': false, "check_callback":true},
+		"types": {
+			"default": {"icon": "icon/N.png"},
+			"D": {"icon": "icon/D.png"},
+			"F": {"icon": "icon/F.png"},
+			"C": {"icon": "icon/C.png"},
+			"P": {"icon": "icon/C.png"},
+			"Q": {"icon": "icon/N.png"}},
+        "plugins": ["types"]});
+
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("選擇欄目與欄目日期[預組版]");
+	var event = new CSEvent("need logindata", "APPLICATION");
+	csInterface.dispatchEvent(event);
+
+	function logindata(event){
+		csInterface.removeEventListener("return logindata", logindata);
+		SetLoginData(event.data);
+		Load("newsroom2",null,function(xml){
+			try{
+				var parser;
+				parser = new DOMParser();
+				newsroomxmlDoc = parser.parseFromString(xml,"text/xml");
+
+				var str="group_id=" + event.data.role;
+				Load("newsroom_tree",str,function(xml){
+					var root = { "text": "報紙", "id": "0"};
+					$('#jstree').jstree('create_node', '#', root, "last", false, false);
+					var parser;
+					parser = new DOMParser();
+					var xmlDoc = parser.parseFromString(xml,"text/xml");
+					var x = xmlDoc.getElementsByTagName("news");
+					for (i = 0; i < x.length ;i++) {
+						var paper_code = x[i].getElementsByTagName("paper_code")[0].innerHTML;
+						var paper_id = x[i].getElementsByTagName("paper_id")[0].innerHTML;
+						var column_code = x[i].getElementsByTagName("column_code")[0].innerHTML;
+						var column_id = x[i].getElementsByTagName("column_id")[0].innerHTML;
+						var layout_code = x[i].getElementsByTagName("layout_code")[0].innerHTML;
+						var is_newspaper = "";
+						if (bMP())
+							is_newspaper = x[i].getElementsByTagName("is_newspaper")[0].innerHTML;
+
+						var paper = $('#jstree').jstree().get_node("p" + paper_id);
+						if(!paper) {
+							paper = { "text": paper_code, "id": "p" + paper_id};
+							$('#jstree').jstree('create_node', root, paper, "last", false, false);
+						}
+						var text = "";
+						if (SettingData.layoutCode)
+							text = layout_code + "(" + column_code + ")";
+						else
+							text = column_code;
+						
+						var column = { "text": text, "id": column_id, "data": {
+							"column_id": column_id, "column_code": column_code, "layout_code": layout_code, "paper_code": paper_code, "paper_id": paper_id, "is_newspaper": is_newspaper, "type": "News"}};
+						$('#jstree').jstree('create_node', paper, column, "last", false, false);
+					}
+
+					$("#jstree").jstree("open_all");
+
+					$('#jstree').on("changed.jstree", function (e, data) {
+						if(data.selected.length) {
+							document.getElementById("layout_btn").disabled="disabled";
+							$("#template_cb").empty();
+
+							var node = data.instance.get_node(data.selected[0]);
+							if (node.data.type != undefined){
+								if (node.data.paper_id != paper_id) {
+									paper_id = node.data.paper_id;
+								}
+
+								templatePath=TemplateFilesPath(paper_id, newsroomxmlDoc);
+								var fs = require('fs');
+								var fse = require('fs-extra');
+								if (!fs.existsSync(templatePath)) {
+									alert("版心位置" + templatePath + " 無法存取");
+								}
+								fs.readdir(templatePath, (err, files) => {
+									var option = document.createElement("option");
+									option.text = "";
+									template_cb.add(option);
+									files.forEach(file => {
+										var path = require('path');
+										if (path.extname(file)==".indt"  || (bMP() && (path.extname(file)=="indd"))) {
+											var option = document.createElement("option");
+											option.text = file;
+											template_cb.add(option);
+										}
+									});
+									document.getElementById('template_cb').value = SettingData.template;
+								});
+								if (SettingData.template == "" || SettingData.template == undefined) {
+									document.getElementById('template_cb').value = node.data.layout_code+".indt";
+
+									if (document.getElementById('template_cb').value == ""|| document.getElementById('template_cb').value == undefined)
+										document.getElementById('template_cb').value = node.data.layout_code+".indd";
+								}
+								else
+									document.getElementById('template_cb').value = SettingData.template;
+							}
+
+							if (node.data.type == "NewsItem"){
+								document.getElementById("layout_btn").disabled="";
+								return;
+							}else if (node.data.type == "News"){
+								document.getElementById("layout_btn").disabled="";
+								$('#jstree').jstree().delete_node(node.children);
+								Load("finish_record","column_id="+data.selected[0],function(xml){
+									var parser;
+									parser = new DOMParser();
+									var xmlDoc = parser.parseFromString(xml,"text/xml");
+									var x = xmlDoc.getElementsByTagName("item");
+									for (i = 0; i < x.length ;i++) {
+										var column_date = x[i].getElementsByTagName("column_date")[0].innerHTML;
+										var display_date = "";
+										if (x[i].getElementsByTagName("period_no").length > 0)
+											display_date = x[i].getElementsByTagName("period_no")[0].innerHTML + " (" + x[i].getElementsByTagName("display_date")[0].innerHTML + ")";
+										else
+											display_date = x[i].getElementsByTagName("display_date")[0].innerHTML;
+										var style = x[i].getElementsByTagName("style")[0].innerHTML;
+										var date = column_date.split("-");
+										var year = date[0];
+										var month = date[1];
+										var day = date[2];
+										var id = node.data.layout_code + day + month + year.substr(2,2);
+										var old_node = $('#jstree').jstree().get_node(id);
+										if(!old_node) {
+											var news = { "text": display_date, "id": id, "type":style, "data": {
+												"column_id": node.id,"layout_code": node.data.layout_code, "year": year, "month": month, "day": day, "paper_id": node.data.paper_id, "paper_code": node.data.paper_code, "type": "NewsItem"}};
+											$('#jstree').jstree('create_node', node, news, "last", false, false);
+										}
+									}
+								});
+							}
+						}
+					})
+				});
+			}
+			catch(err) {
+				ErrorLog(err.message,true,0);
+			}
+		});
+	}
+	csInterface.removeEventListener("return logindata", logindata);
+	csInterface.addEventListener("return logindata", logindata);
+
+	function onClickOK(){
+		var news_xml = $("#jstree").jstree().get_selected(true)[0].data;
+		var open_doc = function(date){
+			var ts =  new Object();
+			ts.template = document.getElementById('template_cb').value;
+			if (ts.template != "")
+				ts.template = templatePath + "\\" + ts.template;
+			var news = new Object();
+			news.paper_code = news_xml.paper_code;
+			news.paper_id = news_xml.paper_id;
+			news.column_code = news_xml.column_code;
+			news.layout_code = news_xml.layout_code;
+			news.column_id = news_xml.column_id;
+			news.is_newspaper = news_xml.is_newspaper;
+			ts.news = news;
+			ts.date = date;
+			var column_date = date.month + "-"+date.day + "-" + date.year;
+			ts.column_date = column_date;
+
+			var str="column_id="+news_xml.column_id+"&column_date="+column_date;
+			Load("finish_record_checklock",str,function(xml){
+				var fs = require('fs');
+				var fse = require('fs-extra');
+
+				var open_local=function(filename){
+					ts.filename = filename;
+					var event = new CSEvent("PreTypeset OpenDocument", "APPLICATION");
+					event.data = ts;
+					csInterface.dispatchEvent(event);
+					self.close();
+				};
+
+				var server=PaperPSPath(date,news.layout_code,news.paper_id,newsroomxmlDoc);
+				try {
+					if (!fs.existsSync(server)){
+						fse.mkdirsSync(server);
+					}
+				}
+				catch(e) {
+					alert("大樣檔案(indd)位置" + server + " 無法存取");
+					return;
+				}
+				var local_file = SettingData.local_temp;
+				if (bMP()) {
+					if (SettingData.subPath == 1) {
+						local_file += "\\" + news.layout_code + "\\" + FormatDate(SettingData.dateFmt, date);
+					}
+					else if (SettingData.subPath == 2) {
+						local_file += "\\" + news.layout_code;
+					}
+					else if (SettingData.subPath == 3) {
+						local_file += "\\" + FormatDate(SettingData.dateFmt, date);
+					}
+					else {
+						local_file += "\\" + FormatDate(SettingData.dateFmt, date) + "\\" + news.layout_code;
+					}
+				}
+				else {
+					local_file += "\\" + news.layout_code;
+				}
+				if (!fs.existsSync(local_file)){
+					fse.mkdirsSync(local_file);
+				}
+
+				var server_file = server;
+				
+				var parser = new DOMParser();
+				var xmlDoc = parser.parseFromString(xml,"text/xml");
+				var x = xmlDoc.getElementsByTagName("item");
+
+				if (x.length == 0){
+					var open_layout_dialog=function(){
+						csInterface.requestOpenExtension("founder.Compose.layoutNameDialog");
+
+						function layoutdata(event){
+							csInterface.removeEventListener("need layout data", layoutdata);
+							setTimeout(function() {
+								var event = new CSEvent("return layout data", "APPLICATION");
+								var data = new Object();
+								data.fileDate = date.day + date.month + ("" + date.year).slice(-2);
+								data.columnDate = column_date;
+								data.layout_code = news.layout_code;
+								data.template = template_cb.value;
+								event.data = data;
+								csInterface.dispatchEvent(event);
+							},400);
+						}
+						csInterface.removeEventListener("need layout data", layoutdata);
+						csInterface.addEventListener("need layout data", layoutdata);
+						
+
+						function layoutResult(result){
+							csInterface.removeEventListener("return LayoutName Result", layoutResult);
+							if (result.data != ""){
+								var filename = result.data;
+								ts.filename = filename;
+								local_file += "\\" + result.data;
+								server_file += "\\" + result.data;
+								ts.local_file = local_file;
+								ts.server_file = server_file;
+
+								if (fs.existsSync(server_file)) {
+									alert("版面己存在，請以 \"開始組版\" 打開版面。");  
+									return;
+								}
+								var param = "column_id=" + news_xml.column_id + "&column_date=" + column_date + "&compose_file=" + result.data + "&type=0&computer=";
+								Load("SP_InsertFinishRecord",param, function(){
+									var serverStats;
+									var bServer = fs.existsSync(server_file);
+									if(bServer)
+										serverStats = fs.statSync(server_file);
+									if(bServer && serverStats.size!=0){
+										csInterface.requestOpenExtension("founder.Compose.yesNoCancelDialog");
+										function layoutdata(event){
+											csInterface.removeEventListener("need layout text", layoutdata);
+											setTimeout( function(){
+												var event = new CSEvent("return layout text", "APPLICATION");
+												var data = new Object();
+												data.label = "伺服器版本存在大樣文件,創建新文件還是伺服器?";
+												data.yes = "創建新文件";
+												data.no = "取伺服器";
+												data.cancel = "取消";
+												event.data = data;
+												csInterface.dispatchEvent(event);
+											},400);
+										}
+										csInterface.removeEventListener("need layout text", layoutdata);
+										csInterface.addEventListener("need layout text", layoutdata);
+										
+										function yesNoResult(result){
+											csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+											if (result.data == "Yes"){
+												var date = serverStats.mtime;
+												var d = ("0"+date.getHours()).slice(-2) + ("0"+date.getMinutes()).slice(-2) + ("0"+date.getSeconds()).slice(-2);
+												
+												var backup = local_file;
+												var n = backup.toLowerCase().lastIndexOf('.indd');
+												var reg = new RegExp('.indd', 'i')
+												backup = backup.slice(0, n) + backup.slice(n).replace(reg, '_server_' + d + '.indd');
+												fse.copySync(server_file, backup, { overwrite : true, preserveTimestamps :true });
+												
+												open_local(filename);
+											}
+											else if (result.data == "No"){
+												var localStats;
+												if (fs.existsSync(local_file)){
+													localStats = fs.statSync(local_file);
+													var date = localStats.mtime;
+													var d = ("0"+date.getHours()).slice(-2) + ("0"+date.getMinutes()).slice(-2) + ("0"+date.getSeconds()).slice(-2);
+													
+													var backup = local_file;
+													var n = backup.toLowerCase().lastIndexOf('.indd');
+													var reg = new RegExp('.indd', 'i')
+													backup = backup.slice(0, n) + backup.slice(n).replace(reg, '_local_' + d + '.indd');
+													fse.copySync(local_file, backup, { overwrite : true, preserveTimestamps :true });
+												}
+												fse.copySync(server_file, local_file, { overwrite : true, preserveTimestamps :true });
+
+												localStats = fs.statSync(local_file);
+												if (serverStats.size != localStats.size && serverStats.size!=0) {
+													fse.copySync(server_file, local_file, { overwrite : true, preserveTimestamps :true });
+													localStats = fs.statSync(local_file);
+												}
+												if (localStats.size == 0) {
+													alert("複製文件到本地時出錯，請稍候再試!");
+													return;
+												}
+												open_local(filename);
+											}
+										}
+										csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+										csInterface.addEventListener("return YesNoCancel Result", yesNoResult);
+									}
+									else
+										open_local(filename);
+								});
+							}
+						}
+						csInterface.removeEventListener("return LayoutName Result", layoutResult);
+						csInterface.addEventListener("return LayoutName Result", layoutResult);
+					}		
+					
+					if(template_cb.value==""){
+						csInterface.requestOpenExtension("founder.Compose.yesNoCancelDialog");
+						function layoutdata(event){
+							csInterface.removeEventListener("need layout text", layoutdata);
+							setTimeout( function(){
+								var event = new CSEvent("return layout text", "APPLICATION");
+								var data = new Object();
+								data.label = "沒有缺省版心,是否要新建文件?";
+								data.yes = "是";
+								data.no = "否";
+								data.cancel = "";
+								event.data = data;
+								csInterface.dispatchEvent(event);
+							},400);
+						}
+						csInterface.removeEventListener("need layout text", layoutdata);
+						csInterface.addEventListener("need layout text", layoutdata);
+						
+						function yesNoResult(result){
+							csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+							if (result.data == "Yes"){
+								setTimeout( function(){
+									open_layout_dialog();
+								},400);
+							}
+						}
+						csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+						csInterface.addEventListener("return YesNoCancel Result", yesNoResult);
+					}else{
+						setTimeout( function(){
+							open_layout_dialog();
+						},400);
+					}
+				}
+				else{
+					var compose_file = "";
+					if (x[0].getElementsByTagName("compose_file").length > 0) {
+						compose_file = x[0].getElementsByTagName("compose_file")[0].innerHTML;
+						ts.filename = compose_file;
+					}
+					local_file += "\\" + compose_file;
+					server_file += "\\" + compose_file;
+					ts.local_file = local_file;
+					ts.server_file = server_file;
+
+					var sp_update=function(column_id,date,filename){
+						var param = "column_id=" + column_id + "&column_date=" + date + "&style=Q&computer=";
+						Load("SP_UpdateFinishRecord",param, function(){
+							var serverStats;
+							var bServer = fs.existsSync(server_file);
+							if(bServer)
+								serverStats = fs.statSync(server_file);
+							if(bServer && serverStats.size!=0){
+								csInterface.requestOpenExtension("founder.Compose.yesNoCancelDialog");
+								function layoutdata(event){
+									csInterface.removeEventListener("need layout text", layoutdata);
+									setTimeout( function(){
+										var event = new CSEvent("return layout text", "APPLICATION");
+										var data = new Object();
+										data.label = "伺服器版本存在大樣文件,取本地文件還是伺服器?";
+										data.yes = "取本地";
+										data.no = "取伺服器";
+										data.cancel = "取消";
+										event.data = data;
+										csInterface.dispatchEvent(event);
+									},400);
+								}
+								csInterface.removeEventListener("need layout text", layoutdata);
+								csInterface.addEventListener("need layout text", layoutdata);
+								
+								function yesNoResult(result){
+									csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+									if (result.data == "Yes"){
+										var date = serverStats.mtime;
+										var d = ("0"+date.getHours()).slice(-2) + ("0"+date.getMinutes()).slice(-2) + ("0"+date.getSeconds()).slice(-2);
+										
+										var backup = local_file;
+										var n = backup.toLowerCase().lastIndexOf('.indd');
+										var reg = new RegExp('.indd', 'i')
+										backup = backup.slice(0, n) + backup.slice(n).replace(reg, '_server_' + d + '.indd');
+										fse.copySync(server_file, backup, { overwrite : true, preserveTimestamps :true });
+										open_local(filename)
+									}
+									else if (result.data == "No"){
+										var localStats;
+										if (fs.existsSync(local_file)){
+											localStats = fs.statSync(local_file);
+											var date = localStats.mtime;
+											var d = ("0"+date.getHours()).slice(-2) + ("0"+date.getMinutes()).slice(-2) + ("0"+date.getSeconds()).slice(-2);
+											
+											var backup = local_file;
+											var n = backup.toLowerCase().lastIndexOf('.indd');
+											var reg = new RegExp('.indd', 'i')
+											backup = backup.slice(0, n) + backup.slice(n).replace(reg, '_local_' + d + '.indd');
+											fse.copySync(local_file, backup, { overwrite : true, preserveTimestamps :true });
+										}
+										fse.copySync(server_file, local_file, { overwrite : true, preserveTimestamps :true });
+
+										localStats = fs.statSync(local_file);
+										if (serverStats.size != localStats.size && serverStats.size!=0) {
+											fse.copySync(server_file, local_file, { overwrite : true, preserveTimestamps :true });
+											localStats = fs.statSync(local_file);
+										}
+										if (localStats.size == 0) {
+											alert("複製文件到本地時出錯，請稍候再試!");
+											return;
+										}
+										open_local(filename);
+									}
+								}
+								csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+								csInterface.addEventListener("return YesNoCancel Result", yesNoResult);
+							}
+							else
+								open_local(filename);
+						});
+					};
+
+					var style = x[0].getElementsByTagName("style")[0].innerHTML;
+					if(style=="Q"){
+						sp_update(news_xml.column_id,column_date,compose_file);
+					}else if(style=="P"){
+						
+						csInterface.requestOpenExtension("founder.Compose.yesNoCancelDialog");
+						function layoutdata(event){
+							csInterface.removeEventListener("need layout text", layoutdata);
+							setTimeout( function(){
+								var event = new CSEvent("return layout text", "APPLICATION");
+								var data = new Object();
+								data.label = "該版面已經完成預組版,要重新預組版嗎?";
+								data.yes = "是";
+								data.no = "否";
+								data.cancel = "";
+								event.data = data;
+								csInterface.dispatchEvent(event);
+							},400);
+						}
+						csInterface.removeEventListener("need layout text", layoutdata);
+						csInterface.addEventListener("need layout text", layoutdata);
+						
+						function yesNoResult(result){
+							csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+							if (result.data == "Yes"){
+								sp_update(news_xml.column_id,column_date,compose_file);
+							}
+						}
+						csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+						csInterface.addEventListener("return YesNoCancel Result", yesNoResult);
+					}else{
+						Alert("該版已經組版");
+					}
+
+				}
+			});
+		}
+		if (news_xml.type == "News") {
+			csInterface.requestOpenExtension("founder.Compose.dateDialog");
+			function isNewspaperData(event){
+				csInterface.removeEventListener("check isPaper", isNewspaperData);
+				setTimeout( function(){
+					var event = new CSEvent("return isPaper", "APPLICATION");
+					var data = new Object();
+					event.data = news_xml.is_newspaper + "," + news_xml.paper_id;
+					csInterface.dispatchEvent(event);
+				},200);
+			}
+			csInterface.removeEventListener("check isPaper", isNewspaperData);
+			csInterface.addEventListener("check isPaper", isNewspaperData);
+			
+			function dateResult(result){
+				csInterface.removeEventListener("return Date Result", dateResult);
+				var selectedDate = new Date(result.data);
+				var date = new Object();
+				date.year = selectedDate.getFullYear();
+				date.month = ("0"+(selectedDate.getMonth() + 1)).slice(-2);
+				date.day = ("0"+selectedDate.getDate()).slice(-2);
+				open_doc(date);
+			}
+			csInterface.removeEventListener("return Date Result", dateResult);
+			csInterface.addEventListener("return Date Result", dateResult);
+		}
+		else if (news_xml.type == "NewsItem") {
+			var date = new Object();
+			date.year = news_xml.year;
+			date.month = news_xml.month;
+			date.day = news_xml.day;
+			open_doc(date);
+		}
+	}
+}catch(e) {
+	ErrorLog(e.message,true,0);
+}
+ 
+</script>
+
+</body>
+
+</html>

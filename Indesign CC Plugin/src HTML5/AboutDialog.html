@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<script src="js/main.js"></script>
+<title>關於採編插件</title>
+</head>
+
+<body onkeyup="_key(event)">
+	<br>
+	<table align="center" style="width: 100%">
+		<tr style="text-align: center;">
+			<td>方正採編系統－組版插件:</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td>Version 6.1.11111</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td>Copyright(C) 2012</td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<table align="center" style="width: 100%">
+		<tr>
+			<td align="center"><input id="ok_button" type="button" value="確定" onclick="self.close()" autofocus>
+			</td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		window.oncontextmenu = function(){return false;};
+		window.focus();
+		var csInterface = new CSInterface();
+		csInterface.setWindowTitle("關於採編插件");
+		
+		function _key(event) { 
+			if(event.keyCode ==13) 
+				document.getElementById("ok_button").click();
+		}
+	</script>
+
+</body>
+
+</html>

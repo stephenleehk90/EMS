@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<script src="js/main.js"></script>
+<title>Loading</title>
+</head>
+
+<body>
+	<br>
+	<table align="center" style="width: 100%">
+		<tr style="text-align: center;width: 100%">
+			<td><progress style="width: 100%"></progress></td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		window.oncontextmenu = function(){return false;}
+		window.focus();
+		var csInterface = new CSInterface();
+		csInterface.setWindowTitle("Loading");
+		
+		function CloseLoadingDialog(event){
+			csInterface.removeEventListener("close loading dialog", CloseLoadingDialog);
+			self.close();
+		}
+		csInterface.removeEventListener("close loading dialog", CloseLoadingDialog);
+		csInterface.addEventListener("close loading dialog", CloseLoadingDialog);
+	</script>
+
+</body>
+
+</html>

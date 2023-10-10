@@ -1,0 +1,2699 @@
+<!doctype html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/topcoat-desktop-dark.min.css"/>
+<link  id="hostStyle" rel="stylesheet" href="css/styles.css"/>
+<link href="./jstree/themes/default/style.min.css" rel="stylesheet">
+<script src="js/libs/CSInterface.js"></script>
+<script src="js/libs/jquery-2.0.2.min.js"></script>
+<script src="./jstree/jstree.min.js"></script>
+<script src="js/themeManager.js"></script>
+<script src="js/main.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/setting.js"></script>
+<title>Compose</title>
+</head>
+
+<body onload="onLoaded()">
+	<div id="compose">
+		<div>
+			<ul id="tabs">
+				<li><a href="#tabs-1" data-tab-index="1" tabindex="0">組版</a></li>
+				<li id="rollback"><a href="#tabs-2" data-tab-index="2" tabindex="0">回調</a></li>
+			</ul>
+			<div id="allTabsContainer">
+				<div class="tab-container" data-tab-index="1">
+					<div id="file_tree" style="height: 250px; width: 100%;" class="tree" ondragstart="onDragStart(event)"	ondragend="onDragEnd(event)">
+					</div>
+				</div>
+				<div class="tab-container" data-tab-index="2" style="display:none;">
+					<div id="back_file_tree" style="height: 250px; width: 100%;" class="tree" ondragstart="onDragStart(event)"	ondragend="onDragEnd(event)">
+					</div>
+				</div>
+			</div>
+		</div>
+		<br><br>
+		<table align="center" style="width: 100%">
+			<tr>
+			</tr>
+			<tr>
+				<td align="left"><input id="btnRefresh" type="button" value="刷新" onclick="onClickRefresh()">
+				</td>
+				<td align="right" id="responseTime">載入時間(s) :</label></td>
+			</tr>
+		</table>
+		<table align="center" style="width: 100%">
+			<tr>
+				<td id="txt" align="left">簽發留言
+				</td>
+			</tr>
+			<tr>
+				<td align="left" id="msg"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+ 
+	<script type="text/javascript">
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	var typeset_list = {};
+	
+	csInterface.addEventListener("PreTypeset OpenDocument", function (event){
+		var ts = event.data;
+		var template = ts.template;
+		template = template.replace(/\\/g,'\\\\');
+		var column_id = ts.news.column_id;
+		var local_file = ts.local_file;
+    	local_file = local_file.replace(/\\/g,'\\\\');
+		var server_file = ts.server_file;
+		server_file = server_file.replace(/\\/g,'\\\\');
+		var column_date = ts.column_date;
+
+		setTimeout(function(){
+			csInterface.evalScript("preTypesetOpenDoc('" + template + "','"  + column_id + "','" + local_file + "','" + server_file + "','" + column_date +  "','" + username + "')");
+		}, 400);
+	});
+	
+	csInterface.addEventListener("Typeset OpenDocument", function (event){
+		var ts = event.data;
+		var template = ts.template;
+		template = template.replace(/\\/g,'\\\\');
+		var column_id = ts.news.column_id;
+		var local_file = ts.local_file;
+    	local_file = local_file.replace(/\\/g,'\\\\');
+		var server_file = ts.server_file;
+		server_file = server_file.replace(/\\/g,'\\\\');
+		var column_date = ts.column_date;
+		var filename = ts.filename;
+		ts.placed_file = [];
+		var layout_code = ts.news.layout_code;
+		var year = ts.date.year;
+		var month = ts.date.month;
+		var day = ts.date.day;
+		var PSPath = ts.PSPath;
+		PSPath = PSPath.replace(/\\/g,'\\\\');
+		var PDFPath = ts.PDFPath;
+		PDFPath = PDFPath.replace(/\\/g,'\\\\');
+		var PaperPSPath = ts.PaperPSPath;
+		PaperPSPath = PaperPSPath.replace(/\\/g,'\\\\');
+		var tagServer = ts.tagServer;
+		tagServer = tagServer.replace(/\\/g,'\\\\');
+
+		setTimeout(function(){
+			csInterface.evalScript("TypesetOpenDoc('" + template + "','"  + column_id + "','" + local_file + "','" + server_file + "','" + column_date + "','" + filename +  "','" + username +  "','" + layout_code +  "','"
+				+ year +  "','" + month +  "','" + day +  "','" + PSPath +  "','" + PDFPath +  "','" + PaperPSPath +  "','"  + tagServer +  "')", function(path){
+				if (path != "")
+				{
+					typeset_list[path] = ts;
+				}
+			});
+		}, 400);
+	});
+
+	/*csInterface.addEventListener("Reopen Resource Dialog", function (event){
+
+		var ts = typeset_list[event.data];
+
+		csInterface.requestOpenExtension("founder.Compose.documentListDialog");
+		function SendTypesetData(evt){
+			csInterface.removeEventListener("need Typesetdata", SendTypesetData);
+
+			var event = new CSEvent("return Typesetdata", "APPLICATION");
+			event.data = ts;
+			csInterface.dispatchEvent(event);
+		};
+		csInterface.removeEventListener("need Typesetdata", SendTypesetData);
+		csInterface.addEventListener("need Typesetdata", SendTypesetData);
+	});*/
+
+	csInterface.addEventListener("Set Typeset Data", function (event){
+		csInterface.evalScript("getDocName()", function(path){
+			if (path != "")
+			{
+				var ts = event.data;
+				typeset_list[path] = ts;
+			}
+		});
+	});
+
+	csInterface.addEventListener("Get Typeset Data", function (event){
+		csInterface.evalScript("getDocName()", function(path){
+			if (path != "")
+			{
+				var ts = typeset_list[path];
+				var template = ts.template;
+				var column_id = ts.news.column_id;
+				var local_file = ts.local_file;
+				local_file = local_file.replace(/\\/g,'\\\\');
+				var server_file = ts.server_file;
+				server_file = server_file.replace(/\\/g,'\\\\');
+				var column_date = ts.column_date;
+				var filename = ts.filename;
+				ts.placed_file = [];
+				var layout_code = ts.news.layout_code;
+				var year = ts.date.year;
+				var month = ts.date.month;
+				var day = ts.date.day;
+				var PSPath = ts.PSPath;
+				PSPath = PSPath.replace(/\\/g,'\\\\');
+				var PDFPath = ts.PDFPath;
+				PDFPath = PDFPath.replace(/\\/g,'\\\\');
+				var PaperPSPath = ts.PaperPSPath;
+				PaperPSPath = PaperPSPath.replace(/\\/g,'\\\\');
+				var tagServer = ts.tagServer;
+				tagServer = tagServer.replace(/\\/g,'\\\\');
+				csInterface.evalScript("GetTypesetData('" + template + "','"  + column_id + "','" + local_file + "','" + server_file + "','" + column_date + "','" + filename +  "','" + username +  "','" + layout_code +  "','"
+					+ year +  "','" + month +  "','" + day +  "','" + PSPath +  "','" + PDFPath +  "','" + PaperPSPath +  "','"  + tagServer+  "','"  + event.data + "')");
+			}
+		});
+	});
+
+    csInterface.addEventListener("copyFile", function (event){
+        var file = event.data.split("|");
+		var fse = require('fs-extra');
+		event.data = event.data.replace(/\\/g,'\\\\');
+        
+        
+        // 2022-12-01
+        if (file[2]!=null && file[2]!="")
+        {
+            if (file[2]=="aftersave" || file[2]=="finishcompose" || file[2]=="opendocument")
+            {
+                var fs = require('fs');
+                if (fs.existsSync(file[1]))
+                { 
+                    var server_Stats = fs.statSync(file[1]);
+                    var server_date = server_Stats.mtime;
+
+                    var server_d = server_date.getFullYear() + ("0"+ (server_date.getMonth()+1).toString()).slice(-2) + ("0"+server_date.getDate()).slice(-2) + ("0"+server_date.getHours()).slice(-2) + ("0"+server_date.getMinutes()).slice(-2) + ("0"+server_date.getSeconds()).slice(-2);
+
+                    var server_backup = file[1];
+                    var server_n = server_backup.toLowerCase().lastIndexOf('.indd');
+                    var server_reg = new RegExp('.indd', 'i')
+                    server_backup = server_backup.slice(0, server_n) + server_backup.slice(server_n).replace(server_reg, '_' + server_d + '.indd');
+                    fse.copySync(file[1], server_backup, { overwrite : true, preserveTimestamps :true });
+                }
+            }
+        }
+        // 2022-12-01
+        
+		fse.copySync(file[0], file[1], { overwrite : true, preserveTimestamps :true });
+		csInterface.evalScript("copyFileSucess('" + event.data + "')");
+    });
+
+	csInterface.addEventListener("LoadBackNewsDetailCallback", function (event){
+		LoadBackNewsDetail(function (diff){
+			var strBack_list = ""
+			for (var h = typeset.back_list.length -1; h >= 0; h--)
+			{
+				var path = typeset.back_list[h].data.path;
+				path = path.replace(/\\/g,'\\\\');
+				strBack_list += path  + "|";
+			}
+			strBack_list += "," + event.data;
+			csInterface.evalScript("LoadBackNewsDetailSucess('" + strBack_list + "')");
+		})
+	});
+ 
+	var SettingData;
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("文件列表");
+
+	var typeset;
+	var now;
+	var timer;
+
+	var fs = require('fs');
+
+	var previousActiveTabIndex = 1;
+	$(document).ready(function () {
+		
+		$('#tabs li a:not(:first)').addClass('inactive');
+
+		$('#tabs li a').on('click keypress', function (event) {
+			if ((event.type === "keypress" && event.which === 13) || event.type === "click") {
+			
+				if($(this).hasClass('inactive')){
+					$('#tabs li a').addClass('inactive');           
+					$(this).removeClass('inactive');
+				}
+
+				var tabClicked = $(this).data("tab-index");
+
+				if(tabClicked != previousActiveTabIndex) {
+					$("#allTabsContainer .tab-container").each(function () {
+						if($(this).data("tab-index") == tabClicked) {
+							$(".tab-container").hide();
+							$(this).show();
+							previousActiveTabIndex = $(this).data("tab-index");
+							clearInterval(timer);
+							if (previousActiveTabIndex == 1)
+							{
+								now = new Date();
+								LoadNewsDetailMemory();
+								document.getElementById("txt").style.display="inline";
+								document.getElementById("msg").style.display="inline";
+							}
+							else if(previousActiveTabIndex == 2)
+							{
+								document.getElementById("txt").style.display="none";
+								document.getElementById("msg").style.display="none";
+								LoadBackNewsDetailMemory();
+							}
+							timer = setInterval(onTimer, SettingData.refresh_time*60*1000)
+							return;
+						}
+					});
+				}
+			}
+		});
+
+		document.getElementById("compose").style.display="none";
+		if (bMP()){
+			document.getElementById("rollback").style.display="none";
+		}
+	});
+	
+	csInterface.addEventListener("return logindata", function (event){
+		SetLoginData(event.data);
+		SettingData = LoadSettingXML();
+	});
+	
+	csInterface.addEventListener("update SettingData", function (event){
+		SettingData = LoadSettingXML();
+	});
+
+	csInterface.addEventListener("Open Resource Dialog", function (event){
+		document.getElementById("compose").style.display="inline";
+		now = new Date();
+
+		typeset = typeset_list[event.data];
+
+		if (typeset.current_list == null)
+			typeset.current_list = [];
+		if (typeset.back_list == null)
+			typeset.back_list = [];
+
+		csInterface.resizeContent(Number(SettingData.document_width), Number(SettingData.document_height))
+		$('#file_tree').height(SettingData.document_height - 175);
+		$('#back_file_tree').height(SettingData.document_height - 175);
+
+		getPlacedFile(function(placed_file){
+			clearInterval(timer);
+			LoadNewsDetail();
+			timer = setInterval(onTimer, SettingData.refresh_time*60*1000);
+		})
+	});
+
+	csInterface.addEventListener("Reopen Resource Dialog", function (event){
+		clearInterval(timer);
+		if (previousActiveTabIndex == 1)
+		{
+			now = new Date();
+			LoadNewsDetailMemory();
+			document.getElementById("txt").style.display="inline";
+			document.getElementById("msg").style.display="inline";
+		}
+		else if(previousActiveTabIndex == 2)
+		{
+			document.getElementById("txt").style.display="none";
+			document.getElementById("msg").style.display="none";
+			LoadBackNewsDetailMemory();
+		}
+		timer = setInterval(onTimer, SettingData.refresh_time*60*1000)
+	});
+	
+	csInterface.addEventListener("Hide All Resource Dialog", function (event){
+		clearInterval(timer);
+		document.getElementById("compose").style.display="none";
+	});
+	
+	$('#file_tree').jstree({
+		"core":{ 'multiple': false, "check_callback":true},
+		"types": {
+				"default": {"icon": "icon/N.png"},
+				"type0": {"icon": "icon/type0.png"},
+				"type0_not_exist": {"icon": "icon/type0.png"},
+				"type0_placed": {"icon": "icon/type0_placed.png"},
+				"type1": {"icon": "icon/type1_exist.png"},
+				"type1_not_exist": {"icon": "icon/type1_not_exist.png"},
+				"type1_placed": {"icon": "icon/type1_placed.png"},
+				"group" : {"icon": "icon/group.png"}},
+		"default" : {
+			draggable : false
+		},
+		"plugins": ["types"]});
+	
+	$('#back_file_tree').jstree({
+		"core":{ 'multiple': false, "check_callback":true},
+		"types": {
+				"default": {"icon": "icon/N.png"},
+				"type0": {"icon": "icon/type0.png"},
+				"type0_not_exist": {"icon": "icon/type0.png"},
+				"type0_placed": {"icon": "icon/type0_placed.png"},
+				"type1": {"icon": "icon/type1_exist.png"},
+				"type1_not_exist": {"icon": "icon/type1_not_exist.png"},
+				"type1_placed": {"icon": "icon/type1_placed.png"},
+				"group" : {"icon": "icon/group.png"}},
+		"default" : {
+			draggable : false
+		},
+		"plugins": ["types"]});
+	
+	function LoadNewsDetail(){
+		if (document.getElementById("compose").style.display=="none")
+			return;
+		getPlacedFile();
+		document.getElementById("file_tree").disabled="disabled";
+		$('#file_tree').jstree().delete_node($('#file_tree').jstree().get_node("#").children);
+		document.getElementById("responseTime").innerHTML = "載入中";
+		
+		//load news detail
+		var str="column_id="+typeset.news.column_id;
+		str+="&date="+ typeset.column_date;
+		
+		typeset.tree_file = []
+		
+		var new_list=[];
+		Load("news_detail_all",str,function(xml){
+			try
+			{
+				var parser;
+				parser = new DOMParser();
+				xmlDoc = parser.parseFromString(xml,"text/xml");
+				var x = xmlDoc.getElementsByTagName("item");
+
+				for (var i = 0; i < x.length ;i++) {
+					try{
+						if (x[i].parentNode != xmlDoc.documentElement)
+							continue;
+						var type = x[i].getElementsByTagName("type")[0].innerHTML;
+						var dnode;
+						if (type == "group"){
+							dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+								"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+						}
+						else {
+							var label = x[i].getElementsByTagName("label")[0].innerHTML;
+							var path = x[i].getElementsByTagName("path")[0].innerHTML;
+							var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+							var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+							var fileStatus = "";
+							if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+							else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+							dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+								"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+							//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+						}
+						new_list.push(dnode);
+
+						var y =  x[i].getElementsByTagName("item");
+						var child_list=[];
+						for (var j = 0; j < y.length ;j++) {
+							try{
+								if (y[j].parentNode != x[i])
+									continue;
+								var label = y[j].getElementsByTagName("label")[0].innerHTML;
+								var path = y[j].getElementsByTagName("path")[0].innerHTML;
+								var type = y[j].getElementsByTagName("type")[0].innerHTML;
+								var msg = "";
+								if (y[j].getElementsByTagName("msg").length > 0)
+									msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+								var filecode = "";
+								if (y[j].getElementsByTagName("filecode").length > 0)
+									filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+								var fileStatus = "";
+								if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+								else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+								var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+									"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+								//$('#file_tree').jstree('create_node', dnode, enode, "last", false, false);
+								child_list.push(enode);
+
+								var z = y[j].getElementsByTagName("item");
+								var child_child_list=[];
+								for (var k = 0; k < z.length ;k++) {
+									try{
+										var label = z[k].getElementsByTagName("label")[0].innerHTML;
+										var path = z[k].getElementsByTagName("path")[0].innerHTML;
+										var type = z[k].getElementsByTagName("type")[0].innerHTML;
+										var msg = "";
+										if (z[k].getElementsByTagName("msg").length > 0)
+											msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+										var filecode = "";
+										if (z[k].getElementsByTagName("filecode").length > 0)
+											filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+										var fileStatus = "";
+										if (!fs.existsSync(path))
+											fileStatus = "_not_exist";
+										else if (IsFilePlaced(path))
+											fileStatus = "_placed";
+
+										var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+											"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+										//$('#file_tree').jstree('create_node', enode, snode, "last", false, false);
+										child_child_list.push(snode);
+									} catch(e){}
+								}
+								if (child_child_list.length > 0)
+									child_list.push(child_child_list);
+							} catch(e){}
+						}
+						if (child_list.length > 0){
+							new_list.push(child_list);
+						}
+					} catch(e){}
+				}
+				
+				ErrorLog("------------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " + typeset.column_date +" Compose:  -------------------",false,1);
+				for (var y = 0; y < new_list.length; y++){
+					ErrorLog(JSON.stringify(new_list[y]),false,1);
+				}
+				ErrorLog("------------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " + typeset.column_date +" Compose:  -------------------",false,1);
+				ErrorLog("",false,1);
+				
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " + typeset.column_date +" Compose: placed_file --------------",false,3);
+				for (var j = 0; j<typeset.placed_file.length; j++) {
+					ErrorLog("path:"+typeset.placed_file[j].path.replace(/\\/g,'\\\\'),false,3);
+				}
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " + typeset.column_date +" Compose: placed_file --------------",false,3);
+				ErrorLog("",false,3);
+					
+				
+				var back_list1 = BuildDiffList(new_list);
+				LoadNewsDetailVerify(str,back_list1);
+			}
+			catch (e)
+			{
+				ErrorLog(e.message,true,0)
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " + typeset.column_date +" Compose: error  -------------",false,4);
+				ErrorLog(e.message,false,4);
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " + typeset.column_date +" Compose: error  -------------",false,4);
+				document.getElementById("file_tree").disabled="";
+				document.getElementById("btnRefresh").disabled="";
+			}
+		}, function(){
+			document.getElementById("file_tree").disabled="";
+			document.getElementById("btnRefresh").disabled="";
+		} );
+	}
+
+	function LoadBackNewsDetail(callback){
+		if (document.getElementById("compose").style.display=="none")
+			return;
+		getPlacedFile();
+		if (callback == null && back_file_tree != null)
+		{
+			document.getElementById("back_file_tree").disabled="disabled";
+			$('#back_file_tree').jstree().delete_node($('#file_tree').jstree().get_node("#").children);
+			document.getElementById("responseTime").innerHTML = "載入中";
+		}
+
+		var str="column_id="+typeset.news.column_id;
+		str+="&date="+ typeset.column_date;
+		
+		var new_list=[];
+		
+		Load("news_detail_all",str,function(xml){
+			try
+			{
+				var parser;
+				parser = new DOMParser();
+				xmlDoc = parser.parseFromString(xml,"text/xml");
+				var x = xmlDoc.getElementsByTagName("item");
+
+				for (var i = 0; i < x.length ;i++) {
+					try{
+						if (x[i].parentNode != xmlDoc.documentElement)
+							continue;
+						var type = x[i].getElementsByTagName("type")[0].innerHTML;
+						var dnode;
+						if (type == "group"){
+							dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+								"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+						}
+						else {
+							var label = x[i].getElementsByTagName("label")[0].innerHTML;
+							var path = x[i].getElementsByTagName("path")[0].innerHTML;
+							var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+							var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+							var fileStatus = "";
+							if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+							else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+							dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+								"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+							//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+						}
+						new_list.push(dnode);
+
+						var y =  x[i].getElementsByTagName("item");
+						var child_list=[];
+						for (var j = 0; j < y.length ;j++) {
+							try{
+								if (y[j].parentNode != x[i])
+									continue;
+								var label = y[j].getElementsByTagName("label")[0].innerHTML;
+								var path = y[j].getElementsByTagName("path")[0].innerHTML;
+								var type = y[j].getElementsByTagName("type")[0].innerHTML;
+								var msg = "";
+								if (y[j].getElementsByTagName("msg").length > 0)
+									msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+								var filecode = "";
+								if (y[j].getElementsByTagName("filecode").length > 0)
+									filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+								var fileStatus = "";
+								if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+								else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+								var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+									"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+								//if (callback == null && back_file_tree != null)
+								//	$('#file_tree').jstree('create_node', dnode, enode, "last", false, false);
+								child_list.push(enode);
+
+								var z = y[j].getElementsByTagName("item");
+								var child_child_list=[];
+								for (var k = 0; k < z.length ;k++) {
+									try{
+										var label = z[k].getElementsByTagName("label")[0].innerHTML;
+										var path = z[k].getElementsByTagName("path")[0].innerHTML;
+										var type = z[k].getElementsByTagName("type")[0].innerHTML;
+										var msg = "";
+										if (z[k].getElementsByTagName("msg").length > 0)
+											msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+										var filecode = "";
+										if (z[k].getElementsByTagName("filecode").length > 0)
+											filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+										var fileStatus = "";
+										if (!fs.existsSync(path))
+											fileStatus = "_not_exist";
+										else if (IsFilePlaced(path))
+											fileStatus = "_placed";
+
+										var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+											"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+										//if (callback == null && back_file_tree != null)
+										//	$('#file_tree').jstree('create_node', enode, snode, "last", false, false);
+										child_child_list.push(snode);
+									} catch(e){}
+								}
+								if (child_child_list.length > 0)
+									child_list.push(child_child_list);
+							} catch(e){}
+						}
+						if (child_list.length > 0){
+							new_list.push(child_list);
+						}
+					} catch(e){}
+				}
+				
+				ErrorLog("-------------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" RollBack:  -------------------",false,1);
+				for (var y = 0; y < new_list.length; y++){
+					ErrorLog(JSON.stringify(new_list[y]),false,1);
+				}
+				ErrorLog("-------------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" RollBack:  -------------------",false,1);
+				ErrorLog("",false,1);
+				
+				ErrorLog("--------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" RollBack: placed_file --------------",false,3);
+				for (var j = 0; j<typeset.placed_file.length; j++) {
+					ErrorLog("path:"+typeset.placed_file[j].path.replace(/\\/g,'\\\\'),false,3);
+				}
+				ErrorLog("--------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" RollBack: placed_file --------------",false,3);
+				ErrorLog("",false,3);
+				
+				var back_list1 = BuildDiffList(new_list);
+				LoadBackNewsDetailVerify(str,back_list1,callback);
+			}
+			catch (e)
+			{
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" RollBack: error  -------------",false,4);
+				ErrorLog(e.message,false,4);
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" RollBack: error  -------------",false,4);
+				document.getElementById("back_file_tree").disabled="";
+				document.getElementById("btnRefresh").disabled="";
+			}
+			
+		}, function(){
+			document.getElementById("back_file_tree").disabled="";
+			document.getElementById("btnRefresh").disabled="";
+		});
+	}
+
+	function RemoveRollback(diff){
+		if(bMP())
+		{
+			return;
+		}
+		if (typeset.back_list.length > 0)
+			rollback.label = "回調("+typeset.back_list.length +")"
+		else
+			rollback.label = "回調"
+				
+		if (typeset.bFirst)
+		{
+			typeset.bFirst = false;
+			return;
+		}
+		if (document.getElementById("compose").style.display=="none")
+			return;
+			
+		if(diff>0)
+		{
+			csInterface.requestOpenExtension("founder.Compose.yesNoCancelDialog");
+			function layoutdata(event){
+				csInterface.removeEventListener("need layout text", layoutdata);
+				setTimeout( function(){
+					var event = new CSEvent("return layout text", "APPLICATION");
+					var data = new Object();
+					data.label = "該版面有"+typeset.back_list.length+"篇物件被回調，是否需要於版面上刪除?";
+					data.yes = "是";
+					data.no = "否";
+					data.cancel = "";
+					event.data = data;
+					csInterface.dispatchEvent(event);
+				},400);
+			}
+			csInterface.removeEventListener("need layout text", layoutdata);
+			csInterface.addEventListener("need layout text", layoutdata);
+
+			function yesNoResult(result){
+				csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+				if (result.data == "Yes"){
+					var strBack_list = ""
+					for (var h = typeset.back_list.length -1; h >= 0; h--)
+					{
+						var path = typeset.back_list[h].data.path;
+						path = path.replace(/\\/g,'\\\\');
+						strBack_list += path  + "|";
+					}
+					csInterface.evalScript("RemoveRollback('" + strBack_list + "')", function(){
+					});
+					
+					typeset.back_list = [];
+					rollback.label = "回調"
+					
+					if (back_file_tree != null)
+						$('#back_file_tree').jstree().delete_node($('#file_tree').jstree().get_node("#").children);
+
+						//HandleDeleteText("");
+						UpdateTreeIcon();
+				}
+			}
+			csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+			csInterface.addEventListener("return YesNoCancel Result", yesNoResult);
+		}
+	}
+			
+	function LoadNewsDetailVerify(str, back_list1)
+	{
+		if (document.getElementById("compose").style.display=="none")
+			return;
+		var new_list=[];
+		var current_list=new Array();
+		var tree_file=[];
+		Load("news_detail_all",str,function(xml){
+			try
+			{
+				var parser;
+				parser = new DOMParser();
+				xmlDoc = parser.parseFromString(xml,"text/xml");
+				var x = xmlDoc.getElementsByTagName("item");
+
+				for (var i = 0; i < x.length ;i++) {
+					try {
+						if (x[i].parentNode != xmlDoc.documentElement)
+							continue;
+						var type = x[i].getElementsByTagName("type")[0].innerHTML;
+						var dnode;
+						if (type == "group"){
+							dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+								"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+						}
+						else {
+							var label = x[i].getElementsByTagName("label")[0].innerHTML;
+							var path = x[i].getElementsByTagName("path")[0].innerHTML;
+							var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+							var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+							var fileStatus = "";
+							if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+							else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+							dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+								"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+							//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+						}
+						new_list.push(dnode);
+						tree_file.push(dnode);
+
+						var y =  x[i].getElementsByTagName("item");
+						var child_list=[];
+						for (var j = 0; j < y.length ;j++) {
+							try {
+								if (y[j].parentNode != x[i])
+									continue;
+								var label = y[j].getElementsByTagName("label")[0].innerHTML;
+								var path = y[j].getElementsByTagName("path")[0].innerHTML;
+								var type = y[j].getElementsByTagName("type")[0].innerHTML;
+								var msg = "";
+								if (y[j].getElementsByTagName("msg").length > 0)
+									msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+								var filecode = "";
+								if (y[j].getElementsByTagName("filecode").length > 0)
+									filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+								var fileStatus = "";
+								if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+								else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+								var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+									"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+								child_list.push(enode);
+								tree_file.push(enode);
+
+								var z = y[j].getElementsByTagName("item");
+								var child_child_list=[];
+								for (var k = 0; k < z.length ;k++) {
+									try {
+										var label = z[k].getElementsByTagName("label")[0].innerHTML;
+										var path = z[k].getElementsByTagName("path")[0].innerHTML;
+										var type = z[k].getElementsByTagName("type")[0].innerHTML;
+										var msg = "";
+										if (z[k].getElementsByTagName("msg").length > 0)
+											msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+										var filecode = "";
+										if (z[k].getElementsByTagName("filecode").length > 0)
+											filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+										var fileStatus = "";
+										if (!fs.existsSync(path))
+											fileStatus = "_not_exist";
+										else if (IsFilePlaced(path))
+											fileStatus = "_placed";
+
+										var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+											"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+										child_child_list.push(snode);
+										tree_file.push(snode);
+									} catch(e){}
+								}
+								if (child_child_list.length > 0)
+									child_list.push(child_child_list);
+							} catch(e){}
+						}
+						if (child_list.length > 0){
+							new_list.push(child_list);
+						}
+					} catch(e){}
+				}
+				
+				ErrorLog("------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose Verify: ----------",false,1);
+				for (var y = 0; y < new_list.length; y++){
+					ErrorLog(JSON.stringify(new_list[y]),false,1);
+				}
+				ErrorLog("------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose Verify: ----------",false,1);
+				ErrorLog("",false,1);
+				
+				var diff_list = [];
+				/*for (var i = 0; i < typeset.back_list.length ;i++) {
+					diff_list.push(typeset.back_list[i]);
+				}*/
+				diff_list = JSON.parse(JSON.stringify(typeset.back_list));
+				var back_list2 = BuildDiffList(new_list);
+				
+				if(JSON.stringify(back_list1)==JSON.stringify(back_list2)) 
+				{
+					ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose backlist: ---------------",false,2);
+					for (var y = 0; y < back_list1.length; y++){
+						ErrorLog(JSON.stringify(back_list1[y]),false,2);
+					}
+					ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose backlist: ---------------",false,2);
+					ErrorLog("",false,2);
+					diff_list2 = ArrayDiff(typeset.current_list,new_list);
+					
+					
+					if (JSON.stringify(typeset.current_list)==JSON.stringify(diff_list2) && diff_list2.length > 0)
+					{
+						setTimeout(function(){
+							Load("news_detail_all",str,function(xml){
+								try
+								{
+									new_list = [];
+									var parser;
+									parser = new DOMParser();
+									xmlDoc = parser.parseFromString(xml,"text/xml");
+									var x = xmlDoc.getElementsByTagName("item");
+
+									for (var i = 0; i < x.length ;i++) {
+										try {
+											if (x[i].parentNode != xmlDoc.documentElement)
+												continue;
+											var type = x[i].getElementsByTagName("type")[0].innerHTML;
+											var dnode;
+											if (type == "group"){
+												dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+													"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+											}
+											else {
+												var label = x[i].getElementsByTagName("label")[0].innerHTML;
+												var path = x[i].getElementsByTagName("path")[0].innerHTML;
+												var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+												var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+												var fileStatus = "";
+												if (!fs.existsSync(path))
+														fileStatus = "_not_exist";
+												else if (IsFilePlaced(path))
+														fileStatus = "_placed";
+
+												dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+													"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+												//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+											}
+											new_list.push(dnode);
+											tree_file.push(dnode);
+
+											var y =  x[i].getElementsByTagName("item");
+											var child_list=[];
+											for (var j = 0; j < y.length ;j++) {
+												try {
+													if (y[j].parentNode != x[i])
+														continue;
+													var label = y[j].getElementsByTagName("label")[0].innerHTML;
+													var path = y[j].getElementsByTagName("path")[0].innerHTML;
+													var type = y[j].getElementsByTagName("type")[0].innerHTML;
+													var msg = "";
+													if (y[j].getElementsByTagName("msg").length > 0)
+														msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+													var filecode = "";
+													if (y[j].getElementsByTagName("filecode").length > 0)
+														filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+													var fileStatus = "";
+													if (!fs.existsSync(path))
+														fileStatus = "_not_exist";
+													else if (IsFilePlaced(path))
+														fileStatus = "_placed";
+
+													var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+														"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+													child_list.push(enode);
+													tree_file.push(enode);
+
+													var z = y[j].getElementsByTagName("item");
+													var child_child_list=[];
+													for (var k = 0; k < z.length ;k++) {
+														try {
+															var label = z[k].getElementsByTagName("label")[0].innerHTML;
+															var path = z[k].getElementsByTagName("path")[0].innerHTML;
+															var type = z[k].getElementsByTagName("type")[0].innerHTML;
+															var msg = "";
+															if (z[k].getElementsByTagName("msg").length > 0)
+																msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+															var filecode = "";
+															if (z[k].getElementsByTagName("filecode").length > 0)
+																filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+															var fileStatus = "";
+															if (!fs.existsSync(path))
+																fileStatus = "_not_exist";
+															else if (IsFilePlaced(path))
+																fileStatus = "_placed";
+
+															var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+															child_child_list.push(snode);
+															tree_file.push(snode);
+														} catch(e){}
+													}
+													if (child_child_list.length > 0)
+														child_list.push(child_child_list);
+												} catch(e){}
+											}
+											if (child_list.length > 0){
+												new_list.push(child_list);
+											}
+										} catch(e){}
+									}
+									
+									ErrorLog("---------------------------------" + str +" ------------------------------",false,1);
+									ErrorLog("------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose Verify: ----------",false,1);
+									for (var y = 0; y < new_list.length; y++){
+										ErrorLog(JSON.stringify(new_list[y]),false,1);
+									}
+									ErrorLog("------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose Verify: ----------",false,1);
+									ErrorLog("",false,1);
+									
+									diff_list = [];
+									/*for (var i = 0; i < typeset.back_list.length ;i++) {
+										diff_list.push(typeset.back_list[i]);
+									}*/
+									diff_list = JSON.parse(JSON.stringify(typeset.back_list));
+									back_list2 = BuildDiffList(new_list);
+									
+									if (JSON.stringify(back_list1)==JSON.stringify(back_list2))
+									{
+										ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose backlist: ---------------",false,2);
+										for (var y = 0; y < back_list1.length; y++){
+											ErrorLog(JSON.stringify(back_list1[y]),false,2);
+										}
+										ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose backlist: ---------------",false,2);
+										ErrorLog("",false,2);
+										
+										diff_list2 = ArrayDiff(typeset.current_list,new_list);
+										
+										/*if (JSON.stringify(typeset.current_list)==JSON.stringify(diff_list2) && diff_list2.length > 0)
+										{
+											setTimeout(function(){
+												Load("news_detail_all",str,function(xml){
+													try
+													{
+														new_list = [];
+														var parser;
+														parser = new DOMParser();
+														xmlDoc = parser.parseFromString(xml,"text/xml");
+														var x = xmlDoc.getElementsByTagName("item");
+
+														for (var i = 0; i < x.length ;i++) {
+															try {
+																if (x[i].parentNode != xmlDoc.documentElement)
+																	continue;
+																var type = x[i].getElementsByTagName("type")[0].innerHTML;
+																var dnode;
+																if (type == "group"){
+																	dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+																		"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+																}
+																else {
+																	var label = x[i].getElementsByTagName("label")[0].innerHTML;
+																	var path = x[i].getElementsByTagName("path")[0].innerHTML;
+																	var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+																	var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+																	var fileStatus = "";
+																	if (!fs.existsSync(path))
+																			fileStatus = "_not_exist";
+																	else if (IsFilePlaced(path))
+																			fileStatus = "_placed";
+
+																	dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																		"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+																	//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+																}
+																new_list.push(dnode);
+																tree_file.push(dnode);
+
+																var y =  x[i].getElementsByTagName("item");
+																var child_list=[];
+																for (var j = 0; j < y.length ;j++) {
+																	try {
+																		if (y[j].parentNode != x[i])
+																			continue;
+																		var label = y[j].getElementsByTagName("label")[0].innerHTML;
+																		var path = y[j].getElementsByTagName("path")[0].innerHTML;
+																		var type = y[j].getElementsByTagName("type")[0].innerHTML;
+																		var msg = "";
+																		if (y[j].getElementsByTagName("msg").length > 0)
+																			msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+																		var filecode = "";
+																		if (y[j].getElementsByTagName("filecode").length > 0)
+																			filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+																		var fileStatus = "";
+																		if (!fs.existsSync(path))
+																			fileStatus = "_not_exist";
+																		else if (IsFilePlaced(path))
+																			fileStatus = "_placed";
+
+																		var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																			"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+																		child_list.push(enode);
+																		tree_file.push(enode);
+
+																		var z = y[j].getElementsByTagName("item");
+																		var child_child_list=[];
+																		for (var k = 0; k < z.length ;k++) {
+																			try {
+																				var label = z[k].getElementsByTagName("label")[0].innerHTML;
+																				var path = z[k].getElementsByTagName("path")[0].innerHTML;
+																				var type = z[k].getElementsByTagName("type")[0].innerHTML;
+																				var msg = "";
+																				if (z[k].getElementsByTagName("msg").length > 0)
+																					msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+																				var filecode = "";
+																				if (z[k].getElementsByTagName("filecode").length > 0)
+																					filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+																				var fileStatus = "";
+																				if (!fs.existsSync(path))
+																					fileStatus = "_not_exist";
+																				else if (IsFilePlaced(path))
+																					fileStatus = "_placed";
+
+																				var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																					"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+																				child_child_list.push(snode);
+																				tree_file.push(snode);
+																			} catch(e){}
+																		}
+																		if (child_child_list.length > 0)
+																			child_list.push(child_child_list);
+																	} catch(e){}
+																}
+																if (child_list.length > 0){
+																	new_list.push(child_list);
+																}
+															} catch(e){}
+														}
+														
+														ErrorLog("---------------------------------" + str +" ------------------------------",false,1);
+														ErrorLog("------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose Verify: ----------",false,1);
+														for (var y = 0; y < new_list.length; y++){
+															ErrorLog(JSON.stringify(new_list[y]),false,1);
+														}
+														ErrorLog("------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose Verify: ----------",false,1);
+														ErrorLog("",false,1);
+														
+														//diff_list = [];
+														//for (var i = 0; i < typeset.back_list.length ;i++) {
+														//	diff_list.push(typeset.back_list[i]);
+														//}
+														diff_list = JSON.parse(JSON.stringify(typeset.back_list));
+														back_list2 = BuildDiffList(new_list);
+														
+														if (JSON.stringify(back_list1)==JSON.stringify(back_list2))
+														{
+															typeset.back_list = [];
+															ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose backlist: ---------------",false,2);
+															//for (var i = 0; i < back_list1.length ;i++) {
+															//	typeset.back_list.push(back_list1[i]);
+															//	ErrorLog(JSON.stringify(back_list1[i]),false,2);
+															//}
+															typeset.back_list = JSON.parse(JSON.stringify(back_list1));
+															ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose backlist: ---------------",false,2);
+															ErrorLog("",false,2);
+															
+															diff_list = ArrayDiff(typeset.back_list,diff_list);
+															
+															typeset.current_list = JSON.parse(JSON.stringify(new_list));
+															typeset.tree_file = JSON.parse(JSON.stringify(tree_file));
+															$('#file_tree').jstree().delete_node($('#file_tree').jstree().get_node("#").children);
+															if (x.length > 0){
+																for (var h = 0; h < new_list.length ;h++){
+																	var node = JSON.parse(JSON.stringify(new_list[h]));
+																	if (Object.prototype.toString.call(node) === '[object Array]'){
+																		for (var k = 0; k < node.length ;k++){
+																			var child = node[k];
+																			if (Object.prototype.toString.call(child) === '[object Array]'){
+																				for (var i = 0; i < child.length ;i++){
+																					var dchild = JSON.parse(JSON.stringify(child[i]));
+																					var enode = JSON.parse(JSON.stringify(node[k - 1]));
+																					$('#file_tree').jstree('create_node', enode, dchild, "last", false, false);
+																				}
+																			}
+																			else{
+																				var dnode = JSON.parse(JSON.stringify(new_list[h - 1]));
+																				$('#file_tree').jstree('create_node', dnode, child, "last", false, false);
+																			}
+																		}
+																	}
+																	else
+																		$('#file_tree').jstree('create_node', '#', node, "last", false, false);
+																}
+															}
+															
+															RemoveRollback(diff_list.length)
+															var treeData = $('#file_tree').jstree().get_node("#");
+															expandTree(treeData); 
+															
+															document.getElementById("file_tree").disabled="";
+															document.getElementById("btnRefresh").disabled="";;
+															
+															var now1 = new Date();
+															var difference = (now1.valueOf()-now.valueOf()) / 1000;
+															
+															document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+														}
+														else
+														{
+															ErrorLog("----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose  Verify:  backlist1<> backlist2: ----",false,2);
+															ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose backlist1 ---------------",false,2);
+															for (var i = 0; i <back_list1.length; i++)
+																ErrorLog(JSON.stringify(back_list1[i]),false,2);
+															ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose backlist1 ---------------",false,2);
+															ErrorLog("",false,2);
+															
+															ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose backlist2 ---------------",false,2);
+															for (i = 0; i <back_list2.length; i++)
+																ErrorLog(JSON.stringify(back_list2[i]),false,2);
+															ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose backlist2 ---------------",false,2);
+															ErrorLog("----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd Compose  Verify:  backlist1<> backlist2: ----",false,2);
+															ErrorLog("",false,2);
+															
+															document.getElementById("file_tree").disabled="";
+															document.getElementById("btnRefresh").disabled="";;
+															
+															now1 = new Date();
+															difference = (now1.valueOf()-now.valueOf()) / 1000;
+															
+															document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+														}
+													}
+													catch (e)
+													{
+														ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 3rd Compose Verify: error  -------------",false,4);
+														ErrorLog(e.message,false,4);
+														ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 3rd Compose Verify: error  -------------",false,4);
+														document.getElementById("file_tree").disabled="";
+														document.getElementById("btnRefresh").disabled="";
+													}
+												}, function(){
+													document.getElementById("file_tree").disabled="";
+													document.getElementById("btnRefresh").disabled="";
+												} );
+											},500);
+										}
+										else*/
+										{
+											typeset.back_list = [];
+											/*for (var i = 0; i < back_list1.length ;i++) {
+												typeset.back_list.push(back_list1[i]);
+											}*/
+											typeset.back_list = JSON.parse(JSON.stringify(back_list1));
+											diff_list=ArrayDiff(typeset.back_list,diff_list);
+											
+											typeset.current_list = JSON.parse(JSON.stringify(new_list));
+											typeset.tree_file = JSON.parse(JSON.stringify(tree_file));
+											$('#file_tree').jstree().delete_node($('#file_tree').jstree().get_node("#").children);
+											if (x.length > 0){
+												for (var h = 0; h < new_list.length ;h++){
+													var node = JSON.parse(JSON.stringify(new_list[h]));
+													if (Object.prototype.toString.call(node) === '[object Array]'){
+														for (var k = 0; k < node.length ;k++){
+															var child = node[k];
+															if (Object.prototype.toString.call(child) === '[object Array]'){
+																for (var i = 0; i < child.length ;i++){
+																	var dchild = JSON.parse(JSON.stringify(child[i]));
+																	var enode = JSON.parse(JSON.stringify(node[k - 1]));
+																	$('#file_tree').jstree('create_node', enode, dchild, "last", false, false);
+																}
+															}
+															else{
+																var dnode = JSON.parse(JSON.stringify(new_list[h - 1]));
+																$('#file_tree').jstree('create_node', dnode, child, "last", false, false);
+															}
+														}
+													}
+													else
+														$('#file_tree').jstree('create_node', '#', node, "last", false, false);
+												}
+											}
+											
+											RemoveRollback(diff_list.length)
+											var treeData = $('#file_tree').jstree().get_node("#");
+											expandTree(treeData); 
+											
+											document.getElementById("file_tree").disabled="";
+											document.getElementById("btnRefresh").disabled="";
+											
+											var now1 = new Date();
+											var difference = (now1.valueOf()-now.valueOf()) / 1000;
+											
+											document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+										}
+									}
+									else
+									{
+										ErrorLog("----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose  Verify:  backlist1<> backlist2: ----",false,2);
+										ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose backlist1 ---------------",false,2);
+										for (var i = 0; i <back_list1.length; i++)
+											ErrorLog(JSON.stringify(back_list1[i]),false,2);
+										ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose backlist1 ---------------",false,2);
+										ErrorLog("",false,2);
+										
+										ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose backlist2 ---------------",false,2);
+										for (i = 0; i <back_list2.length; i++)
+											ErrorLog(JSON.stringify(back_list2[i]),false,2);
+										ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose backlist2 ---------------",false,2);
+										ErrorLog("----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd Compose  Verify:  backlist1<> backlist2: ----",false,2);
+										ErrorLog("",false,2);
+										
+										document.getElementById("file_tree").disabled="";
+										document.getElementById("btnRefresh").disabled="";
+										
+										now1 = new Date();
+										difference = (now1.valueOf()-now.valueOf()) / 1000;
+										
+										document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+									}
+								}
+								catch (e)
+								{
+									ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 2nd Compose Verify: error  -------------",false,4);
+									ErrorLog(e.message,false,4);
+									ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 2nd Compose Verify: error  -------------",false,4);
+									ErrorLog(e.message,true,0)
+									document.getElementById("file_tree").disabled="";
+									document.getElementById("btnRefresh").disabled="";
+								}
+							}, function(){
+								document.getElementById("file_tree").disabled="";
+								document.getElementById("btnRefresh").disabled="";
+							} );
+						},500);
+					}
+					else
+					{
+						typeset.back_list = [];
+						typeset.back_list = JSON.parse(JSON.stringify(back_list1));
+						diff_list=ArrayDiff(typeset.back_list,diff_list);
+						
+						typeset.current_list = JSON.parse(JSON.stringify(new_list));
+						typeset.tree_file = JSON.parse(JSON.stringify(tree_file));
+
+						$('#file_tree').jstree().delete_node($('#file_tree').jstree().get_node("#").children);
+						if (x.length > 0){
+							for (var h = 0; h < new_list.length ;h++){
+								var node = JSON.parse(JSON.stringify(new_list[h]));
+								if (Object.prototype.toString.call(node) === '[object Array]'){
+									for (var k = 0; k < node.length ;k++){
+										var child = node[k];
+										if (Object.prototype.toString.call(child) === '[object Array]'){
+											for (var i = 0; i < child.length ;i++){
+												var dchild = JSON.parse(JSON.stringify(child[i]));
+												var enode = JSON.parse(JSON.stringify(node[k - 1]));
+												$('#file_tree').jstree('create_node', enode, dchild, "last", false, false);
+											}
+										}
+										else{
+											var dnode = JSON.parse(JSON.stringify(new_list[h - 1]));
+											$('#file_tree').jstree('create_node', dnode, child, "last", false, false);
+										}
+									}
+								}
+								else
+									$('#file_tree').jstree('create_node', '#', node, "last", false, false);
+							}
+						}
+						
+						RemoveRollback(diff_list.length)
+						var treeData = $('#file_tree').jstree().get_node("#");
+						expandTree(treeData); 
+						
+						document.getElementById("file_tree").disabled="";
+						document.getElementById("btnRefresh").disabled="";
+						
+						var now1 = new Date();
+						var difference = (now1.valueOf()-now.valueOf()) / 1000;
+						
+						document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+					}
+				}
+				else
+				{
+					ErrorLog("----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose  Verify:  backlist1<> backlist2: ----",false,2);
+					ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose backlist1 ---------------",false,2);
+					for (var i = 0; i <back_list1.length; i++)
+						ErrorLog(JSON.stringify(back_list1[i]),false,2);
+					ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose backlist1 ---------------",false,2);
+					ErrorLog("",false,2);
+					
+					ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose backlist2 ---------------",false,2);
+					for (i = 0; i <back_list2.length; i++)
+						ErrorLog(JSON.stringify(back_list2[i]),false,2);
+					ErrorLog("---------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose backlist2 ---------------",false,2);
+					ErrorLog("----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st Compose  Verify:  backlist1<> backlist2: ----",false,2);
+					ErrorLog("",false,2);
+					
+					document.getElementById("file_tree").disabled="";
+					document.getElementById("btnRefresh").disabled="";
+					
+					now1 = new Date();
+					difference = (now1.valueOf()-now.valueOf()) / 1000;
+					
+					document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+				}
+			}
+			catch (e)
+			{
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 1st Compose Verify: error  -------------",false,4);
+				ErrorLog(e.message,false,4);
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 1st Compose Verify: error  -------------",false,4);
+				ErrorLog(e.message,true,0)
+				document.getElementById("file_tree").disabled="";
+				document.getElementById("btnRefresh").disabled="";
+			}
+		}, function(){
+			document.getElementById("file_tree").disabled="";
+			document.getElementById("btnRefresh").disabled="";
+		} );
+	}
+
+	function LoadBackNewsDetailVerify(str, back_list1,callback)
+	{
+		if (document.getElementById("compose").style.display=="none")
+			return;
+		var new_list= [];
+		Load("news_detail_all",str,function(xml){
+			try
+			{
+				var parser;
+				parser = new DOMParser();
+				xmlDoc = parser.parseFromString(xml,"text/xml");
+				var x = xmlDoc.getElementsByTagName("item");
+
+				for (var i = 0; i < x.length ;i++) {
+					try {
+						if (x[i].parentNode != xmlDoc.documentElement)
+							continue;
+						var type = x[i].getElementsByTagName("type")[0].innerHTML;
+						var dnode;
+						if (type == "group"){
+							dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+								"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+						}
+						else {
+							var label = x[i].getElementsByTagName("label")[0].innerHTML;
+							var path = x[i].getElementsByTagName("path")[0].innerHTML;
+							var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+							var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+							var fileStatus = "";
+							if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+							else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+							dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+								"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+							//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+						}
+						new_list.push(dnode);
+
+						var y =  x[i].getElementsByTagName("item");
+						var child_list=[];
+						for (var j = 0; j < y.length ;j++) {
+							try {
+								if (y[j].parentNode != x[i])
+									continue;
+								var label = y[j].getElementsByTagName("label")[0].innerHTML;
+								var path = y[j].getElementsByTagName("path")[0].innerHTML;
+								var type = y[j].getElementsByTagName("type")[0].innerHTML;
+								var msg = "";
+								if (y[j].getElementsByTagName("msg").length > 0)
+									msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+								var filecode = "";
+								if (y[j].getElementsByTagName("filecode").length > 0)
+									filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+								var fileStatus = "";
+								if (!fs.existsSync(path))
+									fileStatus = "_not_exist";
+								else if (IsFilePlaced(path))
+									fileStatus = "_placed";
+
+								var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+									"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+								//if (callback == null && back_file_tree != null)
+								//	$('#file_tree').jstree('create_node', dnode, enode, "last", false, false);
+								child_list.push(enode);
+
+								var z = y[j].getElementsByTagName("item");
+								var child_child_list=[];
+								for (var k = 0; k < z.length ;k++) {
+									try {
+										var label = z[k].getElementsByTagName("label")[0].innerHTML;
+										var path = z[k].getElementsByTagName("path")[0].innerHTML;
+										var type = z[k].getElementsByTagName("type")[0].innerHTML;
+										var msg = "";
+										if (z[k].getElementsByTagName("msg").length > 0)
+											msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+										var filecode = "";
+										if (z[k].getElementsByTagName("filecode").length > 0)
+											filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+										var fileStatus = "";
+										if (!fs.existsSync(path))
+											fileStatus = "_not_exist";
+										else if (IsFilePlaced(path))
+											fileStatus = "_placed";
+
+										var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+											"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+										//if (callback == null && back_file_tree != null)
+										//	$('#file_tree').jstree('create_node', enode, snode, "last", false, false);
+										child_child_list.push(snode);
+									} catch(e){}
+								}
+								if (child_child_list.length > 0)
+									child_list.push(child_child_list);
+							} catch(e){}
+						}
+						if (child_list.length > 0){
+							new_list.push(child_list);
+						}
+					} catch(e){}
+				}
+				
+				ErrorLog("---------------------------------" + str +" ------------------------------",false,1);
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack Verify: ----------",false,1);
+				for (var y = 0; y < new_list.length; y++){
+					ErrorLog(JSON.stringify(new_list[y]),false,1);
+				}
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack Verify: ----------",false,1);
+				ErrorLog("",false,1);
+
+				var diff_list = [];
+				diff_list = JSON.parse(JSON.stringify(typeset.back_list));
+				var back_list2 = BuildDiffList(new_list);
+				
+				if (JSON.stringify(back_list1)==JSON.stringify(back_list2))
+				{
+					ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack backlist: ---------------",false,2);
+					for (var y = 0; y < back_list1.length; y++){
+						ErrorLog(JSON.stringify(back_list1[y]),false,2);
+					}
+					ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack backlist: ---------------",false,2);
+					ErrorLog("",false,2);
+					
+					var diff_list2 =ArrayDiff(typeset.current_list,new_list);
+					
+					if (JSON.stringify(typeset.current_list)==JSON.stringify(diff_list2) && diff_list2.length > 0)
+					{
+						setTimeout(function(){
+							Load("news_detail_all",str,function(xml){
+								try
+								{
+									new_list = []
+									var parser;
+									parser = new DOMParser();
+									xmlDoc = parser.parseFromString(xml,"text/xml");
+									var x = xmlDoc.getElementsByTagName("item");
+
+									for (var i = 0; i < x.length ;i++) {
+										try {
+											if (x[i].parentNode != xmlDoc.documentElement)
+												continue;
+											var type = x[i].getElementsByTagName("type")[0].innerHTML;
+											var dnode;
+											if (type == "group"){
+												dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+													"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+											}
+											else {
+												var label = x[i].getElementsByTagName("label")[0].innerHTML;
+												var path = x[i].getElementsByTagName("path")[0].innerHTML;
+												var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+												var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+												var fileStatus = "";
+												if (!fs.existsSync(path))
+														fileStatus = "_not_exist";
+												else if (IsFilePlaced(path))
+														fileStatus = "_placed";
+
+												dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+													"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+												//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+											}
+											new_list.push(dnode);
+
+											var y =  x[i].getElementsByTagName("item");
+											var child_list=[];
+											for (var j = 0; j < y.length ;j++) {
+												try {
+													if (y[j].parentNode != x[i])
+														continue;
+													var label = y[j].getElementsByTagName("label")[0].innerHTML;
+													var path = y[j].getElementsByTagName("path")[0].innerHTML;
+													var type = y[j].getElementsByTagName("type")[0].innerHTML;
+													var msg = "";
+													if (y[j].getElementsByTagName("msg").length > 0)
+														msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+													var filecode = "";
+													if (y[j].getElementsByTagName("filecode").length > 0)
+														filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+													var fileStatus = "";
+													if (!fs.existsSync(path))
+														fileStatus = "_not_exist";
+													else if (IsFilePlaced(path))
+														fileStatus = "_placed";
+
+													var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+														"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+													//if (callback == null && back_file_tree != null)
+													//	$('#file_tree').jstree('create_node', dnode, enode, "last", false, false);
+													child_list.push(enode);
+
+													var z = y[j].getElementsByTagName("item");
+													var child_child_list=[];
+													for (var k = 0; k < z.length ;k++) {
+														try {
+															var label = z[k].getElementsByTagName("label")[0].innerHTML;
+															var path = z[k].getElementsByTagName("path")[0].innerHTML;
+															var type = z[k].getElementsByTagName("type")[0].innerHTML;
+															var msg = "";
+															if (z[k].getElementsByTagName("msg").length > 0)
+																msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+															var filecode = "";
+															if (z[k].getElementsByTagName("filecode").length > 0)
+																filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+															var fileStatus = "";
+															if (!fs.existsSync(path))
+																fileStatus = "_not_exist";
+															else if (IsFilePlaced(path))
+																fileStatus = "_placed";
+
+															var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+															//if (callback == null && back_file_tree != null)
+															//	$('#file_tree').jstree('create_node', enode, snode, "last", false, false);
+															child_child_list.push(snode);
+														} catch(e){}
+													}
+													if (child_child_list.length > 0)
+														child_list.push(child_child_list);
+												} catch(e){}
+											}
+											if (child_list.length > 0){
+												new_list.push(child_list);
+											}
+										} catch(e){}
+									}
+									
+									ErrorLog("---------------------------------" + str +" ------------------------------",false,1);
+									ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack Verify: ----------",false,1);
+									for (var y = 0; y < new_list.length; y++){
+										ErrorLog(JSON.stringify(new_list[y]),false,1);
+									}
+									ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack Verify: ----------",false,1);
+									ErrorLog("",false,1);
+									
+									diff_list = [];
+									diff_list = JSON.parse(JSON.stringify(typeset.back_list));
+									var back_list2 = BuildDiffList(new_list);
+									
+									if (JSON.stringify(back_list1)==JSON.stringify(back_list2))
+									{
+										ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack backlist: ---------------",false,2);
+										for (var y = 0; y < back_list1.length; y++){
+											ErrorLog(JSON.stringify(back_list1[y]),false,2);
+										}
+										ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack backlist: ---------------",false,2);
+										ErrorLog("",false,2);
+										
+										var diff_list2 =ArrayDiff(typeset.current_list,new_list);
+										
+										/*if (JSON.stringify(typeset.current_list)==JSON.stringify(diff_list2) && diff_list2.length > 0)
+										{
+											setTimeout(function(){
+												Load("news_detail_all",str,function(xml){
+													try
+													{
+														var parser;
+														parser = new DOMParser();
+														xmlDoc = parser.parseFromString(xml,"text/xml");
+														var x = xmlDoc.getElementsByTagName("item");
+
+														for (var i = 0; i < x.length ;i++) {
+															try {
+																if (x[i].parentNode != xmlDoc.documentElement)
+																	continue;
+																var type = x[i].getElementsByTagName("type")[0].innerHTML;
+																var dnode;
+																if (type == "group"){
+																	dnode = { "text": "", "id": "group" + i, "type": type, "data": {
+																		"label": "", "path": "", "msg": "", "type": "", "filecode": ""}, "a_attr": {"title": ""}};
+																}
+																else {
+																	var label = x[i].getElementsByTagName("label")[0].innerHTML;
+																	var path = x[i].getElementsByTagName("path")[0].innerHTML;
+																	var msg = x[i].getElementsByTagName("msg")[0].innerHTML;
+																	var filecode = x[i].getElementsByTagName("filecode")[0].innerHTML;
+																	var fileStatus = "";
+																	if (!fs.existsSync(path))
+																			fileStatus = "_not_exist";
+																	else if (IsFilePlaced(path))
+																			fileStatus = "_placed";
+
+																	dnode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																		"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+																	//$('#file_tree').jstree('create_node', '#', dnode, "last", false, false);
+																}
+																new_list.push(dnode);
+
+																var y =  x[i].getElementsByTagName("item");
+																var child_list=[];
+																for (var j = 0; j < y.length ;j++) {
+																	try {
+																		if (y[j].parentNode != x[i])
+																			continue;
+																		if (y[j].getElementsByTagName("label").length == 0)
+																			continue;
+																		var label = y[j].getElementsByTagName("label")[0].innerHTML;
+																		var path = y[j].getElementsByTagName("path")[0].innerHTML;
+																		var type = y[j].getElementsByTagName("type")[0].innerHTML;
+																		var msg = "";
+																		if (y[j].getElementsByTagName("msg").length > 0)
+																			msg = y[j].getElementsByTagName("msg")[0].innerHTML;
+																		var filecode = "";
+																		if (y[j].getElementsByTagName("filecode").length > 0)
+																			filecode = y[j].getElementsByTagName("filecode")[0].innerHTML;
+																		var fileStatus = "";
+																		if (!fs.existsSync(path))
+																			fileStatus = "_not_exist";
+																		else if (IsFilePlaced(path))
+																			fileStatus = "_placed";
+
+																		var enode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																			"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+																		//if (callback == null && back_file_tree != null)
+																		//	$('#file_tree').jstree('create_node', dnode, enode, "last", false, false);
+																		child_list.push(enode);
+
+																		var z = y[j].getElementsByTagName("item");
+																		var child_child_list=[];
+																		for (var k = 0; k < z.length ;k++) {
+																			try {
+																				var label = z[k].getElementsByTagName("label")[0].innerHTML;
+																				var path = z[k].getElementsByTagName("path")[0].innerHTML;
+																				var type = z[k].getElementsByTagName("type")[0].innerHTML;
+																				var msg = "";
+																				if (z[k].getElementsByTagName("msg").length > 0)
+																					msg = z[k].getElementsByTagName("msg")[0].innerHTML;
+																				var filecode = "";
+																				if (z[k].getElementsByTagName("filecode").length > 0)
+																					filecode = z[k].getElementsByTagName("filecode")[0].innerHTML;
+																				var fileStatus = "";
+																				if (!fs.existsSync(path))
+																					fileStatus = "_not_exist";
+																				else if (IsFilePlaced(path))
+																					fileStatus = "_placed";
+
+																				var snode = { "text": label, "id": path, "type": "type" + type + fileStatus, "data": {
+																					"label": label, "path": path, "msg": msg, "type": type, "filecode": filecode}, "a_attr": {"title": label}};
+																				//if (callback == null && back_file_tree != null)
+																				//	$('#file_tree').jstree('create_node', enode, snode, "last", false, false);
+																				child_child_list.push(snode);
+																			} catch(e){}
+																		}
+																		if (child_child_list.length > 0)
+																			child_list.push(child_child_list);
+																	} catch(e){}
+																}
+																if (child_list.length > 0){
+																	new_list.push(child_list);
+																}
+															} catch(e){}
+														}
+														
+														ErrorLog("---------------------------------" + str +" ------------------------------",false,1);
+														ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack Verify: ----------",false,1);
+														for (var y = 0; y < new_list.length; y++){
+															ErrorLog(JSON.stringify(new_list[y]),false,1);
+														}
+														ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack Verify: ----------",false,1);
+														ErrorLog("",false,1);
+														
+														diff_list = [];
+														diff_list = JSON.parse(JSON.stringify(typeset.back_list));
+														var back_list2 = BuildDiffList(new_list);
+														
+														if (JSON.stringify(back_list1)==JSON.stringify(back_list2))
+														{
+															ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack backlist: ---------------",false,2);
+															for (var y = 0; y < back_list1.length; y++){
+																ErrorLog(JSON.stringify(back_list1[y]),false,2);
+															}
+															ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack backlist: ---------------",false,2);
+															ErrorLog("",false,2);
+															
+															//typeset.back_list = back_list1;
+															typeset.back_list = JSON.parse(JSON.stringify(back_list1));
+															diff_list=ArrayDiff(typeset.back_list,diff_list);
+															if (callback == null) {
+																if (back_file_tree!=null && previousActiveTabIndex == 2)
+																{
+																	$('#back_file_tree').jstree().delete_node($('#back_file_tree').jstree().get_node("#").children);
+																	if (x.length > 0){
+																		for (var h = 0; h < back_list1.length ;h++){
+																			var node = JSON.parse(JSON.stringify(back_list1[h]));
+																			if (Object.prototype.toString.call(node) === '[object Array]'){
+																				for (var k = 0; k < node.length ;k++){
+																					var child = JSON.parse(JSON.stringify(node[k]));
+																					if (Object.prototype.toString.call(child) === '[object Array]'){
+																						for (var i = 0; i < child.length ;i++){
+																							var dchild = JSON.parse(JSON.stringify(child[i]));
+																							var enode = JSON.parse(JSON.stringify(node[k - 1]));
+																							$('#back_file_tree').jstree('create_node', enode, dchild, "last", false, false);
+																						}
+																					}
+																					else{
+																						var dnode = JSON.parse(JSON.stringify(back_list1[h - 1]));
+																						$('#back_file_tree').jstree('create_node', dnode, child, "last", false, false);
+																					}
+																				}
+																			}
+																			else
+																				$('#back_file_tree').jstree('create_node', '#', node, "last", false, false);
+																		}
+																	}
+																	
+																	var treeData = $('#back_file_tree').jstree().get_node("#");
+																	expandTree(treeData); 
+																}
+																RemoveRollback(diff_list.length)
+															}
+															
+															if(previousActiveTabIndex == 2)
+															{
+																back_file_tree.enabled = true;
+																document.getElementById("btnRefresh").disabled="";
+																
+																var now1 = new Date();
+																var difference = (now1.valueOf()-now.valueOf()) / 1000;
+																
+																document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+															}
+															
+															if (callback != null)
+															{
+																if(typeset.back_list.length==0)
+																	document.getElementById("rollback").childNodes[0].textContent  = "回調";
+																else
+																	document.getElementById("rollback").childNodes[0].textContent  = "回調("+typeset.back_list.length +")";
+																
+																
+																if (back_file_tree!=null && previousActiveTabIndex == 2)
+																{
+																	$('#back_file_tree').jstree().delete_node($('#back_file_tree').jstree().get_node("#").children);
+																	if (x.length > 0){
+																		for (var h = 0; h < back_list1.length ;h++){
+																			var node = JSON.parse(JSON.stringify(back_list1[h]));
+																			if (Object.prototype.toString.call(node) === '[object Array]'){
+																				for (var k = 0; k < node.length ;k++){
+																					var child = JSON.parse(JSON.stringify(node[k]));
+																					if (Object.prototype.toString.call(child) === '[object Array]'){
+																						for (var i = 0; i < child.length ;i++){
+																							var dchild = JSON.parse(JSON.stringify(child[i]));
+																							var enode = JSON.parse(JSON.stringify(node[k - 1]));
+																							$('#back_file_tree').jstree('create_node', enode, dchild, "last", false, false);
+																						}
+																					}
+																					else{
+																						var dnode = JSON.parse(JSON.stringify(back_list1[h - 1]));
+																						$('#back_file_tree').jstree('create_node', dnode, child, "last", false, false);
+																					}
+																				}
+																			}
+																			else
+																				$('#back_file_tree').jstree('create_node', '#', node, "last", false, false);
+																		}
+																	}
+																	
+																	var treeData = $('#back_file_tree').jstree().get_node("#");
+																	expandTree(treeData); 
+																}
+																
+																ErrorLog("3rd RollBack Verify:  callback",false,5);
+																callback(back_list.length);
+															}
+														}
+														else
+														{
+															ErrorLog("-----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack  Verify:  backlist1<> backlist2: ----",false,2);
+															ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack backlist1 ---------------",false,2);
+															for (var i = 0; i <back_list1.length; i++)
+																ErrorLog(JSON.stringify(back_list1[i]),false,2);
+															ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack backlist1 ---------------",false,2);
+															ErrorLog("",false,2);
+															
+															ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack backlist2 ---------------",false,2);
+															for (i = 0; i <back_list2.length; i++)
+																ErrorLog(JSON.stringify(back_list2[i]),false,2);
+															ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack backlist2 ---------------",false,2);
+															ErrorLog("-----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 3rd RollBack  Verify:  backlist1<> backlist2: ----",false,2);
+															ErrorLog("",false,2);
+
+															if(previousActiveTabIndex == 2)
+															{
+																document.getElementById("back_file_tree").disabled="";
+																document.getElementById("btnRefresh").disabled="";
+																
+																now1 = new Date();
+																difference = (now1.valueOf()-now.valueOf()) / 1000;
+																document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+															}
+															if (callback != null)
+															{
+																ErrorLog("LoadBackNewsDetailVerify -- 3rd RollBack  Verify:  backlist1<> backlist2:",false,5);
+																callback(0);
+															}
+														}
+													}
+													catch (e)
+													{
+														ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 3rd RollBack Verify: error  -------------",false,4);
+														ErrorLog(e.message,false,4);
+														ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 3rd RollBack Verify: error  -------------",false,4);
+														if(previousActiveTabIndex == 2)
+														{
+															document.getElementById("back_file_tree").disabled="";
+															document.getElementById("btnRefresh").disabled="";
+														}
+														if (callback != null)
+														{
+															ErrorLog("LoadBackNewsDetailVerify -- 3rd RollBack  Verify error ---- " + err.message,false,5);
+															callback(0);
+														}
+													}
+												}, function(){
+													if(previousActiveTabIndex == 2)
+													{
+														document.getElementById("back_file_tree").disabled="";
+														document.getElementById("btnRefresh").disabled="";
+													}
+													if (callback != null)
+													{
+														ErrorLog("LoadBackNewsDetailVerify -- 3rd RollBack  Verify load error",false,5);
+														callback(0);
+													}
+												} );
+											},500);
+										}
+										else*/
+										{
+											typeset.back_list = JSON.parse(JSON.stringify(back_list1));
+											diff_list=ArrayDiff(typeset.back_list,diff_list);
+											if (callback == null) {
+												if (back_file_tree!=null && previousActiveTabIndex == 2)
+												{
+													$('#back_file_tree').jstree().delete_node($('#back_file_tree').jstree().get_node("#").children);
+													if (x.length > 0){
+														for (var h = 0; h < back_list1.length ;h++){
+															var node = JSON.parse(JSON.stringify(back_list1[h]));
+															if (Object.prototype.toString.call(node) === '[object Array]'){
+																for (var k = 0; k < node.length ;k++){
+																	var child = JSON.parse(JSON.stringify(node[k]));
+																	if (Object.prototype.toString.call(child) === '[object Array]'){
+																		for (var i = 0; i < child.length ;i++){
+																			var dchild = JSON.parse(JSON.stringify(child[i]));
+																			var enode = JSON.parse(JSON.stringify(node[k - 1]));
+																			$('#back_file_tree').jstree('create_node', enode, dchild, "last", false, false);
+																		}
+																	}
+																	else{
+																		var dnode = JSON.parse(JSON.stringify(back_list1[h - 1]));
+																		$('#back_file_tree').jstree('create_node', dnode, child, "last", false, false);
+																	}
+																}
+															}
+															else
+																$('#back_file_tree').jstree('create_node', '#', node, "last", false, false);
+														}
+													}
+													
+													var treeData = $('#back_file_tree').jstree().get_node("#");
+													expandTree(treeData); 
+												}
+												RemoveRollback(diff_list.length)
+											}
+											
+											if(previousActiveTabIndex == 2)
+											{
+												back_file_tree.enabled = true;
+												document.getElementById("btnRefresh").disabled="";
+												
+												var now1 = new Date();
+												var difference = (now1.valueOf()-now.valueOf()) / 1000;
+												
+												document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+											}
+											
+											if (callback != null)
+											{
+												if(typeset.back_list.length==0)
+													document.getElementById("rollback").childNodes[0].textContent  = "回調";
+												else
+													document.getElementById("rollback").childNodes[0].textContent  = "回調("+typeset.back_list.length +")";
+												
+												if (back_file_tree!=null && previousActiveTabIndex == 2)
+												{
+													$('#back_file_tree').jstree().delete_node($('#back_file_tree').jstree().get_node("#").children);
+													if (x.length > 0){
+														for (var h = 0; h < back_list1.length ;h++){
+															var node = JSON.parse(JSON.stringify(back_list1[h]));
+															if (Object.prototype.toString.call(node) === '[object Array]'){
+																for (var k = 0; k < node.length ;k++){
+																	var child = JSON.parse(JSON.stringify(node[k]));
+																	if (Object.prototype.toString.call(child) === '[object Array]'){
+																		for (var i = 0; i < child.length ;i++){
+																			var dchild = JSON.parse(JSON.stringify(child[i]));
+																			var enode = JSON.parse(JSON.stringify(node[k - 1]));
+																			$('#back_file_tree').jstree('create_node', enode, dchild, "last", false, false);
+																		}
+																	}
+																	else{
+																		var dnode = JSON.parse(JSON.stringify(back_list1[h - 1]));
+																		$('#back_file_tree').jstree('create_node', dnode, child, "last", false, false);
+																	}
+																}
+															}
+															else
+																$('#back_file_tree').jstree('create_node', '#', node, "last", false, false);
+														}
+													}
+													
+													var treeData = $('#back_file_tree').jstree().get_node("#");
+													expandTree(treeData); 
+												}
+												
+												ErrorLog("2nd RollBack Verify:  callback",false,5);
+												callback(back_list1.length);
+											}
+										}
+									}
+									else
+									{
+										ErrorLog("-----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack  Verify:  backlist1<> backlist2: ----",false,2);
+										ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack backlist1 ---------------",false,2);
+										for (var i = 0; i <back_list1.length; i++)
+											ErrorLog(JSON.stringify(back_list1[i]),false,2);
+										ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack backlist1 ---------------",false,2);
+										ErrorLog("",false,2);
+										
+										ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" RollBack backlist2 ---------------",false,2);
+										for (i = 0; i <back_list2.length; i++)
+											ErrorLog(JSON.stringify(back_list2[i]),false,2);
+										ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack backlist2 ---------------",false,2);
+										ErrorLog("-----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 2nd RollBack  Verify:  backlist1<> backlist2: ----",false,2);
+										ErrorLog("",false,2);
+										
+										
+										if(previousActiveTabIndex == 2)
+										{
+											document.getElementById("back_file_tree").disabled="";
+											document.getElementById("btnRefresh").disabled="";
+											
+											now1 = new Date();
+											difference = (now1.valueOf()-now.valueOf()) / 1000;
+											
+											document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+										}
+										if (callback != null)
+										{
+											ErrorLog("LoadBackNewsDetailVerify  --  2nd RollBack  Verify:  backlist1<> backlist2",false,5);
+											callback(0);
+										}
+									}
+								}
+								catch (e)
+								{
+									ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 2nd RollBack Verify: error  -------------",false,4);
+									ErrorLog(e.message,false,4);
+									ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" 2nd RollBack Verify: error  -------------",false,4);
+									if(previousActiveTabIndex == 2)
+									{
+										document.getElementById("back_file_tree").disabled="";
+										document.getElementById("btnRefresh").disabled="";
+									}
+									if (callback != null)
+									{
+										ErrorLog("LoadBackNewsDetailVerify -- 2nd RollBack  Verify error ----" + err.message,false,5);
+										callback(0);
+									}
+								}
+							}, function(){
+								if(previousActiveTabIndex == 2)
+								{
+									document.getElementById("back_file_tree").disabled="";
+									document.getElementById("btnRefresh").disabled="";
+								}
+								if (callback != null)
+								{
+									ErrorLog("LoadBackNewsDetailVerify -- 2nd RollBack  Verify load error",false,5);
+									callback(0);
+								}
+							} );
+						},500);
+					}
+					else
+					{
+						typeset.back_list = JSON.parse(JSON.stringify(back_list1));
+						diff_list=ArrayDiff(typeset.back_list,diff_list);
+						if (callback == null) {
+							if (back_file_tree!=null && previousActiveTabIndex == 2)
+							{
+								$('#back_file_tree').jstree().delete_node($('#back_file_tree').jstree().get_node("#").children);
+								if (x.length > 0){
+									for (var h = 0; h < back_list1.length ;h++){
+										var node = JSON.parse(JSON.stringify(back_list1[h]));
+										if (Object.prototype.toString.call(node) === '[object Array]'){
+											for (var k = 0; k < node.length ;k++){
+												var child = JSON.parse(JSON.stringify(node[k]));
+												if (Object.prototype.toString.call(child) === '[object Array]'){
+													for (var i = 0; i < child.length ;i++){
+														var dchild = JSON.parse(JSON.stringify(child[i]));
+														var enode = JSON.parse(JSON.stringify(node[k - 1]));
+														$('#back_file_tree').jstree('create_node', enode, dchild, "last", false, false);
+													}
+												}
+												else{
+													var dnode = JSON.parse(JSON.stringify(back_list1[h - 1]));
+													$('#back_file_tree').jstree('create_node', dnode, child, "last", false, false);
+												}
+											}
+										}
+										else
+											$('#back_file_tree').jstree('create_node', '#', node, "last", false, false);
+									}
+								}
+								
+								var treeData = $('#back_file_tree').jstree().get_node("#");
+								expandTree(treeData); 
+							}
+							RemoveRollback(diff_list.length)
+						}
+						
+						if(previousActiveTabIndex == 2)
+						{
+							back_file_tree.enabled = true;
+							document.getElementById("btnRefresh").disabled="";
+							
+							var now1 = new Date();
+							var difference = (now1.valueOf()-now.valueOf()) / 1000;
+							
+							document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+						}
+						
+						if (callback != null)
+						{
+							if(typeset.back_list.length==0)
+								document.getElementById("rollback").childNodes[0].textContent  = "回調";
+							else
+								document.getElementById("rollback").childNodes[0].textContent  = "回調("+typeset.back_list.length +")";
+							
+							
+							if (back_file_tree!=null && previousActiveTabIndex == 2)
+							{
+								$('#back_file_tree').jstree().delete_node($('#back_file_tree').jstree().get_node("#").children);
+								if (x.length > 0){
+									for (var h = 0; h < back_list1.length ;h++){
+										var node = JSON.parse(JSON.stringify(back_list1[h]));
+										if (Object.prototype.toString.call(node) === '[object Array]'){
+											for (var k = 0; k < node.length ;k++){
+												var child = JSON.parse(JSON.stringify(node[k]));
+												if (Object.prototype.toString.call(child) === '[object Array]'){
+													for (var i = 0; i < child.length ;i++){
+														var dchild = JSON.parse(JSON.stringify(child[i]));
+														var enode = JSON.parse(JSON.stringify(node[k - 1]));
+														$('#back_file_tree').jstree('create_node', enode, dchild, "last", false, false);
+													}
+												}
+												else{
+													var dnode = JSON.parse(JSON.stringify(back_list1[h - 1]));
+													$('#back_file_tree').jstree('create_node', dnode, child, "last", false, false);
+												}
+											}
+										}
+										else
+											$('#back_file_tree').jstree('create_node', '#', node, "last", false, false);
+									}
+								}
+								
+								var treeData = $('#back_file_tree').jstree().get_node("#");
+								expandTree(treeData); 
+							}
+							
+							ErrorLog("1st RollBack Verify:  callback",false,5);
+							callback(back_list1.length);
+						}
+					}
+				}
+				else
+				{
+					ErrorLog("-----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack  Verify:  backlist1<> backlist2: ----",false,2);
+					ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack backlist1 ---------------",false,2);
+					for (var i = 0; i <back_list1.length; i++)
+						ErrorLog(JSON.stringify(back_list1[i]),false,2);
+					ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack backlist1 ---------------",false,2);
+					ErrorLog("",false,2);
+					
+					ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack backlist2 ---------------",false,2);
+					for (i = 0; i <back_list2.length; i++)
+						ErrorLog(JSON.stringify(back_list2[i]),false,2);
+					ErrorLog("----------------" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date +" 1st RollBack backlist2 ---------------",false,2);
+					ErrorLog("-----" + typeset.news.paper_code+ " " + typeset.news.column_code+ " " +  typeset.column_date + " 1st RollBack  Verify:  backlist1<> backlist2: ----",false,2);
+					ErrorLog("",false,2);
+					
+					if(previousActiveTabIndex == 2)
+					{
+						document.getElementById("back_file_tree").disabled="";
+						document.getElementById("btnRefresh").disabled="";
+						
+						now1 = new Date();
+						difference = (now1.valueOf()-now.valueOf()) / 1000;
+						
+						document.getElementById("responseTime").innerHTML = "載入時間(s) :" + difference.toString();
+					}
+					if (callback != null)
+					{
+						ErrorLog("LoadBackNewsDetailVerify -- 1st RollBack  Verify:  backlist1<> backlist2:",false,5);
+						callback(0);
+					}
+				}
+			}
+			catch (e)
+			{
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" RollBack Verify: error  -------------",false,4);
+				ErrorLog(e.message,false,4);
+				ErrorLog("-------------" + typeset.news.paper_code+ " " + typeset.news.column_code + " " +  typeset.column_date +" RollBack Verify: error  -------------",false,4);
+				if(previousActiveTabIndex == 2)
+				{
+					document.getElementById("back_file_tree").disabled="";
+					document.getElementById("btnRefresh").disabled="";
+				}
+				if (callback != null)
+				{
+					ErrorLog("LoadBackNewsDetailVerify -- 1st RollBack  Verify error ---- " + err.message,false,5);
+					callback(0);
+				}
+			}
+		}, function(){
+			if(previousActiveTabIndex == 2)
+			{
+				document.getElementById("back_file_tree").disabled="";
+				document.getElementById("btnRefresh").disabled="";
+			}
+			if (callback != null)
+			{
+				ErrorLog("LoadBackNewsDetailVerify -- 1st RollBack  Verify load error",false,5);
+				callback(0);
+			}
+		} );
+	}
+			
+	function BuildDiffList(current_list){
+		var diff_list = [];
+		for (var h =0; h <  typeset.placed_file.length; h++)
+		{
+			var bFind = false;
+			for (var i =0; i <  current_list.length; i++){
+				if (bFind)
+					break;
+				else if (Object.prototype.toString.call(current_list[i]) === '[object Array]') {
+					var child_list = JSON.parse(JSON.stringify(current_list[i]));
+					for (var j =0; j <  child_list.length; j++){
+						if (Object.prototype.toString.call(child_list[j]) === '[object Array]') {
+							var child_child_list = JSON.parse(JSON.stringify(child_list[j]));
+							for (var k =0; k <  child_child_list.length; k++){
+								if (child_child_list[k].data.path == typeset.placed_file[h].path){
+									bFind = true;
+									break;
+								}
+							}
+						}
+						else if (child_list[j].data.path == typeset.placed_file[h].path){
+							bFind = true;
+							break;
+						}
+					}
+				}
+				else if (current_list[i].data.path == typeset.placed_file[h].path){
+					bFind = true;
+					break;
+				}
+			}
+			if (!bFind){
+				var str = typeset.placed_file[h].path;
+				var node = "";
+				var text = "";
+				if (str.indexOf('.txt') > 0) {
+					var buf  = new Buffer.alloc(5, [0, 0, 0, 0, 0]);
+					var fd = fs.openSync(str, 'r');
+					var encoding = "utf8"
+					fs.readSync(fd, buf , 0, 5, 0);
+					fs.closeSync(fd);
+					if (buf[0] === 0xEF && buf[1] === 0xBB && buf[2] === 0xBF)
+						encoding = 'utf8';
+					else if (buf[0] === 0xFF && buf[1] === 0xFE)
+						encoding = 'utf16le';
+					else
+						encoding = 'ascii';
+
+					text += fs.readFileSync(str, encoding);
+					var length = text.length;
+					text = text.split("\n").join("");
+					text = text.split("\r").join("");
+					text = text.substr(0,30) + "("+length+".0)";
+					node = { "text": text, "id": str, "type": "type" + 0 + "_placed", "data": {
+						"label": text, "path": str, "type": 0}, "a_attr": {"title": text}};
+				}
+				else {
+					str =  typeset.placed_file[h].path;
+					text = str.substr(str.lastIndexOf('\\')+1)
+					node = { "text": text, "id": str, "type": "type" + 1 + "_placed", "data": {
+						"label": text, "path": str, "type": 1}, "a_attr": {"title": text}};
+				}
+				diff_list.push(node);
+
+			}
+		}
+		return diff_list;
+	}
+			
+	function LoadNewsDetailMemory(){
+		document.getElementById("responseTime").innerHTML = "載入時間(s) :" + 0.101;
+		
+		$('#file_tree').jstree().delete_node($('#file_tree').jstree().get_node("#").children);
+		if (x.length > 0){
+			for (var h = 0; h < typeset.current_list.length ;h++){
+				var node = JSON.parse(JSON.stringify(typeset.current_list[h]));
+				if (Object.prototype.toString.call(node) === '[object Array]'){
+					for (var k = 0; k < node.length ;k++){
+						var child = JSON.parse(JSON.stringify(node[k]));
+						if (Object.prototype.toString.call(child) === '[object Array]'){
+							for (var i = 0; i < child.length ;i++){
+								var dchild = JSON.parse(JSON.stringify(child[i]));
+								var enode = JSON.parse(JSON.stringify(node[k - 1]));
+								var fileStatus = "";
+								if (!fs.existsSync(dchild.data.path))
+									fileStatus = "_not_exist";
+								else if (IsFilePlaced(dchild.data.path))
+									fileStatus = "_placed";
+								dchild.type = "type" + dchild.data.type + fileStatus;
+								$('#file_tree').jstree('create_node', enode, dchild, "last", false, false);
+							}
+						}
+						else{
+							var dnode = JSON.parse(JSON.stringify(typeset.current_list[h - 1]));
+							var fileStatus = "";
+							if (!fs.existsSync(child.data.path))
+								fileStatus = "_not_exist";
+							else if (IsFilePlaced(child.data.path))
+								fileStatus = "_placed";
+							child.type = "type" + child.data.type + fileStatus;
+							$('#file_tree').jstree('create_node', dnode, child, "last", false, false);
+						}
+					}
+				}
+				else{
+					var fileStatus = "";
+					if (!fs.existsSync(node.data.path))
+						fileStatus = "_not_exist";
+					else if (IsFilePlaced(node.data.path))
+						fileStatus = "_placed";
+					node.type = "type" + node.data.type + fileStatus;
+					$('#file_tree').jstree('create_node', '#', node, "last", false, false);
+				}
+			}
+		}
+		
+		var treeData = $('#file_tree').jstree().get_node("#");
+		expandTree(treeData); 
+		
+		RemoveRollback(0);
+	}
+	
+	function LoadBackNewsDetailMemory(){
+		document.getElementById("responseTime").innerHTML = "載入時間(s) :" + 0.102;
+		
+		$('#back_file_tree').jstree().delete_node($('#back_file_tree').jstree().get_node("#").children);
+		if (x.length > 0){
+			for (var h = 0; h < typeset.back_list.length ;h++){
+				var node = JSON.parse(JSON.stringify(typeset.back_list[h]));
+				if (Object.prototype.toString.call(node) === '[object Array]'){
+					for (var k = 0; k < node.length ;k++){
+						var child = JSON.parse(JSON.stringify(node[k]));
+						if (Object.prototype.toString.call(child) === '[object Array]'){
+							for (var i = 0; i < child.length ;i++){
+								var dchild = JSON.parse(JSON.stringify(child[i]));
+								var enode = JSON.parse(JSON.stringify(node[k - 1]));
+								var fileStatus = "";
+								if (!fs.existsSync(dchild.data.path))
+									fileStatus = "_not_exist";
+								else if (IsFilePlaced(dchild.data.path))
+									fileStatus = "_placed";
+								dchild.type = "type" + dchild.data.type + fileStatus;
+								$('#back_file_tree').jstree('create_node', enode, dchild, "last", false, false);
+							}
+						}
+						else{
+							var dnode = JSON.parse(JSON.stringify(typeset.back_list[h - 1]));
+							var fileStatus = "";
+							if (!fs.existsSync(child.data.path))
+								fileStatus = "_not_exist";
+							else if (IsFilePlaced(child.data.path))
+								fileStatus = "_placed";
+							child.type = "type" + child.data.type + fileStatus;
+							$('#back_file_tree').jstree('create_node', dnode, child, "last", false, false);
+						}
+					}
+				}
+				else{
+					var fileStatus = "";
+					if (!fs.existsSync(node.data.path))
+						fileStatus = "_not_exist";
+					else if (IsFilePlaced(node.data.path))
+						fileStatus = "_placed";
+					node.type = "type" + node.data.type + fileStatus;
+					$('#back_file_tree').jstree('create_node', '#', node, "last", false, false);
+				}
+			}
+		}
+		
+		var treeData = $('#back_file_tree').jstree().get_node("#");
+		expandTree(treeData); 
+		
+		RemoveRollback(0);
+	}
+	
+	function onClickRefresh(event)
+	{
+		document.getElementById("btnRefresh").disabled="disabled";
+		if (previousActiveTabIndex == 1)
+		{
+			now = new Date();
+			LoadNewsDetail();
+		}
+		else if(previousActiveTabIndex == 2)
+		{
+			now = new Date();
+			LoadBackNewsDetail();
+		}
+		document.getElementById("msg").innerHTML="";
+	}
+	
+	$('#file_tree').on("changed.jstree", function (e, data) {
+		if(data.selected.length) {
+			var node = data.instance.get_node(data.selected[0]);
+			
+			if (node.data.type != undefined){
+				var msg = node.data.msg;
+				var iSubMsg = msg.lastIndexOf("\\",msg.lastIndexOf("\\",msg.lastIndexOf("\\")-1)-1);
+				if (iSubMsg>0)
+					msg = "..."+msg.substr(iSubMsg);
+				
+				document.getElementById("msg").innerHTML=msg;
+			}
+
+			var path = node.data.path;
+			if (IsFilePlaced(path)){
+				path = path.replace(/\\/g,'\\\\');
+				csInterface.evalScript("file_tree_selected('" + path + "')", function(){
+				});
+			}
+		}
+	})
+	
+	$('#back_file_tree').on("changed.jstree", function (e, data) {
+		if(data.selected.length) {
+			var node = data.instance.get_node(data.selected[0]);
+
+			var path = node.data.path;
+			if (IsFilePlaced(path)){
+				path = path.replace(/\\/g,'\\\\');
+				csInterface.evalScript("file_tree_selected('" + path + "')", function(){
+				});
+			}
+		}
+	})
+
+	$('#file_tree').bind("dblclick.jstree", function (event) {
+		var tree = $(this).jstree();
+		var node = tree.get_node(event.target);
+		var path = node.data.path;
+		path = path.replace(/\\/g,'\\\\');
+		var filecode = node.data.filecode;
+		if (!fs.existsSync(node.data.path)) {
+			return;
+		}
+		csInterface.evalScript("file_tree_doubleClickHandler('" + path + "','"  +  filecode + "')", function(){
+			function replaceArticle(event){
+				csInterface.removeEventListener("replace article", replaceArticle);
+				/*var dnode = $("#file_tree").jstree().get_node(node.data.path);
+				HandleDeleteText("")
+				$('#file_tree').jstree().set_type(dnode, "type" + dnode.data.type + "_placed")
+				var obj = new Object();
+				obj.path = node.data.path;
+				typeset.placed_file.push(obj);*/
+				UpdateTreeIcon();
+			}
+			csInterface.removeEventListener("replace article", replaceArticle);
+			csInterface.addEventListener("replace article", replaceArticle);
+		});
+	});
+
+	var selectedNode = "";
+	$('#file_tree').on("hover_node.jstree", function (e, data) {
+		UpdateTreeIcon(true);
+		var node_data = data.node;
+		selectedNode = node_data;
+	});
+	
+	function onDragStart(event) {
+		var ext = selectedNode.data.path.split('.').pop();
+		if (selectedNode == undefined || selectedNode == null || selectedNode == "" || !fs.existsSync(selectedNode.data.path) || (bMP() && ext.toLowerCase() == "txt" && !SettingData.allowDragArticle)) {
+			event.preventDefault();
+		}
+		event.dataTransfer.clearData();
+		return true;
+	}
+
+	function onDragEnd(evt) {
+		if(!selectedNode.id)
+			return;
+		
+		var path = selectedNode.data.path;
+		var filecode = selectedNode.data.filecode;
+		var newpath = path.replace(/\\/g,'\\\\');
+		if(IsFilePlaced(path)){
+			csInterface.requestOpenExtension("founder.Compose.yesNoCancelDialog");
+			function layoutdata(event){
+				csInterface.removeEventListener("need layout text", layoutdata);
+				setTimeout( function(){
+					var event = new CSEvent("return layout text", "APPLICATION");
+					var data = new Object();
+					data.label = "選取項目已在版上，是否繼續?";
+					data.yes = "是";
+					data.no = "否";
+					data.cancel = "";
+					event.data = data;
+					csInterface.dispatchEvent(event);
+				},400);
+			}
+			csInterface.removeEventListener("need layout text", layoutdata);
+			csInterface.addEventListener("need layout text", layoutdata);
+
+			function yesNoResult(result){
+				csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+				if (result.data == "Yes"){
+					$('#file_tree').jstree().set_type(selectedNode, "type" + selectedNode.data.type + "_placed")
+					csInterface.evalScript("PlaceFile('" + newpath + "|" + filecode + "')", function(){
+						var obj = new Object();
+						obj.path = path;
+						typeset.placed_file.push(obj);
+						selectedNode = {}
+					});
+				}
+			}
+			csInterface.removeEventListener("return YesNoCancel Result", yesNoResult);
+			csInterface.addEventListener("return YesNoCancel Result", yesNoResult);
+			return true;
+		}
+		
+		//$('#file_tree').jstree().set_type(node, "type" + node.data.type + "_placed")
+		csInterface.evalScript("PlaceFile('" + newpath + "|" + filecode + "')", function(){
+			$('#file_tree').jstree().set_type(selectedNode, "type" + selectedNode.data.type + "_placed")
+			var obj = new Object();
+			obj.path = path;
+			typeset.placed_file.push(obj);
+			var event = new CSEvent("Set Typeset Data", "APPLICATION");
+			event.data = typeset;
+			csInterface.dispatchEvent(event);
+			selectedNode = {}
+		});
+		return true;
+	}
+	/*	
+	function delBackTreeItem(event){
+		if (back_file_tree == null || back_file_tree.selectedItems == null)
+			return;
+		if(event.keyCode == Keyboard.DELETE){
+			try
+			{
+				var node = back_file_tree.selectedItems;	
+				if( node.length == 0 )
+					return;
+				var childrenList = XMLList(back_file_tree.selectedItem.parent()).children(); 
+				for(var i=node.length-1; i>=0; i--){
+					for(var j=children.length()-1; j>=0; j--){
+						if( children[j] == node[i]) { 
+							for (var k = typeset.placed_file.length - 1; k >= 0; k--){
+								var bFind = false;
+								for each (var x in node[i].item)
+								{
+									if (x.@path == typeset.placed_file[k].path)
+									{
+										typeset.placed_file.removeItemAt(k);
+										bFind = true;
+										break
+									}
+								}
+								if (!bFind && node[i].@path == typeset.placed_file[k].path)
+								{
+									typeset.placed_file.removeItemAt(k);
+									break;
+								}
+							}
+							delete children[j];
+							typeset.back_list.removeItemAt(j);
+							app.activeDocument.insertLabel('temp',",");
+						} 
+					}
+				}
+			}
+			catch (e){}
+		}
+	}*/
+	
+	function onTimer(evt) {
+		clearInterval(timer);
+		now = new Date();
+		document.getElementById("btnRefresh").disabled="disabled";
+		if (previousActiveTabIndex == 1)
+			LoadNewsDetail();
+		else if (previousActiveTabIndex == 2)
+			LoadBackNewsDetail();
+		timer = setInterval(onTimer, SettingData.refresh_time*60*1000)
+	}
+
+	function getPlacedFile(callback) {
+		csInterface.evalScript("getPlacedFile()", function(placed_file){
+			typeset.placed_file = [];
+			var placedlist = placed_file.split("|");
+			
+			for (var i = 0; i < placedlist.length; i++){
+				if (placedlist[i] == "")
+					continue;
+				var obj = new Object();
+				obj.path = placedlist[i];
+
+				typeset.placed_file.push(obj);
+			}
+
+			callback();
+		});
+	}
+
+	csInterface.addEventListener("UpdateTreeIcon", function (event){
+		UpdateTreeIcon();
+	});
+
+	function UpdateTreeIcon(placed = false) {
+		getPlacedFile(function(){
+			var treeData = $('#file_tree').jstree().get_node("#");
+			traverse(treeData, placed); 
+		});
+	}
+
+	function traverse(node, placed) {
+		for (var i=0, len = node.children.length; i<len; i++) {
+			var childNode = $("#file_tree").jstree().get_node(node.children[i]);
+			var find = false;
+			var fileStatus = "";
+			if (IsFilePlaced(childNode.data.path))
+				fileStatus = "_placed";
+			else if (placed && childNode.type == "type" + childNode.data.type + "_not_exist")
+				fileStatus = "_not_exist";
+			else if (!placed && !fs.existsSync(childNode.data.path))
+				fileStatus = "_not_exist";
+			$('#file_tree').jstree().set_type(childNode, "type" + childNode.data.type + fileStatus);
+			traverse(childNode, placed);
+		}         
+	}
+
+	csInterface.addEventListener("HandleDeleteText", function (event){
+		HandleDeleteText(event.data);
+	});
+
+	function HandleDeleteText(path)  {
+		var storieslist = path.split("|");
+		for (var i = typeset.placed_file.length - 1; i >= 0; i--){
+			var find = false;
+			var obj = typeset.placed_file[i];
+			for (var j = storieslist.length - 1; j >= 0 ; j--){
+				if (storieslist[j] == "")
+					continue;
+				var story = storieslist[j].split("*");
+				if (obj.path == story[0])
+				{
+					find = true;
+					break;
+				}
+			}
+			if (!find)
+			{
+				typeset.placed_file.splice(i,1);
+				var node = $("#file_tree").jstree().get_node(obj.path);
+				if (node != false)
+					$('#file_tree').jstree().set_type(node, "type" + node.data.type);
+				var event = new CSEvent("Set Typeset Data", "APPLICATION");
+				event.data = typeset;
+				csInterface.dispatchEvent(event);
+
+				var node1 = $("#back_file_tree").jstree().get_node(obj.path);
+				if (node1 != false)
+					$('#back_file_tree').jstree().delete_node($("#back_file_tree").jstree().get_node(obj.path));
+			}
+		}
+	}
+			
+	function IsFilePlaced(path)  {
+		var find = false;
+		for (var i=0; i < typeset.placed_file.length; i++) {
+			if (typeset.placed_file[i].path === path) {
+				find = true;
+				return find;
+			}
+		}
+		return find;
+	}
+			
+	function expandTree(node)
+	{
+		for (var i=0, len = node.children.length; i<len; i++) {
+			var childNode = $("#file_tree").jstree().get_node(node.children[i]);
+			if (bMP() && (childNode.data.type == 0 || childNode.data.type == "group" || childNode.data.type == 1 && IsFilePlaced(childNode.data.path)))
+				$("#file_tree").jstree("open_node", childNode);
+		
+			expandTree(childNode);
+		}
+	}
+
+	function ArrayDiff(array1,array2){
+		var result=[];
+		var bFind;
+		for (var i=0; i < array1.length; i++) {
+			bFind = false;
+			for (var j=0; j<array2.length;j++){
+				if(array2[j]==array1[i]){
+					bFind = true;
+					break;
+				}
+			}
+			if (bFind == false)
+				result.push(array1[i]);
+		}
+		return result;
+	}
+	
+	</script>
+</body>
+
+</html>

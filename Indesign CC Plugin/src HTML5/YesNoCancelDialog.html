@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<title></title>
+</head>
+
+<body onkeyup="_key(event)">
+<table align="center" style="width: 100%">
+	<tr>
+		<td align="center" id="label">
+		</td>
+	</tr>
+</table>
+<br><br>
+<table align="center" style="width: 100%">
+	<tr>
+		<td align="center"><input id="yes_button" type="button" value="" style="display:none;" onclick="onClickYes()">
+		</td>
+		<td align="center"><input id="no_button" type="button" value="" style="display:none;" onclick="onClickNo()"></td>
+		</td>
+		<td align="center"><input id="cancel_button" type="button" value="" style="display:none;" onclick="onClickCancel()"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("yes_button").click();
+	}
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	var csInterface = new CSInterface();
+	var event = new CSEvent("need layout text", "APPLICATION");
+	csInterface.dispatchEvent(event);
+
+	function layoutdata(event){
+		csInterface.removeEventListener("return layout text", layoutdata);
+		var label = document.getElementById("label");
+		label.innerHTML = event.data.label;
+		
+		var yes_button = document.getElementById("yes_button");
+		yes_button.value = event.data.yes;
+		if (yes_button.value != "" && yes_button.value != undefined)
+			yes_button.style.display="inline";
+		
+		var no_button = document.getElementById("no_button");
+		no_button.value = event.data.no;
+		if (no_button.value != "" && no_button.value != undefined)
+			no_button.style.display="inline";
+		
+		var cancel_button = document.getElementById("cancel_button");
+		cancel_button.value = event.data.cancel;
+		if (cancel_button.value != "" && cancel_button.value != undefined)
+			cancel_button.style.display="inline";
+	}
+	csInterface.removeEventListener("return layout text", layoutdata);
+	csInterface.addEventListener("return layout text", layoutdata);
+
+
+	function onClickYes()
+	{
+		var csInterface = new CSInterface();
+		var event = new CSEvent("return YesNoCancel Result", "APPLICATION");
+		event.data = "Yes";
+		csInterface.dispatchEvent(event);
+		self.close();
+	};
+
+	function onClickNo()
+	{
+		var csInterface = new CSInterface();
+		var event = new CSEvent("return YesNoCancel Result", "APPLICATION");
+		event.data = "No";
+		csInterface.dispatchEvent(event);
+		self.close();
+	};
+
+	function onClickCancel()
+	{
+		var csInterface = new CSInterface();
+		var event = new CSEvent("return YesNoCancel Result", "APPLICATION");
+		event.data = "Cancel";
+		csInterface.dispatchEvent(event);
+		self.close();
+	};
+
+</script>
+
+</body>
+
+</html>

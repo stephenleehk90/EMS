@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<title>請輸入版面文件名稱</title>
+</head>
+
+<body onkeyup="_key(event)">
+<table align="center" style="width: 100%">
+	<tr>
+		<td>版面日期</td>
+        <td id="layout_date">
+		</td>
+    </tr>
+    <tr>
+		<td>版芯名稱</td>
+        <td id="layout_name">
+		</td>
+    </tr>
+    <tr>
+		<td>版面文件名稱</td>
+        <td><input type="text" id="doc_name_tb" disabled>.indd
+		</td>
+	</tr>
+</table>
+<br><br>
+<table align="center" style="width: 100%">
+	<tr>
+		<td><input id="edit_cb" type="checkbox" onclick="onClickEdit()">修改
+		</td>
+		<td><input id="yes_button" type="button" value="確定" onclick="onClickOk()">
+		</td>
+		<td><input id="cancel_button" type="button" value="退出" onclick="onClickCancel()"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("yes_button").click();
+	}
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("請輸入版面文件名稱");
+	var event = new CSEvent("need layout data", "APPLICATION");
+	csInterface.dispatchEvent(event);
+
+	function layoutdata(event){
+		csInterface.removeEventListener("return layout data", layoutdata);
+		document.getElementById("layout_date").innerHTML = event.data.columnDate;
+		document.getElementById("layout_name").innerHTML = event.data.template;
+		document.getElementById("doc_name_tb").value = event.data.layout_code + event.data.fileDate;
+	}
+	csInterface.removeEventListener("return layout data", layoutdata);
+	csInterface.addEventListener("return layout data", layoutdata);
+
+
+	function onClickOk()
+	{
+		var csInterface = new CSInterface();
+		var event = new CSEvent("return LayoutName Result", "APPLICATION");
+		event.data = document.getElementById("doc_name_tb").value + ".indd";
+		csInterface.dispatchEvent(event);
+		self.close();
+	};
+
+	function onClickCancel()
+	{
+		self.close();
+	};
+
+	function onClickEdit()
+	{
+		if(document.getElementById("edit_cb").checked){
+			document.getElementById("doc_name_tb").disabled="";	
+		}else{
+			document.getElementById("doc_name_tb").disabled="disabled"
+		}
+	}
+
+</script>
+
+</body>
+
+</html>

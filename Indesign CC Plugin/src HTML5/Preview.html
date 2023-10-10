@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<script src="js/main.js"></script>
+<title>生成大樣圖片</title>
+</head>
+
+<body onkeyup="_key(event)">
+<table align="center" style="width: 100%; height:750px">
+	<tr>
+		<td id="container" width="200" height="200">
+			<div class="img-zoom-container">
+				<img id="pip" width="200" height="200">
+			</div>
+			<input type="range" id="scaleSlider" min="1" max="6" value="1" onchange="scaleSlider_changeHandler()">
+		</td>
+		<td>
+			<div id="inspector" style="height:750px; width:750px" class="img-zoom-result" ></div>
+		</td>
+    </tr>
+</table>
+<table align="center">
+	<tr>
+		<td><input id="ok_button" type="button" value="確定" onclick="onClickOK()"></td>
+		<td><input id="reexport_button" type="button" value="重新生成大樣圖片" onclick="onClickReexport()"></td>
+		<td><input id="cancel_button" type="button" value="取消" onclick="onClickCancel()"></td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+function _key(event) { 
+	if(event.keyCode ==13) 
+		document.getElementById("ok_button").click();
+}
+window.oncontextmenu = function(){return false;}
+window.focus();
+
+var csInterface = new CSInterface();
+csInterface.setWindowTitle("生成大樣圖片");
+var event = new CSEvent("need preview data", "APPLICATION");
+csInterface.dispatchEvent(event);
+
+var container = document.getElementById("container");
+var pip = document.getElementById("pip");
+var inspector = document.getElementById("inspector");
+var lens = document.createElement("DIV");
+lens.setAttribute("class", "img-zoom-lens");
+lens.style.height = (pip.height - 2) + "px "
+lens.style.width = (pip.width - 2) + "px "
+pip.parentElement.insertBefore(lens, pip);
+
+var cx, cy, path ="", type = "", PSPath = "";
+
+var img = new Image();
+img.onload = function(){
+	var height = img.height;
+	var width = img.width;
+	
+	var hRadio = pip.height/height;
+	var wRadio = pip.width/width;
+
+	if (hRadio < wRadio)
+		wRadio = hRadio;
+	else
+		hRadio = wRadio;
+	pip.width = wRadio*width;
+	pip.height = hRadio*height;
+
+	cx = inspector.offsetWidth / lens.offsetWidth;
+	cy = inspector.offsetHeight / lens.offsetHeight;
+	inspector.style.backgroundSize = (pip.width * cx) + "px " + (pip.height * cy) + "px";
+	/*execute a function when someone moves the cursor over the image, or the lens:*/
+	lens.addEventListener("mousemove", moveLens);
+	pip.addEventListener("mousemove", moveLens);
+	/*and also for touch screens:*/
+	lens.addEventListener("touchmove", moveLens);
+	pip.addEventListener("touchmove", moveLens);
+  
+	function moveLens(e) {
+	  var pos, x, y;
+	  /*prevent any other actions that may occur when moving over the image:*/
+	  e.preventDefault();
+	  /*get the cursor's x and y positions:*/
+	  pos = getCursorPos(e);
+	  /*calculate the position of the lens:*/
+	  x = pos.x - (lens.offsetWidth / 2);
+	  y = pos.y - (lens.offsetHeight / 2);
+	  /*prevent the lens from being positioned outside the image:*/
+	  if (x > pip.width - lens.offsetWidth) {x = pip.width - lens.offsetWidth;}
+	  if (x < 0) {x = 0;}
+	  if (y > pip.height - lens.offsetHeight) {y = pip.height - lens.offsetHeight;}
+	  if (y < 0) {y = 0;}
+	  /*set the position of the lens:*/
+	  lens.style.left = x + "px";
+	  lens.style.top = y + "px";
+	  /*display what the lens "sees":*/
+	  inspector.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+	}
+  
+	function getCursorPos(e) {
+	  var a, x = 0, y = 0;
+	  e = e || window.event;
+	  /*get the x and y positions of the image:*/
+	  a = pip.getBoundingClientRect();
+	  /*calculate the cursor's x and y coordinates, relative to the image:*/
+	  x = e.pageX - a.left;
+	  y = e.pageY - a.top;
+	  /*consider any page scrolling:*/
+	  x = x - window.pageXOffset;
+	  y = y - window.pageYOffset;
+	  return {x : x, y : y};
+	}
+}
+
+
+function GetPreviewdataFun(event){
+	csInterface.removeEventListener("return preview data", GetPreviewdataFun);
+	var data = event.data;
+	path = data.path;
+	type = data.type;
+	PSPath = data.PSPath;
+	
+	img.src = path;
+	pip.src = img.src;
+	inspector.style.backgroundImage = "url('" + img.src + "')";
+}
+csInterface.removeEventListener("return preview data", GetPreviewdataFun);
+csInterface.addEventListener("return preview data", GetPreviewdataFun);
+
+
+function scaleSlider_changeHandler()
+{
+	var value = document.getElementById('scaleSlider').value;
+	var x, y, h, w;
+	h = container.height/value- 2;
+	w = container.width/value- 2;
+	x = parseInt(lens.style.left);
+	y = parseInt(lens.style.top);
+	if (x + w > container.width - 2)
+		x = container.width - w - 2;
+	else if (x + w > pip.width - 2 && x + w < container.width - 2)
+		x = pip.width - w - 2;
+	if (y + h> container.height - 2)
+		y = container.height - h - 2;
+	else if (y + h> pip.height - 2 && y + h> container.height - 2)
+		y = pip.height - h - 2;
+	lens.style.left = x + "px";
+	lens.style.top = y + "px";
+	lens.style.height = h + "px "
+	lens.style.width = w + "px "
+	cx = inspector.offsetWidth / lens.offsetWidth;
+	cy = inspector.offsetHeight / lens.offsetHeight;
+	inspector.style.backgroundSize = (pip.width * cx) + "px " + (pip.height * cy) + "px";
+	inspector.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+}
+
+function onClickOK(event)
+{
+	var local_file = path;
+	local_file = local_file.replace(/\\/g,'\\\\');
+	var server_file = PSPath;
+	server_file = server_file.replace(/\\/g,'\\\\');
+	csInterface.evalScript("previewResult('ok," + type + "," + local_file +  "," + server_file + "')", function(){
+		close();
+	});
+}
+
+function onClickCancel(event)
+{
+	csInterface.evalScript("previewResult('cancel," + type + "')", function(){
+		close();
+	});
+}
+			
+function onClickReexport(event)
+{
+	var local_file = path;
+	local_file = local_file.replace(/\\/g,'\\\\');
+	csInterface.evalScript("previewResult('reexport," + type + "," + local_file + "')", function(){
+		pip.src = path + "#" + new Date().getTime();
+		inspector.style.backgroundImage = "url('" + pip.src + "')";
+	});
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+﻿<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/main.js"></script>
+<script src="js/setting.js"></script>
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<title>選擇身份</title>
+</head>
+
+<body onkeyup="_key(event)">
+
+<table align="center" style="width: 100%">
+	<tr style="width: 100%">
+		<td>請選擇主要身份: </td>
+	</tr>
+</table>
+<select id = "group_list"  size = "5" align="center" style="width: 100%">
+</select>
+<br><br><br>
+<table align="center" style="width: 100%">
+	<tr>
+		<td align="center"><input id="SelectAll_button" type="button" value="全選" onclick="onClickSelectAll()">
+		</td>
+		<td align="center"><input id="DeselectAll_button" type="button" value="清除選擇" onclick="onClickDeselectAll()">
+		</td>
+		<td align="center"><input id="ok_button" type="button" value="確定" onclick="onClickOK()" autofocus>
+		</td>
+		<td align="center"><input id="cancel_button" type="button" value="退出" onclick="onClickClose()"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("ok_button").click();
+	}
+	var LoginData;
+	var SettingData = LoadSettingXML();
+
+	document.getElementById("group_list").multiple = bMP();
+	if (!bMP())
+    {
+		document.getElementById("SelectAll_button").style.display="none";
+		document.getElementById("DeselectAll_button").style.display="none";
+	}
+
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("選擇身份");
+	var event = new CSEvent("need logindata", "APPLICATION");
+	csInterface.dispatchEvent(event);
+
+	function GetLogindataFun(event){
+		csInterface.removeEventListener("return logindata", GetLogindataFun);
+
+		LoginData = event.data;
+
+		var splitRole = [];
+		if (SettingData.role != undefined)
+			splitRole = SettingData.role.split(',');
+
+		SetLoginData(event.data);
+		
+		if (LoginData == undefined || LoginData.action != "changeRole")
+		{
+			var event = new CSEvent("Logout", "APPLICATION");
+            event.data = GetLoginData();
+            csInterface.dispatchEvent(event);
+		}
+
+
+		Load("role",null,function(xml){
+			var parser;
+			parser = new DOMParser();
+			var xmlDoc = parser.parseFromString(xml,"text/xml");
+			var x = xmlDoc.getElementsByTagName("group");
+			for (i = 0; i < x.length ;i++) {
+				var option = document.createElement("option");
+  				option.text = x[i].getElementsByTagName("lib_name")[0].innerHTML + " " + x[i].getElementsByTagName("group_name")[0].innerHTML;
+				option.value = x[i].getElementsByTagName("group_id")[0].innerHTML;
+				group_list.add(option);
+
+				for (var j = 0; j < splitRole.length; j++)
+				{
+					if (option.value == splitRole[j])
+					{
+						option.selected = true;;
+					}
+				}
+			}
+		});
+
+	}
+	csInterface.removeEventListener("return logindata", GetLogindataFun);
+	csInterface.addEventListener("return logindata", GetLogindataFun);
+
+	function onClickOK()
+	{
+		if (group_list.selectedIndex < 0)
+			return;
+		
+		var role = "";
+		var roleName = "";
+		for (var i = 0; i < group_list.length; i++) {
+			if (group_list.options[i].selected)
+			{
+				role += "," + group_list.options[i].value;
+				roleName += "," + group_list.options[i].text;
+			}
+		}
+		role = role.substr(1);
+		roleName = roleName.substr(1);
+		LoginData.role = role;
+		LoginData.roleName = roleName;
+		
+		var event = new CSEvent("logindata", "APPLICATION");
+		event.data = LoginData;
+		csInterface.dispatchEvent(event);
+
+		SettingData = LoadSettingXML()
+		SettingData.username = LoginData.username;
+		SettingData.server_name = LoginData.server;
+		SettingData.role = role;
+		SaveSettingXML(SettingData);
+		if (LoginData.action == "compose")
+		{
+			csInterface.requestOpenExtension("founder.Compose.newsroomDialog", "");
+		}
+		else if (LoginData.action == "preCompose")
+		{
+			csInterface.requestOpenExtension("founder.Compose.templateDialog", "");
+		}
+		else if (LoginData.action == "changePassword")
+		{
+			csInterface.requestOpenExtension("founder.Compose.changePasswordDialog", "");
+		}
+		else if (LoginData.action == "setting")
+		{
+			csInterface.requestOpenExtension("founder.Compose.setting", "");
+		}
+		self.close();
+	};
+
+	function onClickSelectAll()
+	{
+		for (var i = 0; i < group_list.length; i++)
+		{
+			group_list[i].selected = true;
+		}
+	}
+
+	function onClickDeselectAll()
+	{
+		for (var i = 0; i < group_list.length; i++)
+		{
+			group_list[i].selected = false;
+		}
+	}
+
+	function onClickClose()
+	{
+		self.close()
+	}
+
+</script>
+
+</body>
+
+</html>

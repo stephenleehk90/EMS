@@ -1,0 +1,359 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/main.js"></script>
+<script src="js/setting.js"></script>
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<title>選項</title>
+</head>
+
+<body onkeyup="_key(event)">
+
+<div>
+	<span style="color: #ce9178;">一般</span>
+	<hr>
+	<table>
+		<tr>
+			<td style="width: 200px">本地檔案暫存路徑</td>
+			<td align="center"><input id="local_temp" type="text"></td>
+		</tr>
+	</table>
+	<table id ="sub">
+		<tr>
+			<td style="width: 50px">子目錄</td>
+			<td style="width: 100px">
+			<select id="sub_path" size="1" style="width: 100%">
+			<option>DATE\CODE</option>
+			<option>CODE\DATE</option>
+			<option>CODE</option>
+			<option>DATE</option>
+			</select></td>
+			<td style="width: 70px">日期格式</td>
+			<td style="width: 100px">
+			<select id="dateFmt" size="1" style="width: 100%">
+			<option>NONE</option>
+			<option>MM$DD</option>
+			<option>MMDDYYYY</option>
+			<option>DDMMYYYY</option>
+			<option>YYYYMMDD</option>
+			<option>DD</option>
+			</select></td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td style="width: 200px"><input id="font_ckb" type="checkbox" onclick="onclick_font_ckb()"><label for="font_ckb">置入稿件默認字型</label></td>
+			<td><select id="font_cb" size="1" style="width: 200px"></select></td>
+		</tr>
+		<tr>
+			<td style="width: 200px">文件列表尺寸</td>
+			<td><input id="document_width" style="width: 60px" type="text">X<input id="document_height" style="width: 60px" type="text"></td>
+		</tr>
+		<tr>
+			<td style="width: 200px">自動刷新</td>
+			<td><input id="refresh_time" style="width: 60px" type="text">分鐘</td>
+		</tr>
+	</table>
+</div>
+<br>
+<div>
+	<span style="color: #ce9178;">PDF輸出設置</span>
+	<hr>
+	<table>
+		<tr>
+			<td style="width: 200px">Adobe PDF 預設集</td>
+			<td style="width: 200px"><select id="pdf_cb" size="1" style="width: 100%"></select></td>
+		</tr>
+		<tr id="pdf_prefix_format">
+			<td><input id="pdf_prefix_ckb" type="checkbox" onclick="onclick_pdf_prefix_ckb()"><label for="pdf_prefix_ckb">輸出字首</label></td>
+			<td><input id="pdf_prefix" type="text"> </td>
+		</tr>
+		<tr id="pdf_suffix_format">
+			<td><input id="pdf_suffix_ckb" type="checkbox" onclick="onclick_pdf_suffix_ckb()"><label for="pdf_suffix_ckb">輸出字尾</label></td>
+			<td><input id="pdf_suffix" type="text"></td>
+		</tr>
+	</table>
+</div>
+<br>
+<div>
+	<span style="color: #ce9178;">大樣圖案設置</span>
+	<hr>
+	<table>
+		<tr>
+			<td style="width: 200px">生成大樣圖案</td>
+			<td style="width: 200px"><input id="save_jpg_ckb" type="checkbox"><label for="save_jpg_ckb">保存</label></td>
+			<td style="width: 200px">
+			<input id="complete_jpg_ckb" type="checkbox"><label for="complete_jpg_ckb">完成組版</label></td>
+		</tr>
+		<tr>
+			<td style="width: 200px">生成大樣預覽</td>
+			<td style="width: 200px">
+			<input id="jpg_preview_save_ckb" type="checkbox"><label for="jpg_preview_save_ckb">保存</label></td>
+			<td style="width: 200px">
+			<input id="jpg_preview_ckb" type="checkbox"><label for="jpg_preview_ckb">完成組版</label></td>
+		</tr>
+		<tr>
+			<td style="width: 200px">大樣品質</td>
+			<td style="width: 200px"><select id="jpg_quality_cb" size="1" style="width: 100%">
+			<option>最高</option>
+			<option>高</option>
+			<option>中</option>
+			<option>低</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td style="width: 200px">DPI</td>
+			<td style="width: 200px"><select id="jpg_ppi" size="1" style="width: 100%">
+			<option>72</option>
+			<option>96</option>
+			<option>150</option>
+			<option>300</option>
+			<option>600</option>
+			<option>1200</option>
+			<option>2400</option>
+			</select></td>
+		</tr>
+	</table>
+</div>
+<br><br>
+<div>
+	<span style="color: #ce9178;">版面列表</span>
+	<hr>
+	<table>
+		<tr>
+			<td><input id="code_ckb" type="checkbox"><label for="code_ckb">顯示版面代碼</label></td>
+		</tr>
+		<tr id="template">
+			<td><input id="template_ckb" type="checkbox"><label for="template_ckb">默認版心</label></td>
+			<td style="width: 200px"><select id="template_cb" size="1" style="width: 100%">
+			</select></td>
+		</tr>
+	</table>
+</div>
+<br>
+<div>
+	<span style="color: #ce9178;">日誌選項</span>
+	<hr>
+	<table>
+		<tr>
+			<td><input id="normalLog_ckb" type="checkbox"><label for="normalLog_ckb">一般操作</label></td>
+			<td><input id="systemLog_ckb" type="checkbox"><label for="systemLog_ckb">本機效能</label></td>
+			<td><input id="composeCompleteLog_ckb" type="checkbox"><label for="composeCompleteLog_ckb">組版完畢</label></td>
+		</tr>
+	</table>
+</div>
+<br><br><br>
+<table style="width: 100%">
+	<tr>
+		<td align="center">
+		<input id="ok_button" onclick="onClickOK()" type="button" value="確定">
+		</td>
+		<td align="center">
+		<input id="cancel_button" onclick="self.close()" type="button" value="退出"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+try{
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("ok_button").click();
+	}
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	var SettingData = LoadSettingXML();
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("選項");
+	var event = new CSEvent("need logindata", "APPLICATION");
+	csInterface.dispatchEvent(event);
+
+	csInterface.evalScript('getPdfExportPresets()', function(pdf){
+		var splitPdf = pdf.split('_|_');
+        for (var i = 0; i < splitPdf.length - 1; i++)
+        {
+			var option = document.createElement("option");
+			option.text = splitPdf[i];
+			pdf_cb.add(option);
+		}
+		document.getElementById('pdf_cb').value = SettingData.pdf;
+	});
+	
+	csInterface.evalScript('getFonts()', function(fonts){
+		var splitFonts = fonts.split('_|_');
+
+        for (var i = 0; i < splitFonts.length - 1; i++)
+        {
+			var option = document.createElement("option");
+			splitFonts[i] = splitFonts[i].replace("\t","\xA0\xA0\xA0")
+			option.text = splitFonts[i];
+			font_cb.add(option);
+		}
+		document.getElementById('font_cb').value = SettingData.font;
+	});
+
+	document.getElementById('local_temp').value = SettingData.local_temp;
+	document.getElementById('font_ckb').checked = SettingData.fontDefault;
+	document.getElementById('font_cb').value = SettingData.font;
+	if (SettingData.font == "PMingLiU\xA0\xA0\xA0Regular" && document.getElementById('font_cb').value == "")
+	{
+		SettingData.font = "新細明體\xA0\xA0\xA0Regular";
+		document.getElementById('font_cb').value = SettingData.font;
+	}
+	onclick_font_ckb();
+	document.getElementById('document_height').value = SettingData.document_height;
+	document.getElementById('document_width').value = SettingData.document_width;
+	document.getElementById('refresh_time').value = SettingData.refresh_time;
+
+	document.getElementById('pdf_cb').value = SettingData.pdf;
+
+	document.getElementById('save_jpg_ckb').checked = SettingData.save_jpg;
+	document.getElementById('complete_jpg_ckb').checked = SettingData.complete_jpg;
+	document.getElementById('jpg_preview_save_ckb').checked = SettingData.jpg_preview_save;
+	document.getElementById('jpg_preview_ckb').checked = SettingData.jpg_preview;
+	document.getElementById("jpg_quality_cb").selectedIndex = SettingData.jpg_quality - 1;
+	document.getElementById("jpg_ppi").value = SettingData.jpg_ppi;
+
+	document.getElementById('code_ckb').checked = SettingData.layoutCode;
+	
+	document.getElementById('normalLog_ckb').checked = SettingData.normalLog;
+	document.getElementById('systemLog_ckb').checked = SettingData.systemLog;
+	document.getElementById('composeCompleteLog_ckb').checked = SettingData.composeCompleteLog;
+	
+	if (bMP())
+    {
+		document.getElementById("template").style.display="none";
+		document.getElementById("sub_path").selectedIndex = SettingData.subPath;
+		document.getElementById("dateFmt").selectedIndex = parseInt(SettingData.dateFmt);
+		
+		document.getElementById('pdf_prefix_ckb').checked = SettingData.pdf_prefix_ckb == "true";
+		document.getElementById('pdf_prefix').value = SettingData.pdf_prefix;
+		onclick_pdf_prefix_ckb();
+		document.getElementById('pdf_suffix_ckb').checked = SettingData.pdf_suffix_ckb == "true";
+		document.getElementById('pdf_suffix').value = SettingData.pdf_suffix;
+		onclick_pdf_suffix_ckb();
+	}
+	else
+	{
+		document.getElementById("sub").style.display="none";
+		document.getElementById("pdf_prefix_format").style.display="none";
+		document.getElementById("pdf_suffix_format").style.display="none";
+
+		function logindata(event){
+			csInterface.removeEventListener("return logindata", logindata);
+			SetLoginData(event.data);
+			Load("newsroom2",null,function(xml){
+			try{
+				var parser;
+				parser = new DOMParser();
+				var xmlDoc = parser.parseFromString(xml,"text/xml");
+				var filesPath=TemplateFilesPath("0", xmlDoc);
+				var fs = require('fs');
+				fs.readdir(filesPath, (err, files) => {
+					files.forEach(file => {
+						var path = require('path');
+						if (path.extname(file)==".indt"  || (bMP() && (path.extname(file)=="indd")))
+						{
+							var option = document.createElement("option");
+  							option.text = file;
+							template_cb.add(option);
+						}
+					});
+					document.getElementById('template_cb').value = SettingData.template;
+					if (document.getElementById('template_cb').value != "")
+						document.getElementById('template_ckb').checked = true;
+				});
+			}
+			catch(err)
+			{
+				ErrorLog(err.message,true,0);
+			}
+			});
+		}
+		csInterface.removeEventListener("return logindata", logindata);
+		csInterface.addEventListener("return logindata", logindata);
+	}
+
+	function onClickOK()
+	{
+		SettingData.local_temp = document.getElementById('local_temp').value;
+		SettingData.fontDefault = document.getElementById('font_ckb').checked;
+		SettingData.font = document.getElementById('font_cb').value;
+		SettingData.document_height = document.getElementById('document_height').value;
+		SettingData.document_width = document.getElementById('document_width').value;
+		SettingData.refresh_time = document.getElementById('refresh_time').value;
+
+		SettingData.pdf = document.getElementById('pdf_cb').value;
+
+		SettingData.save_jpg = document.getElementById('save_jpg_ckb').checked ;
+		SettingData.complete_jpg = document.getElementById('complete_jpg_ckb').checked;
+		SettingData.jpg_preview_save = document.getElementById('jpg_preview_save_ckb').checked;
+		SettingData.jpg_preview = document.getElementById('jpg_preview_ckb').checked;
+		SettingData.jpg_quality= document.getElementById("jpg_quality_cb").selectedIndex + 1;
+		SettingData.jpg_ppi = document.getElementById("jpg_ppi").value;
+
+		SettingData.layoutCode = document.getElementById('code_ckb').checked;
+	
+		SettingData.normalLog = document.getElementById('normalLog_ckb').checked;
+		SettingData.systemLog = document.getElementById('systemLog_ckb').checked;
+		SettingData.composeCompleteLog = document.getElementById('composeCompleteLog_ckb').checked;
+	
+		if (bMP())
+		{
+			SettingData.subPath = document.getElementById("sub_path").selectedIndex;
+			SettingData.dateFmt = document.getElementById("dateFmt").selectedIndex + document.getElementById("dateFmt").value;
+			
+			SettingData.pdf_prefix_ckb = document.getElementById('pdf_prefix_ckb').checked;
+			SettingData.pdf_prefix = document.getElementById('pdf_prefix').value;
+			SettingData.pdf_suffix_ckb = document.getElementById('pdf_suffix_ckb').checked;
+			SettingData.pdf_suffix = document.getElementById('pdf_suffix').value;
+		}
+		else
+		{
+			if (document.getElementById('template_ckb').checked)
+				SettingData.template = document.getElementById('template_cb').value;
+			else
+				SettingData.template = "";
+		}
+		SaveSettingXML(SettingData);
+		
+		var event = new CSEvent("update SettingData", "APPLICATION");
+		csInterface.dispatchEvent(event);
+		self.close();
+	};
+
+	function onclick_font_ckb(){
+		if (document.getElementById('font_ckb').checked)
+			document.getElementById("font_cb").disabled="";
+		else
+			document.getElementById("font_cb").disabled="disabled";
+	};
+
+	function onclick_pdf_prefix_ckb(){
+		if (document.getElementById('pdf_prefix_ckb').checked)
+			document.getElementById("pdf_prefix").disabled="";
+		else
+			document.getElementById("pdf_prefix").disabled="disabled";
+	};
+
+	function onclick_pdf_suffix_ckb(){
+		if (document.getElementById('pdf_suffix_ckb').checked)
+			document.getElementById("pdf_suffix").disabled="";
+		else
+			document.getElementById("pdf_suffix").disabled="disabled";
+	};
+	
+}
+catch(e)
+{
+	ErrorLog(e.message,true,0)
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<link href="css/topcoat-desktop-dark.min.css" rel="stylesheet">
+<link id="hostStyle" href="css/styles.css" rel="stylesheet">
+<script src="js/main.js"></script>
+<script src="js/themeManager.js"></script>
+<script src="js/libs/CSInterface.js"></script>
+<title>選擇身份</title>
+</head>
+
+<body onkeyup="_key(event)">
+
+<table align="center" style="width: 100%">
+	<tr>
+		<td>當前身份: </td>
+		<td id="CurrentRole"></td>
+	</tr>
+	<tr style="width: 100%">
+		<td><br>選擇登錄身份: </td>
+	</tr>
+</table>
+<select id="group_list" align="center" size="5" style="width: 100%"></select>
+<br><br>
+<table align="center" style="width: 100%">
+	<tr>
+		<td>
+		<input id="ok_button" onclick="onClickOK()" type="button" value="確定" onkeyup="_key(event)">
+		</td>
+		<td>
+		<input id="cancel_button" onclick="self.close()" type="button" value="退出"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+	function _key(event) { 
+		if(event.keyCode ==13) 
+			document.getElementById("ok_button").click();
+	}
+	window.oncontextmenu = function(){return false;}
+	window.focus();
+	var LoginData;
+	
+	var csInterface = new CSInterface();
+	csInterface.setWindowTitle("選擇身份");
+	var event = new CSEvent("need logindata", "APPLICATION");
+	csInterface.dispatchEvent(event);
+
+	function GetLogindataFun(event){
+		csInterface.removeEventListener("return logindata", GetLogindataFun);
+		LoginData = event.data;
+
+		document.getElementById("group_list").multiple = bMP();
+		document.getElementById("CurrentRole").innerHTML = LoginData.roleName;
+
+
+		var splitRole = LoginData.role.split(',');
+
+		SetLoginData(event.data);
+		Load("role",null,function(xml){
+			var parser;
+			parser = new DOMParser();
+			var xmlDoc = parser.parseFromString(xml,"text/xml");
+			var x = xmlDoc.getElementsByTagName("group");
+			for (i = 0; i < x.length ;i++) {
+				var bFind = false;
+				for (var j = 0; j < splitRole.length; j++)
+				{
+					if (x[i].getElementsByTagName("group_id")[0].innerHTML == splitRole[j])
+					{
+						bFind = true;
+						break;
+					}
+				}
+				if (!bFind)
+				{
+					var option = document.createElement("option");
+					option.text = x[i].getElementsByTagName("lib_name")[0].innerHTML + " " + x[i].getElementsByTagName("group_name")[0].innerHTML;
+					option.value = x[i].getElementsByTagName("group_id")[0].innerHTML;
+					group_list.add(option);
+				}
+			}
+		});
+	}
+	csInterface.removeEventListener("return logindata", GetLogindataFun);
+	csInterface.addEventListener("return logindata", GetLogindataFun);
+
+	function onClickOK()
+	{
+		if (group_list.selectedIndex < 0)
+			return;
+		
+		var role = "";
+		var roleName = "";
+		for (var i = 0; i < group_list.length; i++) {
+			if (group_list.options[i].selected){
+				role += "," + group_list.options[i].value;
+				roleName += "," + group_list.options[i].text;
+			}
+		}
+		role = role.substr(1);
+		roleName = roleName.substr(1);
+		LoginData.role = role;
+		LoginData.roleName = roleName;
+
+		var event = new CSEvent("logindata", "APPLICATION");
+		event.data = LoginData;
+		csInterface.dispatchEvent(event);
+
+		self.close();
+	};
+
+</script>
+
+</body>
+
+</html>
