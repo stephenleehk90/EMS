@@ -1,0 +1,108 @@
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select getdate()
+end log!
+start error log:
+ time:2
+ select name from master..sysdatabases where dbid>4
+end log!
+start error log:
+ time:2
+ select name from master..sysdatabases where dbid>4
+end log!
+start error log:
+ time:2
+ select name from master..sysdatabases where dbid>4
+end log!
+start error log:
+ time:2
+ select name from master..sysdatabases where dbid>4
+end log!
