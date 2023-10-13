@@ -1,0 +1,1993 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Traditional, Taiwan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
+#pragma code_page(950)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 1\r\n"
+    "#pragma code_page(950)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\FileManage.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.cht\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 6,1,11165,0
+ PRODUCTVERSION 6,1,11165,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040404b0"
+        BEGIN
+            VALUE "FileDescription", "FileManage DLL"
+            VALUE "FileVersion", "6.1.11165.0"
+            VALUE "InternalName", "FileManage"
+            VALUE "LegalCopyright", "Copyright (C) 2004"
+            VALUE "OriginalFilename", "FileManage.DLL"
+            VALUE "ProductName", "FileManage Dynamic Link Library"
+            VALUE "ProductVersion", "6.1.11165.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x404, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_DOFILETOOLBAR TOOLBAR 16, 17
+BEGIN
+    BUTTON      IDC_TIME_COMBO
+    BUTTON      IDC_FILE_COMBO
+    SEPARATOR
+    BUTTON      IDT_EDIT
+    BUTTON      ID_GETFILE
+    BUTTON      IDT_TRANSFERFILE
+    BUTTON      IDT_ATTACH
+    SEPARATOR
+    BUTTON      ID_SPELLCHECK
+    BUTTON      IDT_SENDTRANSLATE
+    BUTTON      IDT_SIGNCOLOUMN
+    BUTTON      ID_SIGNDIRECT
+    SEPARATOR
+    BUTTON      ID_LINKTODM
+    BUTTON      ID_UNLINKTODM
+    SEPARATOR
+    BUTTON      IDT_DELETE
+    BUTTON      ID_BTNPRINT
+    BUTTON      ID_DUMMY_BUTTON
+    BUTTON      ID_REFRESHFILE
+    SEPARATOR
+    BUTTON      ID_TOTALDLG
+END
+
+IDR_DOCOLTOOLBAR TOOLBAR 16, 17
+BEGIN
+    BUTTON      IDT_SELECTDATE
+    BUTTON      IDT_SELECTPAPER
+    SEPARATOR
+    BUTTON      IDT_MODIFYCOL
+    BUTTON      IDT_TRANSPAPER
+    BUTTON      IDT_ROLLBACK
+    BUTTON      IDT_ATTACH
+    SEPARATOR
+    BUTTON      IDT_SIGNPAPER
+    BUTTON      IDT_BACKFILE
+    SEPARATOR
+    BUTTON      ID_PRINT
+    BUTTON      ID_DUMMY_BUTTON
+    BUTTON      ID_REFRESHFILE
+    SEPARATOR
+    BUTTON      ID_TOTALFILE
+END
+
+IDR_EDITTOOLBAR TOOLBAR 16, 16
+BEGIN
+    BUTTON      ID_DO_COMMIT
+    SEPARATOR
+    BUTTON      ID_EDIT_UNDO
+    BUTTON      ID_EDIT_REDO
+    BUTTON      ID_DO_MODIFY
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT_PREVIEW
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_FILE_PICTURE
+    BUTTON      ID_WORD_CHECK
+    BUTTON      ID_SWITCH_MODE
+    BUTTON      ID_ADD_STORY
+    BUTTON      ID_COMBO
+    SEPARATOR
+    BUTTON      ID_MSGDLG
+END
+
+IDR_EDITTOOLBAR1 TOOLBAR 16, 16
+BEGIN
+    BUTTON      ID_DO_COMMIT
+    SEPARATOR
+    BUTTON      ID_EDIT_UNDO
+    BUTTON      ID_EDIT_REDO
+    BUTTON      ID_DO_MODIFY
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_SEARCHANDREPLACE
+    BUTTON      ID_SCANNING
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT_PREVIEW
+    BUTTON      ID_FILE_PRINT
+END
+
+IDR_PICVIEWTOOLBAR TOOLBAR 16, 16
+BEGIN
+    BUTTON      IDR_PICINITSIZE
+    BUTTON      IDR_PICZOOMIN
+    BUTTON      IDR_PICZOOMOUT
+    SEPARATOR
+    BUTTON      IDR_PICVIEWPRE
+    BUTTON      IDR_PICVIEWNEXT
+END
+
+IDR_MODIFYTOOLBAR TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_UP
+    BUTTON      ID_DOWN
+    BUTTON      ID_RIGHT
+    BUTTON      ID_LEFT
+    BUTTON      ID_DOUP
+    BUTTON      ID_ZEROC
+    BUTTON      ID_ZEROF
+    BUTTON      ID_DIVIDE
+    BUTTON      ID_MULTIPLY
+    BUTTON      ID_ZONE
+    BUTTON      ID_DEL_MARK
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_DOFILETOOLBAR       BITMAP                  "res\\dofileto.bmp"
+IDR_DOCOLTOOLBAR        BITMAP                  "res\\bmp00021.bmp"
+IDR_EDITTOOLBAR         BITMAP                  "res\\Toolbar.bmp"
+IDB_BMTREENODE_BAK      BITMAP                  "res\\bitmap1.bmp"
+IDB_BMTREENODESEL_BAK   BITMAP                  "res\\dbtreefi.bmp"
+IDB_BMTREELEAFSEL       BITMAP                  "res\\bmp00003.bmp"
+IDB_BMTREELEAF          BITMAP                  "res\\bmp00001.bmp"
+IDB_FL0001              BITMAP                  "res\\bmp00030.bmp"
+IDB_FL0010              BITMAP                  "res\\lock2.bmp"
+IDB_FL0011              BITMAP                  "res\\bmp00036.bmp"
+IDB_FL0100              BITMAP                  "res\\fl12.bmp"
+IDB_FL0101              BITMAP                  "res\\fl101.bmp"
+IDB_FL0110              BITMAP                  "res\\bmp00034.bmp"
+IDB_FL0111              BITMAP                  "res\\fl102.bmp"
+IDB_FL1000              BITMAP                  "res\\bmp00035.bmp"
+IDB_FL1001              BITMAP                  "res\\bmp00033.bmp"
+IDB_FL1010              BITMAP                  "res\\fl11.bmp"
+IDB_FL1011              BITMAP                  "res\\fl1112.bmp"
+IDB_FL1100              BITMAP                  "res\\bmp00032.bmp"
+IDB_FL1101              BITMAP                  "res\\bmp00031.bmp"
+IDB_FL1110              BITMAP                  "res\\fl111.bmp"
+IDB_FL1111              BITMAP                  "res\\bmp00037.bmp"
+IDB_ATTACH              BITMAP                  "res\\attach.bmp"
+IDB_BMSIGN              BITMAP                  "res\\bitmap5.bmp"
+IDB_BMSEND              BITMAP                  "res\\bitmap3.bmp"
+IDB_BMDEL               BITMAP                  "res\\bmp00038.bmp"
+IDB_BMFILE              BITMAP                  "res\\bmfile.bmp"
+IDB_BMFINISH            BITMAP                  "res\\bitmap2.bmp"
+IDB_BMRCV               BITMAP                  "res\\bitmap4.bmp"
+IDB_BMRCVF              BITMAP                  "res\\bmrcvf.bmp"
+IDB_BMREAD              BITMAP                  "res\\bmp00029.bmp"
+IDB_BMWRITE             BITMAP                  "res\\bmp00026.bmp"
+IDB_TRANSFER            BITMAP                  "res\\transfer.bmp"
+IDB_WRITE               BITMAP                  "res\\bmp00025.bmp"
+IDB_BITMAP_MODIFY       BITMAP                  "res\\Modify(24).bmp"
+IDB_BITMAP_GETFILE      BITMAP                  "res\\GetFile(24).bmp"
+IDB_BITMAP_TRANSFILE    BITMAP                  "res\\TransFile(24).bmp"
+IDB_BITMAP_SENDTOCOL    BITMAP                  "res\\SendToCol_Large(24).bmp"
+IDB_BITMAP_SIGN         BITMAP                  "res\\Sign(24).bmp"
+IDB_BITMAP_DELFILE      BITMAP                  "res\\DelFile(24).bmp"
+IDB_BITMAP_PRINT        BITMAP                  "res\\Print(24).bmp"
+IDB_BITMAP_REFRESH      BITMAP                  "res\\Refresh(24).bmp"
+IDB_BITMAP_TRANSLATE    BITMAP                  "res\\TranslateFile(24).bmp"
+IDB_BITMAP_CROSS        BITMAP                  "res\\Cross(24).bmp"
+IDB_BITMAP_SENDBACK     BITMAP                  "res\\SendBack(24).bmp"
+IDB_BITMAP_UNSIGN       BITMAP                  "res\\Unsign(24).bmp"
+IDB_BITMAP_STATUS_FILE  BITMAP                  "res\\File(16).bmp"
+IDB_BITMAP_STATUS_ATTACH BITMAP                  "res\\Attach(16).bmp"
+IDB_BITMAP_STATUS_LOCK  BITMAP                  "res\\LockedFile.bmp"
+IDB_BITMAP_STATUS_EMERGENCY BITMAP                  "res\\EmergencyFile(16).bmp"
+IDB_BITMAP_STATUS_SECURITE BITMAP                  "res\\SecritFile.bmp"
+IDB_BITMAP_STATUS_LOCKSECURITE BITMAP                  "res\\LockedSecuriteFile.bmp"
+IDB_BITMAP_STATUS_TRANSLATE BITMAP                  "res\\SendToTransFile.bmp"
+IDB_BITMAP_STATUS_LOCKTRANSLATEFILE BITMAP                  "res\\LockedTransingFile(16).bmp"
+IDB_BITMAP_STATUS_TRANSLATEEMERGENCY BITMAP                  "res\\SendToTransEmergencyFile.bmp"
+IDB_BITMAP_STATUS_LOCKTRANSEMERGENCY BITMAP                  "res\\LockedSendToTransEmergencyfile(16).bmp"
+IDB_BITMAP_STATUS_LOCKEDSECURITE BITMAP                  "res\\bitmap_s.bmp"
+IDB_BITMAP_STATUS_EMERGENCYSECURITE BITMAP                  "res\\SecritEmergencyFile(16).bmp"
+IDB_BITMAP_STATUS_LOCKEMERGENCYSECURITE BITMAP                  "res\\LockedEmergencySecuriteFile(16).bmp"
+IDB_BITMAP_STATUS_TRANSLATESECURITE BITMAP                  "res\\TransSecrit.bmp"
+IDB_BITMAP_STATUS_LOCKEDTRANSLATESECURITE BITMAP                  "res\\LockedTransSecrit.bmp"
+IDB_BITMAP_STATUS_EMERGENCYTRANSLATESECURITE BITMAP                  "res\\TransSecritEmergencyFile(16).bmp"
+IDB_BITMAP_STATUS_LOCKEMERGENCYTRANSLATESECURITE BITMAP                  "res\\LockedTransSecritEmergencyFile(16).bmp"
+IDB_BITMAP_STATUS_SIGN  BITMAP                  "res\\Sign(16).bmp"
+IDB_BITMAP_SUBMIT       BITMAP                  "res\\Submit(24).bmp"
+IDB_BITMAP_UNDO         BITMAP                  "res\\undo(24).bmp"
+IDB_BITMAP_REDO         BITMAP                  "res\\redo(24).bmp"
+IDB_BITMAP_CUT          BITMAP                  "res\\Cut(24).bmp"
+IDB_BITMAP_COPY         BITMAP                  "res\\Copy(24).bmp"
+IDB_BITMAP_PASTE        BITMAP                  "res\\Paste(24).bmp"
+IDB_BITMAP_PRINTPREVIEW BITMAP                  "res\\PrintPreview(24).bmp"
+IDB_BITMAP_LIBFILE_SMALL BITMAP                  "res\\DepartLib(16).bmp"
+IDB_BMTREENODE          BITMAP                  "res\\Node.bmp"
+IDB_BMTREENODESEL       BITMAP                  "res\\NodeOpen.bmp"
+IDB_BITMAP_FILELINKMENU BITMAP                  "res\\FileLinkMenu(24).bmp"
+IDB_BITMAP_UNLINKFILEMENU BITMAP                  "res\\UnLinkFileMenu(24).bmp"
+IDB_BITMAP_ATTACHMENT   BITMAP                  "res\\Attachment(24).bmp"
+IDR_EDITTOOLBAR1        BITMAP                  "res\\edittool.bmp"
+IDB_BITMAP_WORDBANK     BITMAP                  "res\\WordBank .bmp"
+IDB_BITMAP_WORDCHECK    BITMAP                  "res\\WordCheck.bmp"
+IDB_BITMAP_WORDCHANGE   BITMAP                  "res\\WordChange.bmp"
+IDB_BITMAP_GETFILE_DISABLE BITMAP                  "res\\GetFile(24)_Disable.bmp"
+IDB_BITMAP_TRANSFILE_DISABLE BITMAP                  "res\\TransFile(24)_Disable.bmp"
+IDB_BITMAP_MODIFY_DISABLE BITMAP                  "res\\Modify(24)_Disable.bmp"
+IDB_BITMAP_ATTACHMENT_DISABLE BITMAP                  "res\\Attachment(24)_Disable.bmp"
+IDB_BITMAP_WORDBANK_DISABLE BITMAP                  "res\\WordBank_Disable.bmp"
+IDB_BITMAP_TRANSLATE_DISABLE BITMAP                  "res\\TranslateFile(24)_Disable.bmp"
+IDB_BITMAP_SENDTOCOL_DISABLE BITMAP                  "res\\SendToCol_Large(24)_Disable.bmp"
+IDB_BITMAP_SIGN_DISABLE BITMAP                  "res\\Sign(24)_Disable.bmp"
+IDB_BITMAP_FILELINKMENU_DISABLE BITMAP                  "res\\FileLinkMenu(24)_Disable.bmp"
+IDB_BITMAP_UNLINKFILEMENU_DISABLEIDB_BITMAP_UNLINKFILEMENU BITMAP                  "res\\UnLinkFileMenu(24)_Disable.bmp"
+IDB_BITMAP_DELFILE_DISABLE BITMAP                  "res\\DelFile(24)_Disable.bmp"
+IDB_BITMAP_PRINT_DISABLE BITMAP                  "res\\Print(24)_Disable.bmp"
+IDB_BITMAP_REFRESH_DISABLE BITMAP                  "res\\Refresh(24)_Disable.bmp"
+IDB_BITMAP_SUBMIT_DISABLE BITMAP                  "res\\Submit(24)_Disable.bmp"
+IDB_BITMAP_UNDO_DISABLE BITMAP                  "res\\undo(24)_Disable.bmp"
+IDB_BITMAP_REDO_DISABLE BITMAP                  "res\\redo(24)_Disable.bmp"
+IDB_BITMAP_CUT_DISABLE  BITMAP                  "res\\Cut(24)_Disable.bmp"
+IDB_BITMAP_COPY_DISABLE BITMAP                  "res\\Copy(24)_Disable.bmp"
+IDB_BITMAP_PASTE_DISABLE BITMAP                  "res\\Paste(24)_Disable.bmp"
+IDB_BITMAP_WORDCHECK_DISABLE BITMAP                  "res\\WordCheck_Disable.bmp"
+IDB_BITMAP_WORDCHANGE_DISABLE BITMAP                  "res\\WordChange_Disable.bmp"
+IDB_BITMAP_PRINTPREVIEW_DISABLE BITMAP                  "res\\PrintPreview(24)_Disable.bmp"
+IDB_BITMAP_CROSS_DISABLE BITMAP                  "res\\Cross(24)_Disable.bmp"
+IDB_BITMAP_SENDBACK_DISABLE BITMAP                  "res\\SendBack(24)_Disable.bmp"
+IDB_BITMAP_UNSIGN_DISABLE BITMAP                  "res\\Unsign(24)_Disable.bmp"
+IDB_BITMAP_BASE         BITMAP                  "res\\PicNotFound(128).bmp"
+IDB_FREEHAND            BITMAP                  "res\\NotSupportPic(128).bmp"
+IDB_BITMAP_CAPTIONPIC   BITMAP                  "res\\icon_pic.bmp"
+IDR_PICVIEWTOOLBAR      BITMAP                  "res\\picviewbar.bmp"
+IDB_BITMAP_ZOOMIN       BITMAP                  "res\\ZoomIn(24).bmp"
+IDB_BITMAP_ZOOMOUTDISABLE BITMAP                  "res\\ZoomOut(24)_Disable.bmp"
+IDB_BITMAP_ZOOMOUT      BITMAP                  "res\\ZoomOut(24).bmp"
+IDB_BITMAP_ZOOMINDISABLE BITMAP                  "res\\ZoomIn(24)_Disable.bmp"
+IDB_BITMAP_ORIGINALSIZE BITMAP                  "res\\OriginalSize(24).bmp"
+IDB_BITMAP_ORIGINALSIZEDISABLE BITMAP                  "res\\OriginalSize(24)_Disable.bmp"
+IDB_BITMAP_PREPICTURE   BITMAP                  "res\\PrePicture(24).bmp"
+IDB_BITMAP_PREPICTUREDISABLE BITMAP                  "res\\PrePicture(24)_Disable.bmp"
+IDB_BITMAP_NEXTPICTURE  BITMAP                  "res\\NextPicture(24).bmp"
+IDB_BITMAP_NEXTPICTUREDISABLE BITMAP                  "res\\NextPicture(24)_Disable.bmp"
+IDB_BITMAP_STATUS_UNRELATEFILE BITMAP                  "res\\UnRelateFile(16).bmp"
+IDB_BITMAP_STATUS_ATTACHUNRELATEMENU BITMAP                  "res\\AttachUnRelateMenu(16).bmp"
+IDB_BITMAP_STATUS_UNRELATEMENU BITMAP                  "res\\UnRelateMenu(16).bmp"
+IDR_MODIFYTOOLBAR       BITMAP                  "res\\modifyto.bmp"
+IDB_BITMAP_SWITCH_MODE  BITMAP                  "res\\switch_mode.bmp"
+IDB_BITMAP_SWITCH_MODE_DISABLE BITMAP                  "res\\switch_mode_disable.bmp"
+IDB_BITMAP_MEDIA_VIDEO  BITMAP                  "res\\bmp_media_icon.bmp"
+IDB_BITMAP_PLAY_BUTTON  BITMAP                  "res\\bmp_play_button.bmp"
+IDB_BITMAP_ADD_STORY    BITMAP                  "res\\AddStory.bmp"
+IDB_BITMAP_ADD_STORY_DISABLE BITMAP                  "res\\AddStory_disable.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_DOCOL               ICON                    "res\\ico00001.ico"
+IDR_MAINFRAME           ICON                    "icon1.ico"
+IDI_DOFILE              ICON                    "res\\ico00002.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DOFILEV, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 25
+    END
+
+    IDD_FILEINFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 218
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 131
+    END
+
+    IDD_TRANSDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 269
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 192
+    END
+
+    IDD_RECORD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 307
+        TOPMARGIN, 7
+    END
+
+    IDD_ATTACH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 336
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 216
+    END
+
+    IDD_FILESEARCH, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 329
+        BOTTOMMARGIN, 253
+    END
+
+    IDD_FINDPOSITION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 188
+    END
+
+    IDD_USERSELECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 232
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_FILEINFODISPLAY, DIALOG
+    BEGIN
+    END
+
+    IDD_LINKTODM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 280
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 157
+    END
+
+    IDD_FSREPORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 255
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 127
+    END
+
+    IDD_RECORDREPORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_COLREPORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_FILEREPORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_CLEARFILE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 162
+    END
+
+    IDD_RECYCLE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 296
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 155
+    END
+
+    IDD_COPYLIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 260
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 165
+    END
+
+    IDD_COUNTRYCODE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 167
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 45
+    END
+
+    IDD_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 43
+    END
+
+    IDD_TOTAL, DIALOG
+    BEGIN
+    END
+
+    IDD_DLGPICTURE, DIALOG
+    BEGIN
+    END
+
+    IDD_DLGVIEWPICTURE, DIALOG
+    BEGIN
+    END
+
+    IDD_SELUNSAVEFILE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_INPUTCOMMENT, DIALOG
+    BEGIN
+    END
+
+    IDD_LINENUMDLG, DIALOG
+    BEGIN
+    END
+
+    IDD_EDITOPTION, DIALOG
+    BEGIN
+    END
+
+    IDD_PRINTOPTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 104
+    END
+
+    IDD_TEXTSTYLES, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 158
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 71
+    END
+
+    IDD_WORDCHECK, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 404
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 230
+    END
+
+    IDD_OPTIONMODIFY, DIALOG
+    BEGIN
+        RIGHTMARGIN, 246
+        BOTTOMMARGIN, 127
+    END
+
+    IDD_SELECTLIB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        TOPMARGIN, 7
+    END
+
+    IDD_TEXT_HIST_CHECK, DIALOG
+    BEGIN
+        RIGHTMARGIN, 641
+        BOTTOMMARGIN, 401
+    END
+
+    IDD_DLG_ADDTOSTORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 178
+    END
+
+    IDD_MSG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 329
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DOFILEV DIALOG 0, 0, 309, 27
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "List1",IDC_FILELIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_AUTOARRANGE,17,16,58,9
+    LTEXT           "",IDC_TOTALFILE,166,3,138,9,NOT WS_VISIBLE
+    CONTROL         "&N鍵入稿件名稱",IDC_KEYCHECK,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE,0,3,67,10
+    EDITTEXT        IDC_FILEEDIT,71,2,57,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    PUSHBUTTON      "&Q查詢",IDC_QUERY,131,2,31,12,NOT WS_VISIBLE
+END
+
+IDD_FILEINFO DIALOGEX 0, 0, 225, 138
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "稿件信息"
+FONT 9, "新細明體", 0, 0, 0x0
+BEGIN
+    LTEXT           "標題：",-1,8,0,52,8
+    EDITTEXT        IDC_COMMENT,8,12,211,38,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN
+    LTEXT           "預計字數",-1,7,57,33,10
+    EDITTEXT        IDC_WORD,45,56,59,13,ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    LTEXT           "體裁",-1,117,59,17,11
+    COMBOBOX        IDC_STYLE,140,57,72,58,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&U急稿",IDC_URGENCYCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,76,47,10
+    CONTROL         "&S加密稿",IDC_SECRETCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,64,76,47,10
+    CONTROL         "&L上鎖",IDC_LOCKCHECK,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,121,76,47,10
+    CONTROL         "&P帶圖片",IDC_PHOTOCHECK,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,64,87,47,10
+    CONTROL         "&E獨家",IDC_SINGLECHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,90,47,10
+    LTEXT           "作者",-1,7,110,19,13
+    EDITTEXT        IDC_AUTHOR,27,106,65,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "確定",IDOK,177,80,41,14
+    PUSHBUTTON      "退出",IDCANCEL,177,106,41,14
+END
+
+IDD_TRANSDLG DIALOGEX 0, 0, 276, 199
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "傳送稿件"
+FONT 9, "新細明體", 0, 0, 0x0
+BEGIN
+    LTEXT           "稿件名稱：",IDC_STATIC,7,7,40,8
+    LTEXT           "Static",IDC_FILE,51,7,48,8
+    LTEXT           "標題：",IDC_STATIC,104,7,24,8
+    LTEXT           "Static",IDC_TITLE,131,7,128,8
+    LTEXT           "稿件現存位置：",IDC_STATIC,7,19,56,8
+    LTEXT           "Static",IDC_SRCPATH,73,19,183,8
+    LTEXT           "備  註：",IDC_STATIC,7,36,30,8
+    EDITTEXT        IDC_NOTE,42,34,217,14,ES_AUTOHSCROLL
+    CONTROL         "Tree1",IDC_DESLIBTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,83,127,109
+    LTEXT           "送往稿件庫：",IDC_STATIC,141,85,44,8
+    COMBOBOX        IDC_PLACECOMBO,141,96,120,77,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&C是否複製稿件",IDC_COPYCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,142,110,67,10
+    CONTROL         "&R指定接收人",IDC_USERCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,142,123,67,10
+    COMBOBOX        IDC_USERCOMBO,142,136,120,70,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "傳送稿件",IDOK,143,176,50,14
+    CONTROL         "加密稿",IDC_SECRET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,218,123,43,10
+    PUSHBUTTON      "鏈結到分組菜單...",IDC_BTNLINK,142,155,120,14,NOT WS_VISIBLE | WS_DISABLED
+    CONTROL         "獨家",IDC_EXCLUSIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,218,110,30,10
+    PUSHBUTTON      "取消",IDCANCEL,212,176,50,14
+    GROUPBOX        "送校對參考信息",IDC_LAYOUTSTATIC,7,49,255,27
+    CONTROL         "",IDC_LAYOUTCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,61,12,10
+    LTEXT           "日期：",IDC_LAYOUTSTATIC1,32,62,25,8
+    LTEXT           "欄目：",IDC_LAYOUTSTATIC2,134,61,24,8
+    COMBOBOX        IDC_LAYOUTCOMBO,160,58,98,130,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "DateTimePicker1",IDC_DATETIMEPICKER1,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_DISABLED | WS_TABSTOP,57,58,68,15
+END
+
+IDD_RECORD DIALOG 0, 0, 314, 254
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "流程記錄"
+FONT 9, "新細明體"
+BEGIN
+    LTEXT           "標題：",IDC_STATIC,7,10,27,8
+    LTEXT           "Static",IDC_TITLE,40,10,267,10,SS_SUNKEN
+    LTEXT           "源自：",IDC_STATIC,200,23,24,8,NOT WS_VISIBLE
+    LTEXT           "Static",IDC_SOURCE,229,21,68,10,SS_SUNKEN | NOT WS_VISIBLE
+    CONTROL         "List1",IDC_RECORDLIST,"SysListView32",LVS_REPORT | LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,7,27,300,185
+    LTEXT           "備註：",IDC_STATIC,7,219,24,8
+    LTEXT           "",IDC_NOTE,40,219,254,8
+    DEFPUSHBUTTON   "取消",IDOK,257,230,50,14
+    PUSHBUTTON      "列印",IDC_PRINT,200,230,50,14
+END
+
+IDD_ATTACH DIALOG 0, 0, 343, 223
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "附件管理"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "上載",IDC_UPLOAD,51,201,41,13
+    PUSHBUTTON      "取消",IDCANCEL,249,201,41,13
+    PUSHBUTTON      "刪除",IDC_DELETE,183,201,41,13
+    LTEXT           "附件列表﹕",IDC_STATIC,7,5,46,10
+    LTEXT           "稿件名稱﹕",IDC_STATIC,127,5,40,10
+    PUSHBUTTON      "下載",IDC_DOWNLOAD,117,201,41,13
+    CONTROL         "List1",IDC_FILELIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_SORTASCENDING | WS_BORDER | WS_TABSTOP,7,18,328,172
+    LTEXT           "",IDC_STATICFILENAME,166,5,109,9
+END
+
+IDD_FILESEARCH DIALOGEX 20, 20, 333, 263
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "稿件查詢"
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "&P列印",IDC_PRINT,290,30,35,14
+    GROUPBOX        "查詢條件",IDC_STATIC,4,0,153,75
+    CONTROL         "&N稿件名稱",IDC_FILECHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,10,49,10
+    EDITTEXT        IDC_FILEEDIT,59,7,60,15,ES_AUTOHSCROLL
+    CONTROL         "&L本地",IDC_LOCAL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,122,9,32,11
+    CONTROL         "&S稿件位置",IDC_POSITIONCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,27,48,10
+    EDITTEXT        IDC_POSITIONEDIT,59,24,76,15,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "...",IDC_POSITIONFIND,137,25,15,13
+    CONTROL         "&U處理用戶",IDC_USERCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,45,49,10
+    EDITTEXT        IDC_USEREDIT,59,42,76,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_USERFIND,137,43,15,13
+    CONTROL         "&K關鍵字",IDC_KEYCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,62,43,10
+    EDITTEXT        IDC_KEYEDIT,59,58,93,14,ES_AUTOHSCROLL
+    GROUPBOX        "查詢時間段(mm-dd-yyyy)",IDC_STATIC,171,0,113,43,0,WS_EX_TRANSPARENT
+    LTEXT           "起始日期：",IDC_STATIC,173,12,40,8
+    LTEXT           "終止日期：",IDC_STATIC,174,29,40,8
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,171,49,113,26
+    LTEXT           "上版篇數：",IDC_STATIC,183,53,40,8
+    LTEXT           "",IDC_TOTALPAPER,230,53,45,8
+    LTEXT           "上版字數：",IDC_STATIC,183,65,40,8
+    LTEXT           "",IDC_TOTALWORD,230,65,45,8
+    DEFPUSHBUTTON   "&Q查詢",IDOK,290,11,35,14
+    PUSHBUTTON      "取消",IDCANCEL,290,49,35,14
+    LTEXT           "稿件數目：",IDC_STATIC,4,78,40,8
+    LTEXT           "Total Number",IDC_TOTAL,49,78,56,8
+    CONTROL         "List1",IDC_FILELIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,4,91,325,162
+    CONTROL         "DateTimePicker1",IDC_BEGINDATEDT,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,214,11,68,13
+    CONTROL         "DateTimePicker2",IDC_ENDDATEDT,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,214,27,68,13
+END
+
+IDD_FINDPOSITION DIALOG 0, 0, 205, 195
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "選擇位置"
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "&L部門",IDC_LIBRADIO,"Button",BS_AUTORADIOBUTTON,7,7,73,10
+    CONTROL         "&C版面",IDC_PAPRADIO,"Button",BS_AUTORADIOBUTTON,7,23,52,10
+    CONTROL         "Tree1",IDC_LIBTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,6,40,193,149
+    LISTBOX         IDC_COLUMNLIST,7,56,192,133,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "確定",IDOK,147,5,50,14
+    PUSHBUTTON      "取消",IDCANCEL,147,21,50,14
+    COMBOBOX        IDC_PAPCOMBO,7,40,190,99,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_USERSELECT DIALOG 0, 0, 239, 225
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "選擇用戶"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,66,205,50,14
+    PUSHBUTTON      "取消",IDCANCEL,123,205,50,14
+    CONTROL         "Tree1",IDC_SYSTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,4,13,112,183
+    LISTBOX         IDC_LISTUSER,123,13,112,183,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "部門選擇：",IDC_STATIC,4,2,43,8
+    LTEXT           "部門所屬用戶：",IDC_STATIC,123,2,59,8
+END
+
+IDD_FILEINFODISPLAY DIALOG 0, 0, 274, 110
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "Tab1",IDC_TAB1,"SysTabControl32",0x0,7,7,83,31
+    CONTROL         "List1",IDC_FILERECORD,"SysListView32",LVS_REPORT | WS_BORDER | WS_TABSTOP,17,42,64,36
+    CONTROL         "List2",IDC_LISTIMAGE,"SysListView32",LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,97,44,81,36
+    CONTROL         "",IDC_FILECONTENT,"RICHEDIT20W",WS_BORDER | WS_VSCROLL | WS_TABSTOP | 0x804,162,89,54,14
+    CONTROL         "",IDC_LEADCTRL1,"{00170000-B1BA-11CE-ABC6-F5B2E79D9E3F}",WS_TABSTOP,175,6,69,27
+END
+
+IDD_LINKTODM DIALOG 0, 0, 287, 164
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "設置稿件和部門分組菜單鏈接"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,143,143,50,14
+    PUSHBUTTON      "取消",IDCANCEL,209,143,50,14
+    CONTROL         "Tree1",IDC_LIBTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_TABSTOP,7,19,86,116
+    CONTROL         "List1",IDC_FILIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,100,19,180,116
+    CONTROL         "DateTimePicker1",IDC_DATETIMEPICKER1,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,27,142,68,15
+    CONTROL         "顯示已鏈結菜單",IDC_CHECK_SHOWALL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,205,7,72,10
+    LTEXT           "部門﹕",IDC_STATIC,7,7,25,8
+    LTEXT           "該部門所屬部門分組菜單﹕",IDC_STATIC,99,7,97,8
+    LTEXT           "日期:",IDC_STATIC,7,145,19,8
+END
+
+IDD_FSREPORT DIALOG 0, 0, 262, 134
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "稿件查詢結果"
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "",IDC_FSREPORT,"{2DEF4530-8CE6-41C9-84B6-A54536C90213}",WS_TABSTOP,7,7,60,25
+END
+
+IDD_RECORDREPORT DIALOG 0, 0, 187, 98
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "稿件流程信息"
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "",IDC_RECORDREPORT,
+                    "{2DEF4530-8CE6-41C9-84B6-A54536C90213}",WS_TABSTOP,7,7,60,25
+END
+
+IDD_COLREPORT DIALOGEX 0, 0, 187, 98
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "版面暫存庫"
+FONT 9, "System", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_COLREPORT,"{2DEF4530-8CE6-41C9-84B6-A54536C90213}",WS_TABSTOP,7,7,60,25
+END
+
+IDD_FILEREPORT DIALOG 0, 0, 187, 98
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "部門稿件報表"
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "",IDC_FILEREPORT,"{2DEF4530-8CE6-41C9-84B6-A54536C90213}",WS_TABSTOP,7,7,60,25
+END
+
+IDD_CLEARFILE DIALOG 0, 0, 320, 169
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "清理本地稿件"
+FONT 9, "新細明體"
+BEGIN
+    LTEXT           "選擇日期",IDC_STATIC,10,15,36,9
+    LISTBOX         IDC_DATE,9,27,65,116,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "稿件列表",IDC_STATIC,79,16,33,10
+    CONTROL         "List2",IDC_FILE,"SysListView32",LVS_REPORT | WS_BORDER | WS_TABSTOP,80,27,233,116
+    PUSHBUTTON      "刪除目錄",IDC_DELDIR,41,148,50,14
+    PUSHBUTTON      "刪除文件",IDC_DELFILE,135,148,50,14
+    PUSHBUTTON      "取消",IDOK,229,148,50,14
+    GROUPBOX        "",IDC_STATIC,7,7,306,138
+END
+
+IDD_RECYCLE DIALOGEX 0, 0, 303, 162
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "稿件回收"
+FONT 9, "新細明體", 0, 0, 0x0
+BEGIN
+    LTEXT           "已刪除稿件列表：",IDC_STATIC,7,7,60,8
+    LTEXT           "標題：",IDC_STATIC,7,128,25,10,NOT WS_VISIBLE
+    LTEXT           "已刪除稿件名稱",IDC_DELETED,32,128,264,10,NOT WS_VISIBLE
+    PUSHBUTTON      "回收",IDC_RESTORE,54,141,29,14
+    PUSHBUTTON      "清除",IDC_CLEAR,138,141,31,14
+    PUSHBUTTON      "取消",IDOK,220,141,33,14
+    CONTROL         "List1",IDC_FILELIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,7,20,289,106
+END
+
+IDD_COPYLIST DIALOG 0, 0, 267, 172
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "多稿記錄"
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "List1",IDC_COPYLIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,7,7,253,132
+    PUSHBUTTON      "取消",IDOK,215,148,38,14
+END
+
+IDD_COUNTRYCODE DIALOG 0, 0, 174, 52
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "語言選擇"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,117,7,50,14
+    PUSHBUTTON      "取消",IDCANCEL,117,24,50,14
+    COMBOBOX        IDC_CMBCODE,7,23,75,77,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "請選擇使用的語言：",IDC_STATIC,7,7,92,8
+END
+
+IDD_PROGRESS DIALOGEX 0, 0, 187, 50
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "進度"
+FONT 10, "新細明體", 0, 0, 0x0
+BEGIN
+    CONTROL         "Progress1",IDC_PROGRESS1,"msctls_progress32",WS_BORDER,7,24,173,14
+    LTEXT           "Static",IDC_STATUS,7,7,173,8
+END
+
+IDD_TOTAL DIALOG 0, 0, 122, 20
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "新細明體"
+BEGIN
+    LTEXT           "總篇數:",IDC_STATIC,0,5,29,8
+    LTEXT           "總字數:",IDC_STATIC,51,5,28,8
+    LTEXT           "",IDC_STATIC_TOTALCOUNT,28,5,22,8
+    LTEXT           "",IDC_STATIC_TOTALWORDS,82,5,39,8
+END
+
+IDD_DLGPICTURE DIALOGEX 0, 0, 272, 197
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 10, "新細明體", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_STASEPARABLE,"Static",SS_ETCHEDHORZ,1,28,264,1
+    CONTROL         "",IDC_FRAMEVIEWPIC,"Static",SS_BLACKFRAME,23,44,20,20
+    CONTROL         "",IDC_LEADCTRL,"{00170000-B1BA-11CE-ABC6-F5B2E79D9E3F}",WS_TABSTOP,3,89,269,104
+    CONTROL         17328,ID_STCPLAY,"Static",SS_BITMAP,123,36,27,30
+END
+
+IDD_DLGVIEWPICTURE DIALOG 0, 0, 187, 94
+STYLE DS_SETFONT | WS_CHILD
+FONT 10, "System"
+BEGIN
+    CONTROL         "",IDC_LEADCTRL,"{00170000-B1BA-11CE-ABC6-F5B2E79D9E3F}",WS_TABSTOP,4,16,177,66
+END
+
+IDD_SELUNSAVEFILE DIALOG 0, 0, 187, 98
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "請選擇打開未保存的稿件"
+FONT 10, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,130,20,50,14
+    PUSHBUTTON      "取消",IDCANCEL,130,71,50,14
+    LTEXT           "稿件列表：",IDC_STATIC,7,7,46,8
+    CONTROL         "List1",IDC_FILELIST,"SysListView32",LVS_REPORT | WS_BORDER | WS_TABSTOP,7,20,111,65
+    PUSHBUTTON      "刪除",ID_DEL,130,45,50,14
+END
+
+IDD_INPUTCOMMENT DIALOGEX 0, 0, 243, 63
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "請輸入批注"
+FONT 9, "新細明體", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDITCOMMENT,5,5,184,49,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN
+    DEFPUSHBUTTON   "確定",IDOK,193,4,41,14
+    PUSHBUTTON      "放棄",IDCANCEL,193,24,41,14
+END
+
+IDD_LINENUMDLG DIALOG 0, 0, 186, 42
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "請輸入行號"
+FONT 9, "新細明體"
+BEGIN
+    EDITTEXT        IDC_EDITLINENUM,40,13,43,14,ES_AUTOHSCROLL
+    CONTROL         "Spin1",IDC_SPINLINENUM,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,83,13,11,14
+    DEFPUSHBUTTON   "&O確定",IDOK,129,7,50,14
+    PUSHBUTTON      "&C取消",IDCANCEL,129,24,50,14
+    LTEXT           "行號",IDC_STATIC,10,16,17,8
+END
+
+IDD_EDITOPTION DIALOGEX 0, 0, 207, 111
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "編輯"
+FONT 9, "新細明體", 0, 0, 0x0
+BEGIN
+    CONTROL         "&L行編輯模式",IDC_CHECKLINEEDIT,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,6,25,60,10
+    EDITTEXT        IDC_EDITLINEWIDTH,93,35,40,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Spin1",IDC_SPINLINEWIDTH,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | NOT WS_VISIBLE,134,35,10,14
+    EDITTEXT        IDC_EDITUNDOBUFSIZE,107,51,40,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Spin2",IDC_SPINUNDOBUFSIZE,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | NOT WS_VISIBLE,148,51,8,14
+    CONTROL         "&S自動存盤",IDC_CHECKAUTOSAVE,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,5,72,52,10
+    EDITTEXT        IDC_EDITAUTOSAVETIME,96,81,40,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Spin1",IDC_SPINAUTOSAVETIME,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | NOT WS_VISIBLE,137,81,8,14
+    LTEXT           "行寬(漢字字數/行):",IDC_STATIC,17,40,74,8,NOT WS_VISIBLE
+    LTEXT           "恢復(Undo)緩沖區大小(KB):",IDC_STATIC,6,56,98,8,NOT WS_VISIBLE
+    LTEXT           "自動存盤時間(分鐘):",IDC_STATIC,16,85,76,8,NOT WS_VISIBLE
+    CONTROL         "&A換段時自動增加段首空格",IDC_CHECKAUTOSPACEAFTERRETURN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,9,108,10
+    EDITTEXT        IDC_EDITAUTOSPACES,148,6,21,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPINAUTOSPACES,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,170,6,10,14
+    LTEXT           "空格數:",IDC_STATIC,116,9,30,8
+END
+
+IDD_PRINTOPTION DIALOGEX 0, 0, 207, 111
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "打印"
+FONT 9, "新細明體", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDITCOLUMNS,55,70,27,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Spin1",IDC_SPINCOLUMNS,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | NOT WS_VISIBLE,81,70,10,14
+    EDITTEXT        IDC_EDITCOLWIDTH,164,69,25,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Spin2",IDC_SPINCOLWIDTH,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | NOT WS_VISIBLE,188,69,10,14
+    EDITTEXT        IDC_EDITCOLSPACE,55,86,27,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Spin1",IDC_SPINCOLSPACE,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | NOT WS_VISIBLE,81,86,10,14
+    EDITTEXT        IDC_EDITMARGINTOP,62,11,28,14,ES_AUTOHSCROLL
+    CONTROL         "Spin4",IDC_SPINMARGINTOP,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,90,11,8,14
+    EDITTEXT        IDC_EDITMARGINBOTTOM,62,26,28,14,ES_AUTOHSCROLL
+    CONTROL         "Spin4",IDC_SPINMARGINBOTTOM,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,90,26,8,14
+    EDITTEXT        IDC_EDITMARGINLEFT,137,11,28,14,ES_AUTOHSCROLL
+    CONTROL         "Spin4",IDC_SPINMARGINLEFT,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,165,11,8,14
+    EDITTEXT        IDC_EDITMARGINRIGHT,137,26,28,14,ES_AUTOHSCROLL
+    CONTROL         "Spin4",IDC_SPINMARGINRIGHT,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,165,26,8,14
+    CONTROL         "&S只打印選中部分",IDC_CHECKSELECTIONONLY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,47,77,10
+    CONTROL         "&R選中部分的行號重新開始",IDC_CHECKRESETSELECTIONLINENUM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,47,108,10
+    CONTROL         "&L打印行號",IDC_CHECKPRINTLINENUM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,60,52,10
+    LTEXT           "分欄欄數:",IDC_STATIC,10,73,39,8,NOT WS_VISIBLE
+    LTEXT           "欄寬(漢字數/欄):",IDC_STATIC,100,73,60,8,NOT WS_VISIBLE
+    GROUPBOX        "頁邊距(點):",IDC_STATIC,11,4,186,38
+    LTEXT           "上:",IDC_STATIC,42,15,14,8
+    LTEXT           "下:",IDC_STATIC,42,29,15,8
+    LTEXT           "左:",IDC_STATIC,117,15,15,8
+    LTEXT           "右:",IDC_STATIC,117,29,13,8
+    LTEXT           "欄間距(點):",IDC_STATIC,10,90,41,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_LINESPACE,161,86,28,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPINLINESPACE,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,188,86,11,14
+    LTEXT           "行距(點):",IDC_STATIC,124,89,34,8
+END
+
+IDD_TEXTSTYLES DIALOGEX 0, 0, 162, 73
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "基本參數設置"
+FONT 9, "新細明體", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDITFONTNAME,31,7,64,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDITFONTSIZE,31,23,64,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "&F改變字體",IDC_BTTNSETFONT,103,24,46,12
+    LTEXT           "字體:",IDC_STATIC,7,9,19,8
+    LTEXT           "字號:",IDC_STATIC,7,25,19,8
+    CONTROL         "&S自動存盤",IDC_CHECKAUTOSAVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,42,52,10
+    EDITTEXT        IDC_EDITAUTOSAVETIME,101,51,40,14,ES_AUTOHSCROLL
+    CONTROL         "Spin1",IDC_SPINAUTOSAVETIME,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS,142,51,8,14
+    LTEXT           "自動存盤時間(分鐘):",IDC_STATIC,21,55,76,8
+    CONTROL         "顯示",IDC_RADIODISP,"Button",BS_AUTORADIOBUTTON,98,8,31,10
+    CONTROL         "打印",IDC_RADIOPRINT,"Button",BS_AUTORADIOBUTTON,128,8,31,10
+END
+
+IDD_WORDCHECK DIALOGEX 0, 0, 411, 247
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "字詞檢查系統"
+FONT 10, "新細明體", 0, 0, 0x0
+BEGIN
+    PUSHBUTTON      "變更(&C)",IDC_CHANGE,188,166,44,28
+    PUSHBUTTON      "全部變更(&L)",IDC_CHANGE_ALL,234,166,44,28
+    PUSHBUTTON      "略過一次(&I)",IDC_IGNORE_Once,188,228,44,28
+    PUSHBUTTON      "全部略過(&G)",IDC_IGNORE_ALL,234,228,44,28
+    PUSHBUTTON      "取消",IDC_CANCEL,345,163,60,12,NOT WS_VISIBLE | WS_DISABLED
+    LTEXT           "建議:",IDC_STATIC,10,159,100,8
+    LISTBOX         IDC_REPLACE_LIST,9,171,167,48,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "字典語言:",IDC_STATIC2,288,160,78,8
+    LISTBOX         IDC_LIB_LIST,288,172,100,50,LBS_SORT | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "檢查",IDC_DICTIONARY,345,210,52,12,NOT WS_VISIBLE | WS_DISABLED
+    CONTROL         "",IDC_RICH_TEXT,"RICHEDIT50W",WS_BORDER | WS_VSCROLL | WS_TABSTOP | 0x104,8,7,396,145
+    PUSHBUTTON      "全部變更(預設字)",IDC_CHANGE_ALL_DEF,345,126,60,12,NOT WS_VISIBLE | WS_DISABLED
+    CONTROL         "",IDC_RICHEDIT21,"RichEdit20W",WS_BORDER | WS_VSCROLL | WS_TABSTOP | 0x944,8,7,396,145
+    PUSHBUTTON      "完  成",IDC_FINISH,207,198,51,27
+    CONTROL         "",IDC_DIM1,"RichEdit20W",NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP | 0x880,9,170,167,49
+    CONTROL         "",IDC_DIM2,"RichEdit20W",NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP | 0x880,285,172,103,51
+END
+
+IDD_OPTIONMODIFY DIALOG 0, 0, 251, 133
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "修改記錄"
+FONT 10, "新細明體"
+BEGIN
+    PUSHBUTTON      "確定",IDOK,185,50,60,12,NOT WS_VISIBLE | WS_DISABLED
+    PUSHBUTTON      "取消",IDCANCEL,185,72,60,12
+    PUSHBUTTON      "提取該版本",IDC_GET_VERSION,185,103,60,12
+    CONTROL         "List1",IDC_VERSION_LIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_AUTOARRANGE,6,4,168,119
+END
+
+IDD_SELECTLIB DIALOGEX 0, 0, 173, 161
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "選擇稿庫"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,116,122,50,14
+    PUSHBUTTON      "取消",IDCANCEL,116,140,50,14
+    CONTROL         "",IDC_DESLIBTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,12,7,121,110
+    COMBOBOX        IDC_PLACECOMBO,12,137,96,111,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "送往稿件庫：",IDC_STATIC,12,122,52,8
+END
+
+IDD_TEXT_HIST_CHECK DIALOGEX 0, 0, 649, 407
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "查詢錯誤歷史稿件"
+FONT 10, "新細明體", 400, 0, 0x1
+BEGIN
+    CONTROL         "List1",IDC_FILELIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,0,6,641,201
+    DEFPUSHBUTTON   "查詢",IDC_SEARCH,9,225,50,14
+    PUSHBUTTON      "取消",IDCANCEL,72,225,50,14
+    LTEXT           "總篇數:",IDC_STATIC,13,265,71,8
+    LTEXT           "已檢查篇數:",IDC_STATIC,13,276,70,8
+    LTEXT           "錯誤歷史稿件總篇數:",IDC_STATIC,13,286,77,8
+    LTEXT           "0",IDC_STATIC_TOTALCOUNT,92,265,27,8
+    LTEXT           "0",IDC_STATIC_TOTALCHECK,92,276,27,8
+    LTEXT           "0",IDC_STATIC_TOTALWRONG,92,286,27,8
+    CONTROL         "List1",IDC_FILERECORD,"SysListView32",LVS_REPORT | LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,128,241,513,160
+    LTEXT           "",IDC_STATIC_TOTALWORDS,146,214,97,8
+    LTEXT           "",IDC_STATIC_TOTALHISTWORDS,146,225,97,8
+    LTEXT           "",IDC_STATIC_WRONG,267,223,131,8
+END
+
+IDD_DLG_ADDTOSTORY DIALOGEX 0, 0, 175, 286
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "加入故事"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,93,266,50,14
+    DEFPUSHBUTTON   "加入",IDOK,31,266,50,14,WS_DISABLED
+    CONTROL         "List1",IDC_LSTSTORY,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_AUTOARRANGE | LVS_NOCOLUMNHEADER | WS_DISABLED | WS_BORDER | WS_TABSTOP,7,65,157,67
+    CONTROL         "加入現有的故事",IDC_RADEXIST,"Button",BS_AUTORADIOBUTTON,7,10,72,10
+    LTEXT           "現有的故事列表:",IDC_STCEXIST,7,21,60,8,WS_DISABLED
+    CONTROL         "新增故事",IDC_RADNEW,"Button",BS_AUTORADIOBUTTON,7,138,48,10
+    LTEXT           "故事名稱:",IDC_STCNEW,7,188,36,8
+    EDITTEXT        IDC_EDITSTORYNAME,45,187,116,14,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "故事類別:",IDC_STCNEW3,6,203,36,8,NOT WS_VISIBLE
+    COMBOBOX        IDC_COMBOCATEGORY,126,273,49,113,CBS_DROPDOWNLIST | NOT WS_VISIBLE | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "部門:",IDC_STCNEW4,7,171,20,8
+    COMBOBOX        IDC_COMBOLIB,45,170,87,113,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "日期:",IDC_STCDATE,7,33,20,8,WS_DISABLED
+    CONTROL         "",IDC_DTPICKER,"SysDateTimePick32",DTS_RIGHTALIGN | WS_DISABLED | WS_TABSTOP,38,30,87,15
+    LTEXT           "部門:",IDC_STCNEW5,8,50,20,8
+    COMBOBOX        IDC_CB_LIB,38,48,87,113,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_LIST_STORY_TYPE,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_DISABLED | WS_BORDER | WS_TABSTOP,7,213,156,49
+    LTEXT           "日期:",IDC_STCDATE_ADDSTORY,7,154,20,8,WS_DISABLED
+    CONTROL         "",IDC_DTPICKER_NEWSTORY,"SysDateTimePick32",DTS_RIGHTALIGN | WS_DISABLED | WS_TABSTOP,45,152,87,15
+END
+
+IDD_MSG DIALOGEX 0, 0, 367, 14
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "",IDC_STATIC_MSG1,0,0,367,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_EDITROTYPE MENU
+BEGIN
+    POPUP "稿件操作(&C)"
+    BEGIN
+        MENUITEM "提交稿件\tF8",                    ID_DO_COMMIT
+        MENUITEM "修改\tCtrl+E",                  ID_DO_MODIFY
+        MENUITEM SEPARATOR
+        MENUITEM "外電稿件原文記錄\tCtrl+R",            ID_DO_SOURCE
+        MENUITEM "電稿入庫\tCtrl+G",                ID_DO_SEL
+        MENUITEM SEPARATOR
+        MENUITEM "送往版面暫存庫\tAlt+T",              ID_DO_SENDCOL
+        MENUITEM "直接簽發\tAlt+D",                 ID_DO_SIGNDIRECT
+        MENUITEM SEPARATOR
+        MENUITEM "流程記錄\tCtrl+D",                ID_RDO_RECORD
+        MENUITEM "稿件信息\tCtrl+T",                ID_RDO_COMMENT
+        MENUITEM "多稿記錄\tCtrl+M",                ID_RDO_COPY
+        MENUITEM SEPARATOR
+        MENUITEM "退稿\tAlt+B",                   ID_DO_BACKFILE
+        MENUITEM "簽發\tAlt+S",                   ID_DO_SIGN
+    END
+    POPUP "編輯(&E)"
+    BEGIN
+        MENUITEM "&U復原鍵入\tCtrl+Z",              ID_EDIT_UNDO
+        MENUITEM "&R重復\tCtrl+Y",                ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "剪下\tCtrl+X",                  ID_EDIT_CUT
+        MENUITEM "複製\tCtrl+C",                  ID_EDIT_COPY
+        MENUITEM "貼上\tCtrl+V",                  ID_EDIT_PASTE
+        MENUITEM "刪除\tDel",                     ID_EDIT_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "尋找\tCtrl+F",                  ID_EDIT_FIND
+        MENUITEM "取代\tCtrl+H",                  ID_EDIT_REPLACE
+        MENUITEM "到\tCtrl+L",                   ID_EDIT_GOTOLINE
+        MENUITEM SEPARATOR
+        MENUITEM "只讀",                          ID_EDIT_READONLY
+        MENUITEM "顯示內碼",                        ID_EDIT_SHOWCHARCODE
+        MENUITEM "顯示修改記錄",                      ID_EDIT_SHOWMODINFO
+        MENUITEM SEPARATOR
+        MENUITEM "填寫批註信息",                      ID_EDIT_ADDCOMMENT
+        MENUITEM "顯示批註信息",                      ID_EDIT_SHOWCOMMENT
+        MENUITEM "刪除批註信息",                      ID_EDIT_DELETECOMMENT
+    END
+    POPUP "工具(&O)"
+    BEGIN
+        MENUITEM SEPARATOR
+        MENUITEM "編輯器參數設置",                     ID_OPTION_EDIT
+        MENUITEM "修改記錄參數設置",                    ID_OPTION_MODIFY
+        MENUITEM "警告參數設置",                      ID_OPTION_WARN
+    END
+    POPUP "檢視(&V)"
+    BEGIN
+        MENUITEM SEPARATOR
+        MENUITEM "&C批註",                        ID_VIEW_COMMENT, GRAYED
+    END
+END
+
+IDR_RECORD MENU
+BEGIN
+    POPUP "&S查詢"
+    BEGIN
+        MENUITEM "列印稿件",                        ID_PRINTFILE
+        MENUITEM "流程記錄",                        ID_RDO_RECORD
+        MENUITEM "稿件信息",                        ID_RDO_COMMENT
+        MENUITEM "原文記錄",                        ID_RDO_SOURCE
+        MENUITEM "多稿記錄",                        ID_RDO_COPY
+        MENUITEM "解鎖",                          ID_UNLOCK
+        MENUITEM "加入故事",                        ID_ADD_TO_STORY
+    END
+END
+
+IDR_MENU_RICHEDIT MENU
+BEGIN
+    POPUP "EDIT"
+    BEGIN
+        MENUITEM "復原(&U)",                      ID_RICHEDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "剪下(&T)",                      ID_RICHEDIT_CUT
+        MENUITEM "複製(&C)",                      ID_RICHEDIT_COPY
+        MENUITEM "貼上(&P)",                      ID_RICHEDIT_PASTE
+        MENUITEM "刪除(&D)",                      ID_RICHEDIT_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "全選(&A)",                      ID_RICHEDIT_ALL
+    END
+END
+
+IDR_MODPOPUPMENU MENU
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "拷貝",                          ID_EDIT_COPY_TEST
+        MENUITEM SEPARATOR
+        POPUP "文字樣式", GRAYED
+        BEGIN
+            MENUITEM "Normal",                      ID_TS_STYLE1
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "顯示修改信息",                      ID_EDIT_SHOWMODINFO
+        MENUITEM SEPARATOR
+        MENUITEM "填寫批注信息",                      ID_EDIT_ADDCOMMENT
+        MENUITEM "刪除批註信息",                      ID_EDIT_DELETECOMMENT
+    END
+END
+
+IDR_POPUPMENU MENU
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "剪下",                          ID_EDIT_CUT
+        MENUITEM "復制",                          ID_EDIT_COPY
+        MENUITEM "貼上",                          ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        POPUP "文字樣式"
+        BEGIN
+            MENUITEM "Normal",                      ID_TS_STYLE1
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "填寫批注信息",                      ID_EDIT_ADDCOMMENT
+        MENUITEM "顯示批注信息",                      ID_EDIT_SHOWCOMMENT
+        MENUITEM "刪除批註信息",                      ID_EDIT_DELETECOMMENT
+    END
+END
+
+IDR_STYLESMENU MENU
+BEGIN
+    POPUP "Text Styles"
+    BEGIN
+        MENUITEM "Style1",                      ID_TS_STYLE1
+        MENUITEM "Style2",                      ID_TS_STYLE2
+        MENUITEM "Style3",                      ID_TS_STYLE3
+        MENUITEM "Style4",                      ID_TS_STYLE4
+        MENUITEM "Style5",                      ID_TS_STYLE5
+        MENUITEM "Style6",                      ID_TS_STYLE6
+        MENUITEM "Style7",                      ID_TS_STYLE7
+        MENUITEM "Style8",                      ID_TS_STYLE8
+        MENUITEM "Style9",                      ID_TS_STYLE9
+        MENUITEM "Style10",                     ID_TS_STYLE10
+        MENUITEM "Style11",                     ID_TS_STYLE11
+        MENUITEM "Style12",                     ID_TS_STYLE12
+        MENUITEM "Style13",                     ID_TS_STYLE13
+        MENUITEM "Style14",                     ID_TS_STYLE14
+        MENUITEM "Style15",                     ID_TS_STYLE15
+    END
+    POPUP "Options"
+    BEGIN
+        MENUITEM "Styles Change",               ID_OPT_STYLECHANGE
+        MENUITEM "OptionChange",                ID_OPTION_CHANGE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_FILEINFO DLGINIT
+BEGIN
+    IDC_STYLE, 0x403, 5, 0
+0x71b3, 0x54b0, "\000" 
+    IDC_STYLE, 0x403, 5, 0
+0xf8ae, 0xa7ae, "\000" 
+    IDC_STYLE, 0x403, 5, 0
+0xa5a8, 0xd7bd, "\000" 
+    IDC_STYLE, 0x403, 5, 0
+0xd3a8, 0x48ab, "\000" 
+    IDC_STYLE, 0x403, 5, 0
+0xf8c2, 0xe5a4, "\000" 
+    IDC_STYLE, 0x403, 5, 0
+0xd5bd, 0x64ac, "\000" 
+    IDC_STYLE, 0x403, 9, 0
+0xf8b3, 0x69a7, 0xe5a4, 0xc7be, "\000" 
+    IDC_STYLE, 0x403, 5, 0
+0x70a4, 0xa1bb, "\000" 
+    0
+END
+
+IDD_FILEINFODISPLAY DLGINIT
+BEGIN
+    IDC_LEADCTRL1, 0x376, 546, 0
+0x003e, 0x0000, 0x004c, 0x0045, 0x0041, 0x0044, 0x0054, 0x004f, 0x004f, 
+0x004c, 0x0053, 0x0020, 0x004f, 0x0043, 0x0058, 0x0020, 0x0043, 0x006f, 
+0x0070, 0x0079, 0x0072, 0x0069, 0x0067, 0x0068, 0x0074, 0x0020, 0x0028, 
+0x0063, 0x0029, 0x0020, 0x0031, 0x0039, 0x0039, 0x0031, 0x002d, 0x0032, 
+0x0030, 0x0030, 0x0039, 0x0020, 0x004c, 0x0045, 0x0041, 0x0044, 0x0020, 
+0x0054, 0x0065, 0x0063, 0x0068, 0x006e, 0x006f, 0x006c, 0x006f, 0x0067, 
+0x0069, 0x0065, 0x0073, 0x002c, 0x0020, 0x0049, 0x006e, 0x0063, 0x002e, 
+0x000d, 0x0000, 0x0001, 0x0982, 0x0000, 0x02b0, 0x0000, 0x00e5, 0x0000, 
+0x0000, 0x00ff, 0x00ff, 0x0100, 0x0000, 0x0101, 0x0001, 0x0000, 0x0001, 
+0xff00, 0x0000, 0x0000, 0x03e8, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0300, 0x0000, 0x0000, 0x0000, 0x0000, 0xff00, 0xfffe, 0x1800, 0x1800, 
+0x0500, 0xff00, 0xffff, 0xfffe, 0xff00, 0xfffe, 0x0000, 0x0000, 0xc800, 
+0x0042, 0x0000, 0x0000, 0x0000, 0x000d, 0x0000, 0x0001, 0x0001, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0064, 0x0000, 0x0100, 
+0x0000, 0x03e8, 0x0000, 0x0000, 0x00ff, 0x0000, 0x0000, 0x0010, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0001, 0x0005, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0xff00, 0xffff, 0x8000, 0x8080, 0x0000, 0x0000, 
+0xff00, 0xffff, 0x8000, 0x8080, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0xff00, 0xffff, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0xffff, 0x00ff, 0x8080, 0x0080, 0x0000, 0x0000, 0xffff, 0x00ff, 
+0x8080, 0x0080, 0x0000, 0x0100, 0x0100, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x4316, 0x0000, 0x4316, 0x00ff, 0x0000, 0xfeff, 0x09ff, 0x0050, 
+0x0061, 0x006e, 0x0057, 0x0069, 0x006e, 0x0064, 0x006f, 0x0077, 0x0001, 
+0x0000, 0x0000, 0xff00, 0x0000, 0x00ff, 0x0000, 0x0100, 0x0000, 0x0100, 
+0x0000, 0x0000, 0x0100, 0x0000, 0x4000, 0x0000, 0x0000, 0x0000, 0x0100, 
+0xff00, 0x0000, 0x0000, 0x0000, 0xff01, 0xfffe, 0x6000, 0x0000, 0x6000, 
+0x0000, 0x1800, 0x0000, 0x0400, 0x0000, 0x0100, 0x0000, 0x0100, 0x0280, 
+0x01e0, 0x0000, 0x0101, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0064, 0x0000, 0x0100, 
+    0
+END
+
+IDD_FSREPORT DLGINIT
+BEGIN
+    IDC_FSREPORT, 0x376, 118, 0
+0x0000, 0x0000, 0x0300, 0x0000, 0x01f4, 0x0000, 0x094d, 0x0000, 0x03ed, 
+0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 
+0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0xffff, 0x0008, 0x0000, 0x0000, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0x0000, 0x000b, 0x0000, 0x000b, 0xffff, 
+    0
+END
+
+IDD_RECORDREPORT DLGINIT
+BEGIN
+    IDC_RECORDREPORT, 0x376, 118, 0
+0x0000, 0x0000, 0x0300, 0x0000, 0x01f4, 0x0000, 0x094d, 0x0000, 0x03ed, 
+0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 
+0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0xffff, 0x0008, 0x0000, 0x0000, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0x0000, 0x000b, 0x0000, 0x000b, 0xffff, 
+    0
+END
+
+IDD_COLREPORT DLGINIT
+BEGIN
+    IDC_COLREPORT, 0x376, 122, 0
+0x0000, 0x0000, 0x0300, 0x0000, 0x0258, 0x0000, 0x0c67, 0x0000, 0x052b, 
+0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 
+0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0xffff, 0x0008, 0x0000, 0x0000, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0x0000, 0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 
+    0
+END
+
+IDD_FILEREPORT DLGINIT
+BEGIN
+    IDC_FILEREPORT, 0x376, 122, 0
+0x0000, 0x0000, 0x0300, 0x0000, 0x0258, 0x0000, 0x094d, 0x0000, 0x03ed, 
+0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 
+0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0xffff, 
+0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0xffff, 0x0008, 0x0000, 0x0000, 0x000b, 0xffff, 0x000b, 0x0000, 0x000b, 
+0x0000, 0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 
+    0
+END
+
+IDD_DLGPICTURE DLGINIT
+BEGIN
+    IDC_LEADCTRL, 0x37a, 622, 0
+0x003e, 0x0000, 0x004c, 0x0045, 0x0041, 0x0044, 0x0054, 0x004f, 0x004f, 
+0x004c, 0x0053, 0x0020, 0x004f, 0x0043, 0x0058, 0x0020, 0x0043, 0x006f, 
+0x0070, 0x0079, 0x0072, 0x0069, 0x0067, 0x0068, 0x0074, 0x0020, 0x0028, 
+0x0063, 0x0029, 0x0020, 0x0031, 0x0039, 0x0039, 0x0031, 0x002d, 0x0032, 
+0x0030, 0x0030, 0x0039, 0x0020, 0x004c, 0x0045, 0x0041, 0x0044, 0x0020, 
+0x0054, 0x0065, 0x0063, 0x0068, 0x006e, 0x006f, 0x006c, 0x006f, 0x0067, 
+0x0069, 0x0065, 0x0073, 0x002c, 0x0020, 0x0049, 0x006e, 0x0063, 0x002e, 
+0x000d, 0x0029, 0x0000, 0x0001, 0x0000, 0x0021, 0x0000, 0x0045, 0x0000, 
+0x0000, 0x0001, 0x8001, 0x0000, 0x0045, 0x0000, 0x001a, 0x0000, 0x0002, 
+0x8001, 0x0001, 0x0000, 0x0000, 0x0100, 0xae00, 0x0030, 0x7700, 0x0011, 
+0xe500, 0x0000, 0x0000, 0xff00, 0x0000, 0x5203, 0x0be3, 0x8f91, 0x11ce, 
+0xe39d, 0xaa00, 0x4b00, 0x51b8, 0x8801, 0x0000, 0x0190, 0x7cdc, 0x0001, 
+0xb708, 0xb273, 0xa9d3, 0xc5fa, 0x00e9, 0x0100, 0x0000, 0x0101, 0x0001, 
+0x0000, 0x0001, 0xff00, 0x0000, 0x0000, 0x03e8, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0300, 0x0000, 0x0000, 0x0000, 0x0000, 0xff00, 0xfffe, 
+0x1800, 0x1800, 0x0500, 0xff00, 0xffff, 0xfffe, 0xff00, 0xfffe, 0x0000, 
+0x0000, 0xc800, 0x0042, 0x0000, 0x0000, 0x0000, 0x000d, 0x0000, 0x0001, 
+0x0001, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0064, 
+0x0000, 0x0100, 0x0000, 0x03e8, 0x0000, 0x0000, 0x00ff, 0x0000, 0x0000, 
+0x0010, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0001, 0x0005, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0xff00, 0xffff, 0x8000, 0x8080, 
+0x0000, 0x0000, 0xff00, 0xffff, 0x8000, 0x8080, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0xff00, 0xffff, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0xffff, 0x00ff, 0x8080, 0x0080, 0x0000, 0x0000, 
+0xffff, 0x00ff, 0x8080, 0x0080, 0x0000, 0x0100, 0x0100, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x4316, 0x0000, 0x4316, 0x00ff, 0x0000, 0xfeff, 
+0x09ff, 0x0050, 0x0061, 0x006e, 0x0057, 0x0069, 0x006e, 0x0064, 0x006f, 
+0x0077, 0x0001, 0x0000, 0x0000, 0xff00, 0x0000, 0x00ff, 0x0000, 0x0100, 
+0x0000, 0x0100, 0x0000, 0x0000, 0x0100, 0x0000, 0x4000, 0x0000, 0x0000, 
+0x0000, 0x0100, 0xff00, 0x0000, 0x0000, 0x0000, 0xff01, 0xfffe, 0x6000, 
+0x0000, 0x6000, 0x0000, 0x1800, 0x0000, 0x0400, 0x0000, 0x0100, 0x0000, 
+0x0100, 0x0280, 0x01e0, 0x0000, 0x0101, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0064, 0x0000, 0x0100, 
+    0
+END
+
+IDD_DLGVIEWPICTURE DLGINIT
+BEGIN
+    IDC_LEADCTRL, 0x376, 546, 0
+0x003e, 0x0000, 0x004c, 0x0045, 0x0041, 0x0044, 0x0054, 0x004f, 0x004f, 
+0x004c, 0x0053, 0x0020, 0x004f, 0x0043, 0x0058, 0x0020, 0x0043, 0x006f, 
+0x0070, 0x0079, 0x0072, 0x0069, 0x0067, 0x0068, 0x0074, 0x0020, 0x0028, 
+0x0063, 0x0029, 0x0020, 0x0031, 0x0039, 0x0039, 0x0031, 0x002d, 0x0032, 
+0x0030, 0x0030, 0x0039, 0x0020, 0x004c, 0x0045, 0x0041, 0x0044, 0x0020, 
+0x0054, 0x0065, 0x0063, 0x0068, 0x006e, 0x006f, 0x006c, 0x006f, 0x0067, 
+0x0069, 0x0065, 0x0073, 0x002c, 0x0020, 0x0049, 0x006e, 0x0063, 0x002e, 
+0x000d, 0x0000, 0x0001, 0x0982, 0x0000, 0x02b0, 0x0000, 0x00e5, 0x0000, 
+0x0000, 0x00ff, 0x00ff, 0x0100, 0x0000, 0x0101, 0x0001, 0x0000, 0x0001, 
+0xff00, 0x0000, 0x0000, 0x03e8, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0300, 0x0000, 0x0000, 0x0000, 0x0000, 0xff00, 0xfffe, 0x1800, 0x1800, 
+0x0500, 0xff00, 0xffff, 0xfffe, 0xff00, 0xfffe, 0x0000, 0x0000, 0xc800, 
+0x0042, 0x0000, 0x0000, 0x0000, 0x000d, 0x0000, 0x0001, 0x0001, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0064, 0x0000, 0x0100, 
+0x0000, 0x03e8, 0x0000, 0x0000, 0x00ff, 0x0000, 0x0000, 0x0010, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0001, 0x0005, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0xff00, 0xffff, 0x8000, 0x8080, 0x0000, 0x0000, 
+0xff00, 0xffff, 0x8000, 0x8080, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0xff00, 0xffff, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0xffff, 0x00ff, 0x8080, 0x0080, 0x0000, 0x0000, 0xffff, 0x00ff, 
+0x8080, 0x0080, 0x0000, 0x0100, 0x0100, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0000, 0x4316, 0x0000, 0x4316, 0x00ff, 0x0000, 0xfeff, 0x09ff, 0x0050, 
+0x0061, 0x006e, 0x0057, 0x0069, 0x006e, 0x0064, 0x006f, 0x0077, 0x0001, 
+0x0000, 0x0000, 0xff00, 0x0000, 0x00ff, 0x0000, 0x0100, 0x0000, 0x0100, 
+0x0000, 0x0000, 0x0100, 0x0000, 0x4000, 0x0000, 0x0000, 0x0000, 0x0100, 
+0xff00, 0x0000, 0x0000, 0x0000, 0xff01, 0xfffe, 0x6000, 0x0000, 0x6000, 
+0x0000, 0x1800, 0x0000, 0x0400, 0x0000, 0x0100, 0x0000, 0x0100, 0x0280, 
+0x01e0, 0x0000, 0x0101, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x0064, 0x0000, 0x0100, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCEL ACCELERATORS
+BEGIN
+    "B",            ID_DO_BACKFILE,         VIRTKEY, ALT, NOINVERT
+    "T",            ID_DO_COMMENT,          VIRTKEY, CONTROL, ALT, NOINVERT
+    VK_F8,          ID_DO_COMMIT,           VIRTKEY, NOINVERT
+    "M",            ID_DO_COPY,             VIRTKEY, CONTROL, ALT, NOINVERT
+    "E",            ID_DO_MODIFY,           VIRTKEY, CONTROL, NOINVERT
+    "D",            ID_DO_RECORD,           VIRTKEY, CONTROL, ALT, NOINVERT
+    "G",            ID_DO_SEL,              VIRTKEY, CONTROL, NOINVERT
+    "T",            ID_DO_SENDCOL,          VIRTKEY, ALT, NOINVERT
+    "S",            ID_DO_SIGN,             VIRTKEY, ALT, NOINVERT
+    "D",            ID_DO_SIGNDIRECT,       VIRTKEY, ALT, NOINVERT
+    "R",            ID_DO_SOURCE,           VIRTKEY, CONTROL, NOINVERT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "F",            ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
+    "L",            ID_EDIT_GOTOLINE,       VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    "Y",            ID_EDIT_REDO,           VIRTKEY, CONTROL, NOINVERT
+    "H",            ID_EDIT_REPLACE,        VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    VK_F1,          ID_HELP,                VIRTKEY, NOINVERT
+    "T",            ID_RDO_COMMENT,         VIRTKEY, CONTROL, NOINVERT
+    "M",            ID_RDO_COPY,            VIRTKEY, CONTROL, NOINVERT
+    "D",            ID_RDO_RECORD,          VIRTKEY, CONTROL, NOINVERT
+    VK_F5,          ID_REFRESHFILE,         VIRTKEY, NOINVERT
+    "A",            ID_EDIT_SELALL,         VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSORGRAB1         CURSOR                  "res\\cursor_g.cur"
+IDC_CURSORGRAB2         CURSOR                  "res\\cursorgr.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_PAPER               "報紙"
+    IDS_COLUMN              "版面"
+    IDS_RCDITEM5            "備註"
+    IDS_OPERATION           "傳遞加密解密加急解急刪除回收回調重簽簽發複製送往簽發調版"
+    IDS_CURRENTFILE         "當天稿件"
+    IDS_WEEKFILE            "一周內稿件"
+    IDS_WHOLEFILE           "所有稿件"
+    IDS_THREEDAYS           "三天內稿件"
+    IDS_DO_NOTPAPER         "版面稿件處理"
+    IDS_FILENAME            "稿件名稱"
+    IDS_FILEFORMAT          "類型"
+    IDS_TITLE               "標題"
+    IDS_CURSTATUS           "當前狀態"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_R0                  "稿件名稱"
+    IDS_R1                  "刪除前位置"
+    IDS_R2                  "刪除時間"
+    IDS_R3                  "刪除用戶"
+    IDS_R4                  "字數"
+    IDS_R5                  "標題"
+    IDS_D0                  "稿件名稱"
+    IDS_D1                  "內容"
+    IDS_D2                  "字數"
+    IDS_D3                  "稿件庫"
+    IDS_D4                  "當前報紙"
+    IDS_D5                  "排版版面"
+    IDS_D6                  "排版日期"
+    IDS_DELETE              "確定要刪除嗎？"
+    IDT_TRANSFERFILE        "傳遞\n傳遞"
+    IDT_EDIT                "修改\n修改"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_WORDCOUNT           "字數"
+    IDS_ASSIGNEDUSER        "指定使用者"
+    IDS_COMMENT             "備註"
+    IDS_UPDATEDATE          "更新日期"
+    IDS_FILEAUTHOR          "作者"
+    IDS_HAVERELATE          "關聯部門分組菜單"
+    IDS_SENDFILE            "傳遞"
+    IDS_FILESTATE           "內部狀態"
+END
+
+STRINGTABLE
+BEGIN
+    IDT_SIGNCOLOUMN         "送往版面暫存庫\n送往版面暫存庫"
+    IDT_DELETE              "刪除\n刪除"
+    IDT_MODIFYCOL           "修改稿件\n修改稿件"
+    IDT_TRANSPAPER          "調版\n調版"
+    IDT_ROLLBACK            "退稿\n退稿"
+    IDT_BACKFILE            "回調\n回調"
+    IDT_SIGNPAPER           "簽發\n簽發"
+    IDT_SENDTRANSLATE       "送譯\n送譯"
+    IDT_ATTACH              "附件管理\n附件管理"
+    IDS_ERRSERVERNAME       "server name is null"
+    IDS_Q_DOCOMMIT          "是否提交稿件？"
+    IDS_SEARCHRANGEOVER     "只能查詢%d天之內的稿件﹗"
+    IDS_NEEDSEARCHPARAMETER "請輸入檢索條件！"
+END
+
+STRINGTABLE
+BEGIN
+    ID_CLEARFILE            "清理本地稿件"
+    ID_DO_MONITOR           "大樣管理"
+END
+
+STRINGTABLE
+BEGIN
+    ID_RDO_RECORD           "流程記錄\n流程記錄"
+    ID_RDO_COMMENT          "稿件信息\n稿件信息"
+    ID_RDO_SOURCE           "原文記錄\n原文記錄"
+    ID_RDO_COPY             "多稿記錄\n多稿記錄"
+    ID_REFRESH              "更新\n更新"
+    ID_GETFILE              "取稿\n取稿"
+    ID_DO_SEL               "電稿入庫\n電稿入庫"
+    ID_REFRESHFILE          "更新\n更新"
+    ID_SIGNDIRECT           "直接簽發\n直接簽發"
+    ID_PRINT                "列印\n列印"
+    ID_BTNPRINT             "列印\n列印"
+    ID_LINKTODM             "增加與部門分組菜單的關聯\n增加與部門分組菜單的關聯"
+    ID_UNLINKTODM           "解除與部門分組菜單的關聯\n解除與部門分組菜單的關聯"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CREATENEWFILECODEERR "生成新稿件代碼出錯！"
+    IDS_SECRETFAIL          "簽發\n簽發"
+    IDS_FILEMODIFIED        "稿件已經被修改，在本地保存嗎？"
+    IDS_NOTSELITEM          "請選擇一個條目！"
+    IDS_READFILEERR         "從數據庫讀取稿件內容失敗！"
+    IDS_PROCPARAMERR        "存儲過程：'%s'參數錯誤！"
+    IDS_FILELOCKEDMSG       "稿件被鎖定！"
+    IDS_QUERYLIBFILESTATUSERR "查詢稿件狀態出錯！"
+    IDS_QUERYDEFLIBERR      "查詢默認稿庫出錯！"
+    IDS_FILENOTINLIB        "稿件不在指定的稿件庫中！"
+    IDS_NOGETFILEPER        "您沒有從源稿庫取稿的權限！"
+    IDS_NOSENDFILEPER       "您沒有往目的稿庫送稿的權限！"
+    IDS_SENDONSELF          "卡片式排列"
+    IDS_SENDFAIL            "圖標式排列"
+    IDS_NOTSUPORTPARAM      "不支持的參數！"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_WRITE               "寫稿"
+    IDS_MODIFY              "修改"
+    IDS_GETFILE             "取稿"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SELLAYOUT           "請選擇校對參考欄目！"
+    IDS_WIRESFILE           "外電入庫"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_SHOWMODINFO     "顯示修改信息\n修改信息"
+    ID_EDIT_ADDCOMMENT      "填寫處理指\n填寫處理指示"
+    ID_EDIT_SHOWCOMMENT     "顯示批註內容"
+    ID_OPTION_MODIFY        "設置修改痕跡參數\n設置修改痕跡參數"
+    ID_VIEW_COMMENT         "顯示批註\n顯示批註"
+    ID_EDIT_DELETECOMMENT   "取消本人批註"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_LOCAL           "本地稿件"
+END
+
+STRINGTABLE
+BEGIN
+    ID_DO_MENU              "版面見報菜單\n版面見報菜單"
+    ID_DO_DEPTFILEGROUP     "部門分組菜單\n部門分組菜單"
+    ID_DO_FILE              "版面稿件處理\n版面稿件處理"
+    ID_VISIT                "處理採訪單"
+    ID_SEARCH               "稿件查詢\n稿件查詢"
+    ID_FILLTASK             "採訪單"
+    ID_FINDTASK             "採訪單查詢\n採訪單查詢"
+    ID_RECYCLE              "稿件回收"
+END
+
+STRINGTABLE
+BEGIN
+    ID_DO_COMMIT            "提交稿件\n提交稿件"
+    ID_DO_COMMENT           "稿件信息"
+    ID_DO_SOURCE            "外電稿件原文記錄"
+    ID_DO_RECORD            "流程記錄"
+    ID_DO_COPY              "多稿記錄"
+    ID_DO_MODIFY            "修改\n修改"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_COPY            "將選定的內容複製到剪貼板\n複製"
+    ID_EDIT_CUT             "將選定的內容裁剪到剪貼板\n剪下"
+    ID_EDIT_FIND            "尋找指定的文字\n尋找"
+    ID_EDIT_PASTE           "將剪貼板內容粘貼到光標處\n貼上"
+    ID_EDIT_REPLACE         "取代\n取代"
+    ID_EDIT_UNDO            "復原鍵入\n復原鍵入"
+    ID_EDIT_REDO            "重復鍵入\n重復鍵入"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOCKFAIL            "鎖定稿件失敗！"
+    IDS_SELECTSAVEPATH      "請選擇保存路徑﹕"
+    IDS_DOWNLOADSUC         "下載成功！"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_DELETE          "刪除光標右邊的文字\n刪除光標右邊的文字"
+    ID_EDIT_READONLY        "標志文件為只讀文件"
+    ID_EDIT_SHOWCHARCODE    "顯示光標右邊字符的內碼"
+    ID_EDIT_GOTOLINE        "光標定位到指定行"
+    ID_OPTION_EDIT          "設置編寫環境參數\n設置編寫環境參數"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "創建一篇新稿\n開新檔案"
+    ID_FILE_OPEN            "從目錄中打開已經存在的文件\n開啟舊檔"
+    ID_FILE_CLOSE           "關閉當前檔案\n關閉檔案"
+    ID_FILE_SAVE            "將稿件存入本地目錄\n儲存檔案"
+    ID_FILE_SAVE_AS         "報存當前稿件并重新起名\n另存新檔"
+    ID_FILE_PRINT_SETUP     "設置列印參數\n列印設置"
+    ID_FILE_PRINT           "列印\n列印"
+    ID_FILE_PRINT_PREVIEW   "預覽列印\n預覽列印"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SELUSER             "請選擇接收人！"
+    IDS_LOCKFILEFAIL        "鎖定稿件失敗，稿件可能已經被其他用戶鎖定！"
+    IDS_DO_PAPER            "版面暫存庫"
+    IDS_SIGNEDFILE          "簽發後文件名"
+    IDS_TRANSDATE           "最後傳送稿件時間"
+    IDS_BACKFILEQUESTION    "確定要回調嗎？"
+    IDS_GETFILEUPDATETIMEERR "從數據庫讀取稿件﹕%s更新時間失敗﹗"
+    IDS_FILENOTNEWERR       "稿件﹕%s內容已經被修改或位置已改變﹗\r\n請重新整理稿件列表。"
+    IDS_NOEDITPERMERR       "您沒有修改稿件的權限！"
+    IDS_ROLLBACK            "退稿"
+    IDS_ROLLBACKFILEERR     "回調稿件失敗！"
+    IDS_ATTACHNAME          "附件名稱"
+    IDS_ATTACHSIZE          "大小(KB)"
+    IDS_UPLOADDATE          "上載日期"
+    IDS_UPLOADUSER          "上載用戶"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ATTACHEXIST         "文件%s已存在﹐是否覆蓋？"
+    IDS_FILENOTEXIST        "文件﹕%s不存在！"
+    IDS_ATTACHSIZETOOLARGE  "附件不能超過%dM！"
+    IDS_ATTACHTOTALSIZEERR  "附件大小總和不能超過%dM！"
+    IDS_UPLOADFAIL          "上載失敗！"
+    IDS_DOWNLOADFAIL        "下載失敗！"
+    IDS_CURPOSITION         "當前位置"
+    IDS_SINGLE              "獨家"
+    IDS_HASPHOTO            "有圖"
+    IDS_PLEASECHOOSEUSER    "請選擇用戶！"
+    IDS_LIBRARY             "稿件庫"
+    IDS_TRANSLIB            "譯稿庫"
+    IDS_SIGNED              "已上版"
+    IDS_DELETEDFILE         "廢稿"
+    IDS_YES                 "是"
+    IDS_NO                  "否"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_RCDITEM0            "操作時間"
+    IDS_RCDITEM1            "工作性質"
+    IDS_RCDITEM2            "操作者"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_RCDITEM3            "字數"
+    IDS_RCDITEM4            "稿件到達位置"
+    IDS_NOSELECTIONTOPRINT  "沒有選中文字可以打印!"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_OPENFILEERR         "開啟文件失敗！"
+    IDS_LOADSOURCEERR       "從數據庫讀取原文失敗！"
+    IDS_SIGNERR             "簽發文件失敗！"
+    IDS_FILECONTENT         "稿件內容"
+    IDS_FILERECORD          "操作記錄"
+    IDS_RELATEIMAGE         "關聯圖片"
+    IDS_PHOTOCODE           "圖片標識"
+    IDS_PHOTOPATH           "圖片路徑"
+    IDS_PHOTOPOS            "圖片位置"
+    IDS_DEPART              "部門名稱"
+    IDS_WIRES               "外電名稱"
+    IDS_IMPORTTIME          "入庫時間"
+    IDS_PICSRCPATH          "圖片路徑"
+    IDS_PICTITLE            "圖片標題"
+    IDS_COLUMNDATE          "版面日期"
+    IDS_NOTSIGN             "未簽發"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DMLIST_HEADER0      "提要"
+    IDS_DMLIST_HEADER1      "內容"
+    IDS_DMLIST_HEADER2      "記者"
+    IDS_P_SELECT_DMFI       "請選擇一個部門分組稿件信息！"
+    IDS_Q_REPLACE_LINK      "選中的部門分組稿件信息已經建立與另一稿件的鏈結, 你要替換嗎？"
+    IDS_E_CANNOT_REPLACE_LINK "您無權替換該部門分組菜單與另一稿件的鏈結！"
+    IDS_P_LINKED_BY_OTHER   "該稿件已經被其他用戶建立與部門分組稿件信息的鏈結！"
+    IDS_Q_TRANS             "您有可能受到不當的催稿警告, 因為該稿件尚未鏈結到部門分組菜單 , 是否傳遞？"
+    IDS_Q_CONFIRM_UNLINK    "即將解除稿件 ' %s ' 與部門分組菜單的關聯, 請確認。"
+    IDS_NOTENDUSER          "您不是最後處理該稿件的用戶！"
+    IDS_HOTFILE             "熱門稿件﹐不能刪除！"
+    IDS_UNKOWNERR           "未知錯誤！"
+    IDS_PHOTONAME           "圖片名稱"
+    IDS_FILEITEM0           "稿件名"
+    IDS_FILEITEM1           "內容提示"
+    IDS_FILEITEM2           "字數"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LASTMOTIME          "改變時間"
+    IDS_PLACECHANGE         "稿件位置已改變！"
+    IDS_PLEASESELONE        "請選擇一篇稿件！"
+    IDS_LINKTODM            "關聯到部門分組菜單"
+    IDS_UNLINKTODM          "解除與部門分組關聯"
+    IDS_SYMBOLSCAN          "符號替換..."
+    IDS_SPELLINGOVERALL     "拼寫替換..."
+    IDS_SPELLINGBYCASE      "字詞替換..."
+    IDS_NOCOUNTRYCODE       "沒有設置字詞檢查的語言！"
+    IDS_LOADSPELLPARMERR    "從數據庫獲取字詞檢查數據出錯！"
+    IDS_DATEEXPIRED         "不能簽發今天之前的稿件！"
+    IDS_ROLLBACKSUCESS      "稿件 ' %s ' 已經退回到 %s%s"
+    IDS_ADDCAPTION          "新增圖說"
+    IDS_ADDCAPTIONMARK      "圖說[%s]"
+    IDS_SIGNQUESTION        "確定要簽發稿件嗎？"
+    IDS_BACKQUESTION        "確定要退稿嗎？"
+END
+
+STRINGTABLE
+BEGIN
+    ID_DO_TASKLIST          "採訪單\n採訪單"
+END
+
+STRINGTABLE
+BEGIN
+    ID_SPELLCHECK           "字詞檢查\n字詞檢查"
+    ID_SEARCHANDREPLACE     "字詞替換\n字詞替換"
+    ID_SCANNING             "查找同義詞\n查找同義詞"
+    ID_RICHEDIT_UNDO        "復原\n復原"
+    ID_RICHEDIT_CUT         "剪下\n剪下"
+    ID_RICHEDIT_COPY        "複製\n複製"
+    ID_RICHEDIT_PASTE       "貼上\n貼上"
+    ID_RICHEDIT_DELETE      "刪除\n刪除"
+    ID_RICHEDIT_ALL         "全選\n全選"
+    ID_FILE_PICTURE         "顯示圖片\n顯示圖片"
+    ID_DO_SIGN              "簽發\n簽發"
+    ID_DO_SIGNDIRECT        "直接簽發\n直接簽發"
+    ID_DO_SENDCOL           "送往版面暫存庫\n送往版面暫存庫"
+END
+
+STRINGTABLE
+BEGIN
+    ID_DO_BACKFILE          "退稿\n退稿"
+    IDR_PICINITSIZE         "原始大小\n原始大小"
+    IDR_PICZOOMIN           "縮小\n縮小"
+    IDR_PICZOOMOUT          "放大\n放大"
+    IDR_PICVIEWPRE          "上一幅\n上一幅"
+    IDR_PICVIEWNEXT         "下一幅\n下一幅"
+    ID_UNLOCK               "解鎖\n解鎖"
+    ID_MENUITEM47095        "列印稿件\n列印稿件"
+    ID_PRINTFILE            "列印稿件\n列印稿件"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_FILESTYLE           "體裁"
+    IDS_LOCKUSER            "當前用戶"
+    IDS_UNLOCKQUESTION      "解鎖該稿件可能導致正在修改的文件內容丟失，繼續嗎？"
+    IDS_DELUNSAVEFILE       "確定要刪除未保存的文件嗎？"
+    IDS_FILECHANGED         "不能提交稿件!\n可能的原因: 稿件被不當解鎖 / 稿件內容已經被其他用戶修改 / 稿件位置已改變﹗"
+    IDS_PICHAVERELATION     "該圖或對應的上欄圖已有關聯稿件，關聯操作失敗，但稿件可以繼續提交！"
+    IDS_PIC_FILE_HAVERELATION "該圖文已關聯，請確認！"
+    IDS_INCORRECTUSER       "輸入了非法的用戶！"
+    IDS_STYLE0              "正文"
+    IDS_STYLE1              "標題"
+    IDS_STYLE3              "引題"
+    IDS_STYLE4              "肩題"
+    IDS_STYLE5              "作者"
+    IDS_STYLE2              "副題"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_UNSECRET            "該機密稿件將會解除加密，繼續嗎？"
+END
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "\nText\nText\nTXT 檔案 (*.txt)\n.txt\nTXT.Document\nTXT Document"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WORD_CHECK           "字詞檢查\n字詞檢查"
+END
+
+STRINGTABLE
+BEGIN
+    ID_SWITCH_MODE          "批註\\編寫模式\n批註\\編寫模式"
+    IDR_MEDIA_PLAY          "播放\n播放"
+    IDR_MEDIAPLAY           "播放\n"
+    ID_ADD_STORY            "加入故事\n加入故事"
+END
+
+#endif    // Chinese (Traditional, Taiwan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Traditional, Hong Kong S.A.R.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ZHH)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_HONGKONG
+#pragma code_page(950)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_CHECK        BITMAP                  "res\\bitmap_check.bmp"
+IDB_BITMAP_CHECK_DISABLE BITMAP                  "res\\bitmap_check_disable.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_CHOOSE_DIC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 152
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 90
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CHOOSE_DIC DIALOG 0, 0, 169, 97
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "字詞檢查系統"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "自動替換預設詞",IDC_CHANGE_ALL_DEF,99,25,60,14
+    PUSHBUTTON      "手動檢查",ID_APPLY,99,45,60,14
+    PUSHBUTTON      "取消",ID_CANCEL,99,65,60,14,NOT WS_VISIBLE | WS_DISABLED
+    LISTBOX         IDC_LIST1,14,18,72,67,LBS_SORT | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "請選擇使用的字典:",IDC_STATIC,16,6,84,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSOR1             CURSOR                  "res\\cursor1.cur"
+#endif    // Chinese (Traditional, Hong Kong S.A.R.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+#ifdef _WIN32
+LANGUAGE 4, 1
+#pragma code_page(950)
+#endif //_WIN32
+#include "res\FileManage.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.cht\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

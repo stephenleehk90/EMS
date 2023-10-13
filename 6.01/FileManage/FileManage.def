@@ -1,0 +1,19 @@
+; FileManage.def : Declares the module parameters for the DLL.
+
+LIBRARY      "FileManage"
+DESCRIPTION  'FileManage Windows Dynamic Link Library'
+
+EXPORTS
+    ; Explicit exports can go here
+	OpenDocument @1
+	DoFile		 @2
+	InitDLL		 @3
+	DoColFile	 @4
+	DoSearch	 @5
+	DoClear      @6
+	DoRecycle    @7
+	DoCheckUnsaveFiles @8
+	OpenDocumentNew @9
+	DoHistCheck	 @10
+	DoFileWithID @11
+	DoColFileWithID @12

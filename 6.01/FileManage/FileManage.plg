@@ -1,0 +1,231 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: FileManage - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\leon.li\AppData\Local\Temp\RSP17D7.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_UNICDOE" /D "_UNICODE" /D "_AFXEXT" /FR"Debug/" /Fp"Debug/FileManage.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp"
+]
+Creating command line "cl.exe @C:\Users\leon.li\AppData\Local\Temp\RSP17D7.tmp" 
+Creating temporary file "C:\Users\leon.li\AppData\Local\Temp\RSP17D8.tmp" with contents
+[
+..\editpro\debug\editpro.lib ..\commkits\debug\CommKits.lib ..\fileoper\debug\fileoper.lib ..\fzado\debug\fzado.lib ..\emssc\debug\emssc.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"Debug/FileManage.pdb" /debug /machine:I386 /def:".\FileManage.def" /out:"..\Debug\FileManage.dll" /implib:"Debug/FileManage.lib" /pdbtype:sept 
+.\Debug\annmenu.obj
+.\Debug\anntoolbar.obj
+.\Debug\AttachFiles.obj
+.\Debug\ChildFrm.obj
+.\Debug\ChildMDIFrm.obj
+.\Debug\ChildRepFrm.obj
+.\Debug\ChoseDicDlg.obj
+.\Debug\ClearFile.obj
+.\Debug\ColReport.obj
+.\Debug\CopyList.obj
+.\Debug\CountryCodeSel.obj
+.\Debug\crvtrackcursorinfo.obj
+.\Debug\crystalreportviewer9.obj
+.\Debug\DlgDisplyPicture.obj
+.\Debug\DlgOpenUnsaveFile.obj
+.\Debug\DlgViewPicture.obj
+.\Debug\DoColDoc.obj
+.\Debug\DoColFrm.obj
+.\Debug\DoColMgr.obj
+.\Debug\DoColTreeView.obj
+.\Debug\DoColView.obj
+.\Debug\DoFileDoc.obj
+.\Debug\DoFileFrm.obj
+.\Debug\DoFileMgr.obj
+.\Debug\DoFileTreeView.obj
+.\Debug\DoFileView.obj
+.\Debug\dtpicker.obj
+.\Debug\editdoc.obj
+.\Debug\EditFrame.obj
+.\Debug\editframenew.obj
+.\Debug\EditOpt.obj
+.\Debug\editroomDoc.obj
+.\Debug\editroomView.obj
+.\Debug\editview_bottom.obj
+.\Debug\editview_top.obj
+.\Debug\FileDB.obj
+.\Debug\FileInfoDisplayView.obj
+.\Debug\FileInfoDlg.obj
+.\Debug\FileListCtrl.obj
+.\Debug\FileManage.obj
+.\Debug\FileMgrBase.obj
+.\Debug\FileRecord.obj
+.\Debug\FileReport.obj
+.\Debug\FileSearch.obj
+.\Debug\font.obj
+.\Debug\font1.obj
+.\Debug\FSReport.obj
+.\Debug\Global.obj
+.\Debug\inputcommentdlg.obj
+.\Debug\inputlinenumdlg.obj
+.\Debug\lead.obj
+.\Debug\leadmarker.obj
+.\Debug\leadmarkers.obj
+.\Debug\leadscrollinfo.obj
+.\Debug\LinkToDMDlg.obj
+.\Debug\ListItem.obj
+.\Debug\OptionSt.obj
+.\Debug\PicListCtrl.obj
+.\Debug\picture.obj
+.\Debug\PrintOpt.obj
+.\Debug\RecordReport.obj
+.\Debug\Recycle.obj
+.\Debug\ReplaceFactory.obj
+.\Debug\ReplaceView.obj
+.\Debug\SaveProg.obj
+.\Debug\SearchMgr.obj
+.\Debug\searchparam.obj
+.\Debug\SelPos.obj
+.\Debug\SelUser.obj
+.\Debug\ShowTotalDlg.obj
+.\Debug\StdAfx.obj
+.\Debug\TransDlg.obj
+.\Debug\TreeViewEx.obj
+.\Debug\TxtStyle.obj
+.\Debug\WordCheckDlg.obj
+.\Debug\FileManage.res
+]
+Creating command line "link.exe @C:\Users\leon.li\AppData\Local\Temp\RSP17D8.tmp"
+<h3>Output Window</h3>
+Compiling...
+editview_bottom.cpp
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(892) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(892) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(893) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(893) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(896) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(896) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(897) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(897) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(900) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(900) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(901) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(901) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(904) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(904) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(905) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(905) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(916) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(916) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(920) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(920) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(924) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(924) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(925) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(925) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(928) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(928) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(929) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(929) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(932) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(932) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(933) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(933) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(936) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(936) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(937) : warning C4305: '=' : truncation from 'const int' to 'char'
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(937) : warning C4309: '=' : truncation of constant value
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(1224) : warning C4066: characters beyond first in wide-character constant ignored
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(2383) : warning C4066: characters beyond first in wide-character constant ignored
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(2398) : warning C4066: characters beyond first in wide-character constant ignored
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(2462) : warning C4800: 'unsigned int' : forcing value to bool 'true' or 'false' (performance warning)
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(2631) : warning C4066: characters beyond first in wide-character constant ignored
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(2680) : warning C4066: characters beyond first in wide-character constant ignored
+D:\Source\EMS6\EMS6.0\FileManage_17\editview_bottom.cpp(2500) : warning C4101: 'szTemp' : unreferenced local variable
+Linking...
+Creating temporary file "C:\Users\leon.li\AppData\Local\Temp\RSP198E.tmp" with contents
+[
+/nologo /o"Debug/FileManage.bsc" 
+.\Debug\StdAfx.sbr
+.\Debug\annmenu.sbr
+.\Debug\anntoolbar.sbr
+.\Debug\AttachFiles.sbr
+.\Debug\ChildFrm.sbr
+.\Debug\ChildMDIFrm.sbr
+.\Debug\ChildRepFrm.sbr
+.\Debug\ChoseDicDlg.sbr
+.\Debug\ClearFile.sbr
+.\Debug\ColReport.sbr
+.\Debug\CopyList.sbr
+.\Debug\CountryCodeSel.sbr
+.\Debug\crvtrackcursorinfo.sbr
+.\Debug\crystalreportviewer9.sbr
+.\Debug\DlgDisplyPicture.sbr
+.\Debug\DlgOpenUnsaveFile.sbr
+.\Debug\DlgViewPicture.sbr
+.\Debug\DoColDoc.sbr
+.\Debug\DoColFrm.sbr
+.\Debug\DoColMgr.sbr
+.\Debug\DoColTreeView.sbr
+.\Debug\DoColView.sbr
+.\Debug\DoFileDoc.sbr
+.\Debug\DoFileFrm.sbr
+.\Debug\DoFileMgr.sbr
+.\Debug\DoFileTreeView.sbr
+.\Debug\DoFileView.sbr
+.\Debug\dtpicker.sbr
+.\Debug\editdoc.sbr
+.\Debug\EditFrame.sbr
+.\Debug\editframenew.sbr
+.\Debug\EditOpt.sbr
+.\Debug\editroomDoc.sbr
+.\Debug\editroomView.sbr
+.\Debug\editview_bottom.sbr
+.\Debug\editview_top.sbr
+.\Debug\FileDB.sbr
+.\Debug\FileInfoDisplayView.sbr
+.\Debug\FileInfoDlg.sbr
+.\Debug\FileListCtrl.sbr
+.\Debug\FileManage.sbr
+.\Debug\FileMgrBase.sbr
+.\Debug\FileRecord.sbr
+.\Debug\FileReport.sbr
+.\Debug\FileSearch.sbr
+.\Debug\font.sbr
+.\Debug\font1.sbr
+.\Debug\FSReport.sbr
+.\Debug\Global.sbr
+.\Debug\inputcommentdlg.sbr
+.\Debug\inputlinenumdlg.sbr
+.\Debug\lead.sbr
+.\Debug\leadmarker.sbr
+.\Debug\leadmarkers.sbr
+.\Debug\leadscrollinfo.sbr
+.\Debug\LinkToDMDlg.sbr
+.\Debug\ListItem.sbr
+.\Debug\OptionSt.sbr
+.\Debug\PicListCtrl.sbr
+.\Debug\picture.sbr
+.\Debug\PrintOpt.sbr
+.\Debug\RecordReport.sbr
+.\Debug\Recycle.sbr
+.\Debug\ReplaceFactory.sbr
+.\Debug\ReplaceView.sbr
+.\Debug\SaveProg.sbr
+.\Debug\SearchMgr.sbr
+.\Debug\searchparam.sbr
+.\Debug\SelPos.sbr
+.\Debug\SelUser.sbr
+.\Debug\ShowTotalDlg.sbr
+.\Debug\TransDlg.sbr
+.\Debug\TreeViewEx.sbr
+.\Debug\TxtStyle.sbr
+.\Debug\WordCheckDlg.sbr]
+Creating command line "bscmake.exe @C:\Users\leon.li\AppData\Local\Temp\RSP198E.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+FileManage.dll - 0 error(s), 43 warning(s)
+</pre>
+</body>
+</html>
